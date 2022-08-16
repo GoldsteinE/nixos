@@ -10,7 +10,6 @@
         ".ghc"
         ".p10k.zsh"
         ".config/alacritty"
-        ".config/bspwm"
         ".config/nvim"
         ".config/rofi"
         ".config/sxhkd"
@@ -22,6 +21,8 @@
         recursive = true;
       });
   };
+
+  xsession.windowManager.bspwm = import ./home/bspwm.nix pkgs;
 
   programs = {
     command-not-found.enable = true;
