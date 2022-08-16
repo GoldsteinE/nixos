@@ -12,11 +12,11 @@ pkgs: {
 
   settings =
     let
-      bar = modules: {
-        inherit modules;
+      bar = bottom: modules: {
+        inherit bottom modules;
         monitor = "\${env:POLYBAR_MONITOR:}";
-        background = "#1DF121";
-        foreground = "#F8F8F2";
+        background = "#1d1f21";
+        foreground = "#f8f8f2";
         font = [
           "NotoSans-Regular:size=32;2"
           "MaterialIcons:size=28"
@@ -38,11 +38,11 @@ pkgs: {
       };
     in
     {
-      "bar/main" = bar {
+      "bar/main" = bar true {
         left = "bspwm";
         right = "gh temperature layout battery date";
       };
-      "bar/top" = bar {
+      "bar/top" = bar false {
         left = "title";
         right = "network vpn";
       };
