@@ -12,7 +12,6 @@
         ".config/alacritty"
         ".config/nvim"
         ".config/rofi"
-        ".config/sxhkd"
         ".config/wired"
         ".config/yubikey-touch-detector"
       ]
@@ -42,6 +41,11 @@
   };
 
   services = {
+    sxhkd = {
+      enable = true;
+      extraConfig = builtins.readFile "${dotfiles}/.config/sxhkd/sxhkdrc";
+    };
+
     espanso = import ./home/espanso.nix;
     polybar = import ./home/polybar.nix pkgs;
   };
