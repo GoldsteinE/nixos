@@ -22,7 +22,10 @@
       });
   };
 
-  xsession.windowManager.bspwm = import ./home/bspwm.nix pkgs;
+  xsession = {
+    enable = true;
+    windowManager.bspwm = import ./home/bspwm.nix pkgs;
+  };
 
   programs = {
     command-not-found.enable = true;
