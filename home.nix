@@ -14,6 +14,7 @@
         ".config/rofi"
         ".config/wired"
         ".config/yubikey-touch-detector"
+        ".config/bspwm/desktop.jpg"
       ]
       (name: {
         source = "${dotfiles}/${name}";
