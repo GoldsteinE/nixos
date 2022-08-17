@@ -11,8 +11,6 @@ in
 
 {
   imports = [
-    ./hardware-configuration.nix
-
     ./parts/nix.nix
     ./parts/boot.nix
     ./parts/hardware.nix

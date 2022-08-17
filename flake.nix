@@ -14,25 +14,30 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
-    nixosConfigurations.think = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.goldstein = import ./home.nix;
-            extraSpecialArgs = { dotfiles = inputs.dotfiles; };
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+    let
+      conf = hostname: {
+        nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hardware-configuration/${hostname}.nix
+            ./configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.goldstein = import ./home.nix;
+                extraSpecialArgs = { dotfiles = inputs.dotfiles; };
+              };
+            }
+          ];
+          specialArgs = {
+            inputs = inputs;
+            system = "x86_64-linux";
           };
-        }
-      ];
-      specialArgs = {
-        inputs = inputs;
-        system = "x86_64-linux";
+        };
       };
-    };
-  };
+    in
+    conf "think";
 }
