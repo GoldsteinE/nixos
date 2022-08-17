@@ -12,5 +12,6 @@ pkgs: {
   startupPrograms = [
     "feh --bg-scale ~/.config/bspwm/desktop.jpg"
     "systemctl --user start yubikey-touch-detector.service"
+    "systemctl --user start pass-secret-service.service"
   ];
 }

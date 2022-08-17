@@ -8,13 +8,15 @@
     t.url = "github:GoldsteinE/flake-templates";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
     dotfiles = {
       url = "github:GoldsteinE/dotfiles";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, ... } @ inputs:
     let
       conf = hostname: {
         nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem {
@@ -22,6 +24,8 @@
           modules = [
             ./hardware-configuration/${hostname}.nix
             ./configuration.nix
+            # (y: { options = { }; config = (let x = builtins.trace y.config.services.openssh.enable {}; in x ); })
+            agenix.nixosModule
             home-manager.nixosModules.home-manager
             {
               home-manager = {

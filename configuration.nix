@@ -61,10 +61,11 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.wired-notify.packages.x86_64-linux.wired
+    inputs.wired-notify.packages."${system}".wired
     (steam.override {
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
+    inputs.agenix.defaultPackage."${system}"
 
     alacritty
     appimage-run
@@ -95,6 +96,7 @@ in
     man-pages
     ncdu
     neovim-nightly
+    nheko
     openvpn
     pamixer
     pavucontrol

@@ -1,6 +1,15 @@
 { pkgs, inputs, ... }: {
   services = {
     logind.lidSwitchExternalPower = "ignore";
+    openssh = {
+      enable = true;
+      openFirewall = false;
+      passwordAuthentication = false;
+      listenAddresses = [{
+        addr = "127.0.0.1";
+        port = 22;
+      }];
+    };
     xserver = {
       enable = true;
       layout = "us,ru";

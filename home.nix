@@ -45,6 +45,7 @@
   };
 
   services = {
+    pass-secret-service.enable = true;
     sxhkd = {
       enable = true;
       extraConfig = builtins.readFile "${dotfiles}/.config/sxhkd/sxhkdrc";
