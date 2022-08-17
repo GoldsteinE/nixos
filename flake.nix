@@ -24,7 +24,6 @@
           modules = [
             ./hardware-configuration/${hostname}.nix
             ./configuration.nix
-            # (y: { options = { }; config = (let x = builtins.trace y.config.services.openssh.enable {}; in x ); })
             agenix.nixosModule
             home-manager.nixosModules.home-manager
             {
