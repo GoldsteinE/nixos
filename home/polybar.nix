@@ -3,7 +3,6 @@ pkgs: {
   package = pkgs.polybarFull;
 
   script = ''
-    ${pkgs.procps}/bin/pkill polybar
     for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep ' connected' | ${pkgs.coreutils}/bin/cut -d' ' -f1); do
         POLYBAR_MONITOR="$m" GITHUB_ACCESS_TOKEN="$(${pkgs.pass}/bin/pass show github-token-polybar)" polybar main &
         POLYBAR_MONITOR="$m" polybar top &
@@ -97,11 +96,12 @@ pkgs: {
           disconnected = "no network  ";
         };
       };
-      "module/vpn" = {
-        type = "custom/script";
-        exec = "if systemctl status wg-quick-wg0 >/dev/null; then echo 'VPN'; else echo 'direct'; fi";
-        click-left = "if systemctl status wg-quick-wg0 >/dev/null; then sudo systemctl stop wg-quick-wg0; else sudo systemctl start wg-quick-wg0; fi";
-      };
+      "module/vpn" = let s = "${pkgs.systemd}/bin/systemctl"; in
+        {
+          type = "custom/script";
+          exec = "if ${s} status wg-quick-wg0 >/dev/null; then echo 'VPN'; else echo 'direct'; fi";
+          click-left = "if ${s} status wg-quick-wg0 >/dev/null; then sudo ${s} stop wg-quick-wg0; else sudo ${s} start wg-quick-wg0; fi";
+        };
       "module/battery" = rec {
         type = "internal/battery";
         battery = "BAT0";

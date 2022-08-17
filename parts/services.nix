@@ -25,9 +25,13 @@
           enable = true;
           greeter.enable = false;
         };
-        defaultSession = "none+bspwm";
+        defaultSession = "xsession";
+        session = [{
+          manage = "desktop";
+          name = "xsession";
+          start = ''exec $HOME/.xsession'';
+        }];
       };
-      windowManager.bspwm.enable = true;
     };
     pcscd.enable = true;
     udev.packages = [ pkgs.yubikey-personalization ];
