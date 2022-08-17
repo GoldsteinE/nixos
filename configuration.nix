@@ -142,7 +142,6 @@ in
   documentation = {
     dev.enable = true;
     man.generateCaches = true;
-    nixos.includeAllModules = true;
   };
 
   # This value determines the NixOS release from which the default
