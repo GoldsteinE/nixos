@@ -10,7 +10,7 @@ package: {
     praise = "blame";
   };
   signing = {
-    key = null;
+    key = "0BAF2D87CB43746F62372D78DE6031ABA0BB269A";
     signByDefault = true;
   };
   difftastic = {
