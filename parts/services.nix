@@ -1,6 +1,16 @@
 { pkgs, inputs, ... }: {
   services = {
     logind.lidSwitchExternalPower = "ignore";
+    kmscon = {
+      enable = true;
+      hwRender = true;
+      extraOptions = "--term xterm-256color";
+      extraConfig = "font-size=32";
+      fonts = [{
+        name = "Iosevka Term";
+        package = (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; });
+      }];
+    };
     openssh = {
       enable = true;
       openFirewall = false;
