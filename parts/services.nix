@@ -1,10 +1,10 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, config, ... }: {
   services = {
     logind.lidSwitchExternalPower = "ignore";
     kmscon = {
       enable = true;
       hwRender = true;
-      extraOptions = "--term xterm-256color";
+      extraOptions = let x = config.services.xserver; in "--xkb-layout ${x.layout} --xkb-options ${x.xkbOptions}";
       extraConfig = "font-size=32";
       fonts = [{
         name = "Iosevka Term";
