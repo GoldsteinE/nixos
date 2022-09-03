@@ -1,7 +1,7 @@
 { config, pkgs, inputs, system, ... }:
 
 let
-  naersk = pkgs.callPackage inputs.naersk {};
+  naersk = pkgs.callPackage inputs.naersk { };
 in
 
 {
