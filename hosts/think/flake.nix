@@ -25,5 +25,5 @@
     simp.url = "github:Kl4rry/simp";
   };
 
-  outputs = inputs: import ./common/conftpl.nix "think" inputs;
+  outputs = inputs: import ./common/conftpl.nix "think" true inputs;
 }

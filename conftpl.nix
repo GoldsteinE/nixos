@@ -1,4 +1,4 @@
-hostname: { nixpkgs, home-manager, classified, ... } @ inputs: {
+hostname: desktop: { nixpkgs, home-manager, classified, ... } @ inputs: {
   nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem rec {
     system = "x86_64-linux";
     modules = [
@@ -16,7 +16,7 @@ hostname: { nixpkgs, home-manager, classified, ... } @ inputs: {
       }
     ];
     specialArgs = {
-      inputs = inputs;
+      inherit inputs desktop;
       system = "x86_64-linux";
     };
   };
