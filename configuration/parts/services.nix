@@ -11,15 +11,6 @@
         package = (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; });
       }];
     };
-    openssh = {
-      enable = true;
-      openFirewall = false;
-      passwordAuthentication = false;
-      listenAddresses = [{
-        addr = "127.0.0.1";
-        port = 22;
-      }];
-    };
     xserver = {
       enable = true;
       layout = "us,ru";
@@ -54,10 +45,6 @@
     };
     pcscd.enable = true;
     udev.packages = [ pkgs.yubikey-personalization ];
-    openvpn.servers.work = {
-      config = "config /var/secrets/vpn.ovpn";
-      updateResolvConf = true;
-    };
     pipewire = {
       enable = true;
       pulse.enable = true;

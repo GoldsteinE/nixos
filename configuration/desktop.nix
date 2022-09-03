@@ -17,9 +17,8 @@ in
   classified = {
     keys.default = "/classified.key";
     files = {
-      "mullvad.key".encrypted = ./secrets/mullvad.key;
-      "srvr.key".encrypted = ./secrets/srvr.key;
-      "vpn.ovpn".encrypted = ./secrets/vpn.ovpn;
+      "mullvad.key".encrypted = ./secrets/desktop/mullvad.key;
+      "srvr.key".encrypted = ./secrets/desktop/srvr.key;
     };
   };
   # Secrets are needed before VPN starts
