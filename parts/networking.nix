@@ -18,7 +18,7 @@
 
     wg-quick.interfaces.wg0 = {
       autostart = false;
-      privateKeyFile = "/etc/wireguard/mullvad.key";
+      privateKeyFile = "/var/secrets/mullvad.key";
       address = [
         "10.68.26.80/32"
         "fc00:bbbb:bbbb:bb01::5:1a4f/128"
@@ -83,7 +83,7 @@
     };
     wg-quick.interfaces.wg1 = {
       address = [ "172.16.0.2/20" ];
-      privateKeyFile = "/etc/wireguard/srvr.key";
+      privateKeyFile = "/var/secrets/srvr.key";
       listenPort = 51820;
       peers = [
         {

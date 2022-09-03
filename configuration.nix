@@ -1,12 +1,7 @@
 { config, pkgs, inputs, system, ... }:
 
 let
-  rust = pkgs.rust-bin.nightly."2021-06-14".default;
-  naersk-lib = inputs.naersk.lib."${system}".override {
-    cargo = rust;
-    rustc = rust;
-  };
-
+  naersk = pkgs.callPackage inputs.naersk {};
 in
 
 {
@@ -18,6 +13,17 @@ in
     ./parts/services.nix
     ./parts/networking.nix
   ];
+
+  classified = {
+    keys.default = "/classified.key";
+    files = {
+      "mullvad.key".encrypted = ./secrets/mullvad.key;
+      "srvr.key".encrypted = ./secrets/srvr.key;
+      "vpn.ovpn".encrypted = ./secrets/vpn.ovpn;
+    };
+  };
+  # Secrets are needed before VPN starts
+  systemd.services.classified.before = [ "network.target" ];
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -61,11 +67,11 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.simp.packages."${system}".simp
     inputs.wired-notify.packages."${system}".wired
     (steam.override {
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
-    inputs.agenix.defaultPackage."${system}"
 
     alacritty
     appimage-run
@@ -142,6 +148,7 @@ in
   documentation = {
     dev.enable = true;
     man.generateCaches = true;
+    nixos.includeAllModules = true;
   };
 
   # This value determines the NixOS release from which the default

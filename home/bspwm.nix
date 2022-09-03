@@ -15,4 +15,6 @@ pkgs: {
     "systemctl --user start pass-secret-service.service"
     "systemctl --user start wired.service"
   ];
+
+  rules."Peek:peek".state = "floating";
 }

@@ -55,7 +55,7 @@
     pcscd.enable = true;
     udev.packages = [ pkgs.yubikey-personalization ];
     openvpn.servers.work = {
-      config = "config /etc/openvpn/vpn.ovpn";
+      config = "config /var/secrets/vpn.ovpn";
       updateResolvConf = true;
     };
     pipewire = {
@@ -90,4 +90,6 @@
     };
   };
 
+  # See https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
