@@ -7,11 +7,15 @@ in
 {
   imports = [
     ./parts/nix.nix
-    ./parts/boot.nix
-    ./parts/hardware.nix
-    ./parts/security.nix
     ./parts/services.nix
-    ./parts/networking.nix
+    ./parts/goldstein.nix
+    ./parts/cli.nix
+
+    ./parts/desktop/boot.nix
+    ./parts/desktop/hardware.nix
+    ./parts/desktop/security.nix
+    ./parts/desktop/services.nix
+    ./parts/think/networking.nix
   ];
 
   classified = {
@@ -27,14 +31,8 @@ in
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
-
   programs = {
     light.enable = true;
-    zsh.enable = true;
     steam.enable = true;
     gnupg.agent = {
       enable = true;
@@ -57,14 +55,6 @@ in
     };
   };
 
-  users.users.goldstein = {
-    createHome = true;
-    isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "docker" "video" ];
-    home = "/home/goldstein";
-    shell = "/run/current-system/sw/bin/zsh";
-  };
-
   environment.systemPackages = with pkgs; [
     inputs.simp.packages."${system}".simp
     inputs.wired-notify.packages."${system}".wired
@@ -74,33 +64,19 @@ in
 
     alacritty
     appimage-run
-    bat
     cargo-edit
     chromium
-    curl
-    difftastic
-    dogdns
     electrum
     espanso
-    fd
     firefox
     feh
-    gcc
     haskell.compiler.ghc924
-    git
     hexchat
-    htop
-    hub
     python3Packages.ipython
-    jq
-    killall
     ksnip
     libnotify
     lm_sensors
     maim
-    man-pages
-    ncdu
-    neovim-nightly
     nheko
     openvpn
     pamixer
@@ -109,27 +85,17 @@ in
     playerctl
     polybarFull
     powertop
-    pwgen
-    python3
     qbittorrent
-    ripgrep
-    rnix-lsp
     rofi
     sccache
     silicon
     slack
     tdesktop
     tor-browser-bundle-bin
-    unzip
-    vim
     vlc
-    wget
     xclip
     xsecurelock
-    yadm
     yubikey-touch-detector
-    zip
-    zsh
     zulip
   ];
 
@@ -149,12 +115,4 @@ in
     man.generateCaches = true;
     nixos.includeAllModules = true;
   };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
 }

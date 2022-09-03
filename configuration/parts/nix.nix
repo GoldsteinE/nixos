@@ -21,7 +21,6 @@
     };
     overlays = [
       inputs.neovim-nightly-overlay.overlay
-      inputs.rust-overlay.overlays.default
       (final: prev: {
         gnupg = prev.gnupg.overrideAttrs (old: if old.version == "2.3.7" then {
           patches = old.patches ++ [(final.fetchpatch {
