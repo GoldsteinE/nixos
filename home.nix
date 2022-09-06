@@ -33,6 +33,25 @@ in
     windowManager.bspwm = import ./home/bspwm.nix pkgs;
   };
 
+  accounts.email.accounts.root = rec {
+    primary = true;
+    realName = "Max Siling";
+    address = "root@goldstein.rs";
+    userName = address;
+    gpg = {
+      key = "0BAF2D87CB43746F62372D78DE6031ABA0BB269A";
+      signByDefault = true;
+    };
+    imap.host = "mail.goldstein.rs";
+    smtp.host = imap.host;
+    himalaya = {
+      enable = true;
+      settings = {
+        imap-passwd-cmd = "pass show mail";
+      };
+    };
+  };
+
   programs = {
     command-not-found.enable = true;
     password-store.enable = true;
