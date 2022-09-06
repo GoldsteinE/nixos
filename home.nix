@@ -42,21 +42,21 @@ in
       key = "0BAF2D87CB43746F62372D78DE6031ABA0BB269A";
       signByDefault = true;
     };
-    imap.host = "mail.goldstein.rs";
-    smtp.host = imap.host;
-    himalaya = {
-      enable = true;
-      settings = {
-        imap-passwd-cmd = "pass show mail";
-      };
+    imap = {
+      host = "mail.goldstein.rs";
+      port = 993;
     };
+    smtp = {
+      host = imap.host;
+      port = 465;
+    };
+    passwordCommand = "pass mail";
   };
 
   programs = {
     command-not-found.enable = true;
     password-store.enable = true;
     zathura.enable = desktop;
-    himalaya.enable = true;
 
     zsh = {
       enable = true;
