@@ -8,7 +8,7 @@
     gcc
     git
     htop
-    hub
+    gh
     jq
     killall
     man-pages
