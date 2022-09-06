@@ -56,6 +56,7 @@ in
     command-not-found.enable = true;
     password-store.enable = true;
     zathura.enable = desktop;
+    himalaya.enable = true;
 
     zsh = {
       enable = true;
