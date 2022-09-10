@@ -16,10 +16,13 @@
   classified.keys.default = "/classified.key";
   classified.files = {
     nix-serve.encrypted = ./secrets/server/nix-serve;
-    nix-serve-user.encrypted = ./secrets/server/nix-serve-user;
     mailpassword.encrypted = ./secrets/server/mailpassword;
     "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
     "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
+    nix-serve-user = {
+      encrypted = ./secrets/server/nix-serve-user;
+      user = "nginx";
+    };
     "perlsub.env" = {
       encrypted = ./secrets/server/perlsub.env;
       user = "perlsub";
