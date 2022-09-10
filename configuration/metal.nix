@@ -15,6 +15,8 @@
 
   classified.keys.default = "/classified.key";
   classified.files = {
+    nix-serve.encrypted = ./secrets/server/nix-serve;
+    nix-serve-user.encrypted = ./secrets/server/nix-serve-user;
     mailpassword.encrypted = ./secrets/server/mailpassword;
     "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
     "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
@@ -102,6 +104,12 @@
       enable = true;
       ports = [ 7643 ];
       gatewayPorts = "clientspecified";
+    };
+
+    nix-serve = {
+      enable = true;
+      port = 7174;
+      secretKeyFile = "/var/secrets/nix-serve";
     };
 
     znc = {
@@ -208,6 +216,13 @@
           useACMEHost = "goldstein.rs";
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:8008";
+        };
+        "nix.goldstein.rs" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeaders;
+          basicAuthFile = "/var/secrets/nix-serve-user";
+          locations."/".proxyPass = "http://localhost:7174";
         };
         # Also auto-configured by `services.roundcube`
         "mail.goldstein.rs" = {
