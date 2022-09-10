@@ -1,14 +1,11 @@
-{ config, pkgs, dotfiles, ... }:
+username: homeDirectory: { config, pkgs, dotfiles, desktop, ... }:
 
 let
-  desktop = true;
-  ifDesktop = x: if desktop then x else { };
-
+  ifDesktop = x: if desktop && username != "root" then x else { };
 in
 {
   home = {
-    username = "goldstein";
-    homeDirectory = "/home/goldstein";
+    inherit username homeDirectory;
     stateVersion = "22.11";
     file = pkgs.lib.genAttrs
       ([
