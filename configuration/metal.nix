@@ -45,6 +45,11 @@
     "nix-serve.service"
     "acme-goldstein.rs.service"
   ];
+  systemd.targets.network.before = [
+    "r9ktg.service"
+    "perlsub.service"
+    "emojiBot.service"
+  ];
 
   boot.initrd.kernelModules = [ "md_mod" "r8169" ];
   boot.initrd.network = {
