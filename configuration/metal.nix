@@ -33,10 +33,16 @@
     };
     "matrix.yml" = {
       encrypted = ./secrets/server/matrix.yml;
-      user = "matrix-synapse";
+      # user = "matrix-synapse";
     };
   };
-  systemd.services.classified.before = [ "basic.target" ];
+  systemd.services.classified.wantedBy = [ "basic.target" ];
+  systemd.services.classified.before = [
+    "r9ktg.service"
+    "perlsub.service"
+    "emojiBot.service"
+    "acme-goldstein.rs.service"
+  ];
 
   boot.initrd.kernelModules = [ "md_mod" "r8169" ];
   boot.initrd.network = {
@@ -61,10 +67,10 @@
     "compress=zstd"
   ];
 
-  fileSystems."/dump".options = [
-    "defaults"
-    "compress=zstd"
-  ];
+  # fileSystems."/dump".options = [
+  #   "defaults"
+  #   "compress=zstd"
+  # ];
 
   networking.hostName = "metal";
 
@@ -93,7 +99,7 @@
       isSystemUser = true;
       group = "nogroup";
     };
-    groups.certs = {};
+    groups.certs = { };
   };
 
   services = {
@@ -155,93 +161,95 @@
     };
 
     matrix-synapse = {
-      enable = true;
+      enable = false;
       settings = {
         server_name = "goldstein.rs";
         public_baseurl = "https://matrix.goldstein.rs/";
         url_preview_enabled = false;
         database.name = "sqlite3";
       };
-      extraConfigFiles = ["/var/secrets/matrix.yml"];
+      extraConfigFiles = [ "/var/secrets/matrix.yml" ];
     };
 
-    nginx = let
-      commonHeaders = ''
-        add_header X-Hi 'to anyone reading raw HTTP :)';
-        add_header X-Clacks-Overhead 'GNU Terry Pratchett';
-        add_header Strict-Transport-Security max-age=31536000;
-        add_header X-Frame-Options SAMEORIGIN;
-        add_header X-Content-Type-Options nosniff;
-        add_header Referrer-Policy strict-origin-when-cross-origin;
-      '';
-      csp = ''
-        add_header Content-Security-Policy "default-src 'self'; base-uri 'none'; frame-ancestors 'self'; connect-src https://goldstein.rs https://*.goldstein.rs 'self'; plugin-types; object-src 'none'; style-src 'self' 'unsafe-inline' 'unsafe-eval';";
-      '';
-      commonHeadersWithCsp = commonHeaders + "\n" + csp;
-    in {
-      enable = true;
-      enableReload = true;
-      group = "certs";
-      appendHttpConfig = ''
-        ssl_stapling on; 
-        ssl_session_cache shared:SSL:5m;
-        sendfile on;
-        gzip on;
-        gzip_proxied any;
-        gzip_types
-          text/css
-          text/javascript
-          text/xml
-          text/plain
-          text/html;
-      '';
-      recommendedProxySettings = true;
+    nginx =
+      let
+        commonHeaders = ''
+          add_header X-Hi 'to anyone reading raw HTTP :)';
+          add_header X-Clacks-Overhead 'GNU Terry Pratchett';
+          add_header Strict-Transport-Security max-age=31536000;
+          add_header X-Frame-Options SAMEORIGIN;
+          add_header X-Content-Type-Options nosniff;
+          add_header Referrer-Policy strict-origin-when-cross-origin;
+        '';
+        csp = ''
+          add_header Content-Security-Policy "default-src 'self'; base-uri 'none'; frame-ancestors 'self'; connect-src https://goldstein.rs https://*.goldstein.rs 'self'; plugin-types; object-src 'none'; style-src 'self' 'unsafe-inline' 'unsafe-eval';";
+        '';
+        commonHeadersWithCsp = commonHeaders + "\n" + csp;
+      in
+      {
+        enable = true;
+        enableReload = true;
+        group = "certs";
+        appendHttpConfig = ''
+          ssl_stapling on; 
+          ssl_session_cache shared:SSL:5m;
+          sendfile on;
+          gzip on;
+          gzip_proxied any;
+          gzip_types
+            text/css
+            text/javascript
+            text/xml
+            text/plain
+            text/html;
+        '';
+        recommendedProxySettings = true;
 
-      virtualHosts = {
-        "goldstein.rs" = {
-          root = "/srv/root";
-          default = true;
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeadersWithCsp;
-        };
-        "blog.goldstein.rs" = {
-          root = "${inputs.blog.defaultPackage.x86_64-linux}";
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = ''
-            ${commonHeadersWithCsp}
-            add_header X-Nix-Derivation ${inputs.blog.defaultPackage.x86_64-linux};
-          '';
-        };
-        "inftheory.goldstein.rs" = {
-          root = "${inputs.inftheory-slides.defaultPackage.x86_64-linux}";
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeadersWithCsp;
-          locations."/".index = "inftheory-slides.pdf";
-        };
-        "matrix.goldstein.rs" = {
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
-          locations."/".proxyPass = "http://localhost:8008";
-        };
-        "nix.goldstein.rs" = {
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
-          basicAuthFile = "/var/secrets/nix-serve-user";
-          locations."/".proxyPass = "http://localhost:7174";
-        };
-        # Also auto-configured by `services.roundcube`
-        "mail.goldstein.rs" = {
-          enableACME = false;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
+        virtualHosts = {
+          "goldstein.rs" = {
+            root = "/srv/root";
+            default = true;
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeadersWithCsp;
+          };
+          "blog.goldstein.rs" = {
+            root = "${inputs.blog.defaultPackage.x86_64-linux}";
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = ''
+              ${commonHeadersWithCsp}
+              add_header X-Nix-Derivation ${inputs.blog.defaultPackage.x86_64-linux};
+            '';
+          };
+          "inftheory.goldstein.rs" = {
+            root = "${inputs.inftheory-slides.defaultPackage.x86_64-linux}";
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeadersWithCsp;
+            locations."/".index = "inftheory-slides.pdf";
+          };
+          "matrix.goldstein.rs" = {
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+            locations."/".proxyPass = "http://localhost:8008";
+          };
+          "nix.goldstein.rs" = {
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+            basicAuthFile = "/var/secrets/nix-serve-user";
+            locations."/".proxyPass = "http://localhost:7174";
+          };
+          # Also auto-configured by `services.roundcube`
+          "mail.goldstein.rs" = {
+            enableACME = false;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+          };
         };
       };
-    };
 
     dante = {
       enable = true;
@@ -292,9 +300,10 @@
     dkimExtraConfig = let trustedHosts = pkgs.writeText "opendkim-TrustedHosts" ''
       127.0.0.1
       ::1
-    ''; in ''
-      InternalHosts refile:${trustedHosts}
-    '';
+    ''; in
+      ''
+        InternalHosts refile:${trustedHosts}
+      '';
 
     certificateScheme = 1; # Manual
     certificateFile = "/var/lib/acme/goldstein.rs/full.pem";
@@ -329,17 +338,17 @@
     "[::1]/128"
   ];
   services.rspamd.extraConfig = ''
-  actions {
-    reject = null; # Disable rejects, default is 15
-    greylist = 30; # Disable greylisting
-    add_header = 6; # Add header when reaching this score
-  }
+    actions {
+      reject = null; # Disable rejects, default is 15
+      greylist = 30; # Disable greylisting
+      add_header = 6; # Add header when reaching this score
+    }
   '';
 
   services.roundcube = {
     enable = true;
     hostName = "mail.goldstein.rs";
-    plugins = ["managesieve"];
+    plugins = [ "managesieve" ];
     extraConfig = ''
       # unencrypted IMAP is unavailable
       $config['default_host'] = 'ssl://goldstein.rs:993';

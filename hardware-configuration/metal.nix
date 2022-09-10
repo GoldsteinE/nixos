@@ -19,21 +19,23 @@
 
   fileSystems."/dump" =
     {
-      device = "/dev/disk/by-uuid/d062c138-0224-453f-aa10-4677a08c9e00";
+      device = "/dev/mapper/dump";
       fsType = "btrfs";
+      encrypted = {
+        enable = true;
+        label = "dump";
+        blkDev = "/dev/disk/by-id/wwn-0x5000cca25ed4aa16";
+        keyFile = "/mnt-root/hddkey";
+      };
     };
 
   boot.initrd.luks.devices = {
     fsroot.device = "/dev/disk/by-id/md-uuid-ab95e5f4:b78da993:1cbbd753:6daa6abb";
-    dump = {
-      keyFile = "/hddkey";
-      device = "/dev/disk/by-id/wwn-0x5000cca25ed4aa16";
-    };
   };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/2188fad6-87b5-44b7-b6ff-b88a98cef771";
+      device = "/dev/disk/by-uuid/c5181735-c0c4-4a35-bd7a-0febe3a20558";
       fsType = "ext4";
     };
 
