@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1662241401,
-        "narHash": "sha256-1KUcae88fpPNS15hZrQ3dlEDo7eEsxgW1vW2bdKQ46s=",
+        "lastModified": 1662839167,
+        "narHash": "sha256-1+aj67QumLs4zGa5xfsU04GEthe2RHI7x7REgpthvC8=",
         "owner": "GoldsteinE",
         "repo": "classified",
-        "rev": "1bf27391a3340f2647782f0e1b05488d9c2c2073",
+        "rev": "35ec6b0cc56295c797651daf404768826702dac7",
         "type": "github"
       },
       "original": {

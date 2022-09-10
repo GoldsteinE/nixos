@@ -36,11 +36,13 @@
       # user = "matrix-synapse";
     };
   };
-  systemd.services.classified.wantedBy = [ "basic.target" ];
   systemd.services.classified.before = [
     "r9ktg.service"
     "perlsub.service"
     "emojiBot.service"
+    "postfix.service"
+    "dovecot2.service"
+    "nix-serve.service"
     "acme-goldstein.rs.service"
   ];
 
@@ -67,10 +69,10 @@
     "compress=zstd"
   ];
 
-  # fileSystems."/dump".options = [
-  #   "defaults"
-  #   "compress=zstd"
-  # ];
+  fileSystems."/dump".options = [
+    "defaults"
+    "compress=zstd"
+  ];
 
   networking.hostName = "metal";
 
