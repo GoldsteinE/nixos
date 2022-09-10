@@ -23,10 +23,24 @@ in
     files = {
       "mullvad.key".encrypted = ./secrets/desktop/mullvad.key;
       "srvr.key".encrypted = ./secrets/desktop/srvr.key;
+      nix-netrc.encrypted = ./secrets/desktop/nix-netrc;
     };
   };
   # Secrets are needed before VPN starts
   systemd.services.classified.before = [ "network.target" ];
+
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix.goldstein.rs"
+    ];
+    trusted-public-keys = [
+      "metal:FFcepzDmAaAqlduU2SnEex+ozAOAYHo6BQTnagtxcd0="
+    ];
+  };
+  nix.extraOptions = ''
+    netrc-file = /var/secrets/nix-netrc
+  '';
 
   time.timeZone = "Europe/Moscow";
   i18n.defaultLocale = "en_US.UTF-8";
