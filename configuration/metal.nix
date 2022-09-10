@@ -135,6 +135,11 @@
       secretKeyFile = "/var/secrets/nix-serve";
     };
 
+    btrbk.sshAccess = [{
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB42VmC3wPITh7koYvslYPS4GHQEA1ZlNcWaCaqzqlGS goldstein@think";
+      roles = [ "info" "source" "target" "snapshot" "send" "receive" ];
+    }];
+
     znc = {
       enable = true;
       openFirewall = true;
