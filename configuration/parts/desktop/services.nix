@@ -52,6 +52,11 @@
         "requests.test".locations."/".proxyPass = "http://localhost:55555/";
       };
     };
+    btrbk.instances.btrbk.settings = {
+      volume."/" = {
+        target = "ssh://goldstein.rs:7643/dump/backups/${config.networking.hostName}";
+      };
+    };
   };
 
   systemd.user.services = {

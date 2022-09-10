@@ -23,6 +23,7 @@ in
     files = {
       "mullvad.key".encrypted = ./secrets/desktop/mullvad.key;
       nix-netrc.encrypted = ./secrets/desktop/nix-netrc;
+      btrbk.encrypted = ./secrets/desktop/btrbk;
     };
   };
   # Secrets are needed before VPN starts
