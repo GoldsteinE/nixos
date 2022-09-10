@@ -81,17 +81,5 @@
         }
       ];
     };
-    wg-quick.interfaces.wg1 = {
-      address = [ "172.16.0.2/20" ];
-      privateKeyFile = "/var/secrets/srvr.key";
-      listenPort = 51820;
-      peers = [
-        {
-          publicKey = "IqSILmfZJvrEl+5nMrqshTSOI5xX61mAsFIPhn3m4i4=";
-          endpoint = "194.163.129.129:51820";
-          allowedIPs = [ "172.16.0.0/20" ];
-        }
-      ];
-    };
   };
 }

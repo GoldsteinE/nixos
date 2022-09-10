@@ -22,7 +22,6 @@ in
     keys.default = "/classified.key";
     files = {
       "mullvad.key".encrypted = ./secrets/desktop/mullvad.key;
-      "srvr.key".encrypted = ./secrets/desktop/srvr.key;
       nix-netrc.encrypted = ./secrets/desktop/nix-netrc;
     };
   };
@@ -52,10 +51,6 @@ in
       enable = true;
       pinentryFlavor = "qt";
       enableSSHSupport = true;
-    };
-    ssh.knownHosts.srvr = {
-      extraHostNames = [ "goldstein.rs" "194.163.129.129" ];
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINAdhEAM6e1fSiusg4bGEK/aBXnzCwp70qsj6qGvKOWn";
     };
   };
 
