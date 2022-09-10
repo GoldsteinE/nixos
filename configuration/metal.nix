@@ -13,21 +13,55 @@
     ./parts/server/boot.nix
   ];
 
-  boot.initrd.luks.devices.root.preLVM = true;
-  boot.loader.grub.device = "/dev/sda";
+  classified.keys.default = "/classified.key";
+  classified.files = {
+    mailpassword.encrypted = ./secrets/server/mailpassword;
+    "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
+    "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
+    "perlsub.env" = {
+      encrypted = ./secrets/server/perlsub.env;
+      user = "perlsub";
+    };
+    "dnscreds.env" = {
+      encrypted = ./secrets/server/dnscreds.env;
+      user = "acme";
+    };
+    "matrix.yml" = {
+      encrypted = ./secrets/server/matrix.yml;
+      user = "matrix-synapse";
+    };
+  };
+  systemd.services.classified.before = [ "basic.target" ];
+
+  boot.initrd.kernelModules = [ "md_mod" "r8169" ];
+  boot.initrd.network = {
+    enable = true;
+    ssh = {
+      enable = true;
+      port = 17643;
+      hostKeys = [
+        "/etc/secrets/initrd/ssh_host_ed25519_key"
+      ];
+      authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFfvajQ3g5zDNGlGFfMrK9X1v4o5TBsSkP55KGn69Z4T"
+      ];
+    };
+  };
+  boot.loader.grub = {
+    device = "/dev/disk/by-id/wwn-0x500a0751160d3995";
+  };
 
   fileSystems."/".options = [
     "defaults"
     "compress=zstd"
   ];
 
-  networking.hostName = "srvr";
+  networking.hostName = "metal";
 
   time.timeZone = "Etc/UTC";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  networking.useDHCP = false;
-  networking.interfaces.ens18.useDHCP = true;
+  networking.useDHCP = true;
 
   security.acme = {
     acceptTerms = true;
@@ -35,7 +69,7 @@
       group = "certs";
       email = "mouse-art@ya.ru";
       dnsProvider = "luadns";
-      credentialsFile = "/etc/dnscreds.env";
+      credentialsFile = "/var/secrets/dnscreds.env";
       extraDomainNames = [
         "*.goldstein.rs"
       ];
@@ -51,9 +85,18 @@
   };
 
   services = {
-    emojiBot.enable = true;
-    r9ktg.enable = true;
-    perlsub.enable = true;
+    emojiBot = {
+      enable = true;
+      envFile = "/var/secrets/emoji-bot.env";
+    };
+    r9ktg = {
+      enable = true;
+      envFile = "/var/secrets/r9ktg.env";
+    };
+    perlsub = {
+      enable = true;
+      envFile = "/var/secrets/perlsub.env";
+    };
 
     openssh = {
       enable = true;
@@ -101,7 +144,7 @@
         url_preview_enabled = false;
         database.name = "sqlite3";
       };
-      extraConfigFiles = ["/etc/matrix.yml"];
+      extraConfigFiles = ["/var/secrets/matrix.yml"];
     };
 
     nginx = let
@@ -178,8 +221,8 @@
     dante = {
       enable = true;
       config = ''
-        internal: ens18 port = 19423
-        external: ens18
+        internal: enp6s0 port = 19423
+        external: enp6s0
         socksmethod: username
         client pass {
           from: 0.0.0.0/0 to: 0.0.0.0/0
@@ -243,7 +286,7 @@
 
     loginAccounts = {
       "root@goldstein.rs" = {
-        hashedPasswordFile = "/etc/mailpassword";
+        hashedPasswordFile = "/var/secrets/mailpassword";
         aliases = [
           "postmaster@goldstein.rs"
           "postmaster@mail.goldstein.rs"
