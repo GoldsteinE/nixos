@@ -81,6 +81,8 @@
     };
   };
 
+  security.pam.enableSSHAgentAuth = true;
+
   users = {
     users.socks = {
       isSystemUser = true;
