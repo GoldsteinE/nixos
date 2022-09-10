@@ -61,6 +61,11 @@
     "compress=zstd"
   ];
 
+  fileSystems."/dump".options = [
+    "defaults"
+    "compress=zstd"
+  ];
+
   networking.hostName = "metal";
 
   time.timeZone = "Etc/UTC";
