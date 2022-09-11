@@ -163,6 +163,13 @@
               "#ghc" = { Buffer = 10000; };
             };
           };
+          Network.hackint = {
+            server = "irc.hackint.org +6697";
+            LoadModule = [ "simple_away" "sasl" ];
+            Chan = {
+              "#tvl" = { Buffer = 10000; };
+            };
+          };
           Pass.password = {
             Method = "sha256";
             Hash = "3a3c258d345b3f5f846d2672f3c68aa1a304e53c11c687d9f7a87f62db3ca016";
