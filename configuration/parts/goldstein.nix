@@ -10,7 +10,7 @@ in {
     goldstein = {
       createHome = true;
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ] ++ (if desktop then [ "audio video" ] else []);
+      extraGroups = [ "wheel" "docker" ] ++ (if desktop then [ "audio" "video" ] else []);
       home = "/home/goldstein";
       shell = "/run/current-system/sw/bin/zsh";
       openssh.authorizedKeys.keys = sshKeys;
