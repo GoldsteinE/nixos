@@ -95,6 +95,8 @@
       credentialsFile = "/var/secrets/dnscreds.env";
       extraDomainNames = [
         "*.goldstein.rs"
+        "neglected.space"
+        "*.neglected.space"
       ];
     };
   };
@@ -228,6 +230,12 @@
           "goldstein.rs" = {
             root = "/srv/root";
             default = true;
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeadersWithCsp;
+          };
+          "neglected.space" = {
+            root = "/srv/neglected";
             forceSSL = true;
             useACMEHost = "goldstein.rs";
             extraConfig = commonHeadersWithCsp;
