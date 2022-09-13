@@ -48,12 +48,48 @@ in
       port = 465;
     };
     passwordCommand = "pass mail";
+    aerc = {
+      enable = true;
+      extraAccounts = {
+        pgp-auto-sign = true;
+      };
+    };
   };
 
   programs = {
     command-not-found.enable = true;
     password-store.enable = true;
     zathura.enable = desktop;
+    aerc = {
+      enable = true;
+      extraConfig = {
+        general = {
+          pgp-provider = "gpg";
+          unsafe-accounts-conf = true;
+        };
+        ui.threading-enabled = true;
+        filters = {
+          "text/plain" = "cat";
+        };
+      };
+      extraBinds = {
+        messages = rec {
+          k = ":prev 1<Enter>";
+          "<up>" = k;
+          j = ":next 1<Enter>";
+          "<down>" = j;
+          "<c-j>" = ":next-folder<Enter>";
+          "<c-k>" = ":prev-folder<Enter>";
+          "<enter>" = ":view<Enter>";
+        };
+        compose = {
+          "<tab>" = ":next-field";
+        };
+        "compose::editor" = {
+          "$ex" = "<C-x>";
+        };
+      };
+    };
 
     zsh = {
       enable = true;
