@@ -68,6 +68,11 @@ in
     };
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    # for itch
+    "electron-11.5.0"
+  ];
+
   environment.systemPackages = with pkgs; [
     inputs.simp.packages."${system}".simp
     inputs.wired-notify.packages."${system}".wired
@@ -75,9 +80,15 @@ in
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
 
+    cargo
+    rustc
+    rustfmt
+    clippy
+    rust-analyzer
+
+    cargo-edit
     alacritty
     appimage-run
-    cargo-edit
     chromium
     electrum
     espanso
@@ -85,12 +96,13 @@ in
     feh
     haskell.compiler.ghc924
     hexchat
+    itch
     python3Packages.ipython
     ksnip
     libnotify
     lm_sensors
     maim
-    nheko
+    # nheko
     openvpn
     pamixer
     pavucontrol
