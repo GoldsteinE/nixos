@@ -58,8 +58,11 @@ in
 
   programs = {
     command-not-found.enable = true;
-    password-store.enable = true;
     zathura.enable = desktop;
+    password-store = {
+      enable = true;
+      package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+    };
     aerc = {
       enable = true;
       extraConfig = {
