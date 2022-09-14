@@ -5,7 +5,7 @@
     bluetooth.enable = true;
     video.hidpi.enable = true;
     nvidia = {
-      open = true;
+      open = false;
       modesetting.enable = true;
       prime = {
         sync.enable = true;
