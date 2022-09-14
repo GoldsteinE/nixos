@@ -1,13 +1,31 @@
 username: homeDirectory: { config, pkgs, dotfiles, desktop, ... }:
 
 let
+  pass = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
   ifDesktop = x: if desktop && username != "root" then x else { };
 in
 {
   home = {
     inherit username homeDirectory;
     stateVersion = "22.11";
-    file = pkgs.lib.genAttrs
+    file = ({
+      ".local/bin/rofi-otp" = {
+        executable = true;
+        text = ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
+          cd $PASSWORD_STORE_DIR/otp
+          ${pkgs.fd}/bin/fd -t f --strip-cwd-prefix \
+            | ${pkgs.rofi}/bin/rofi \
+              -theme ${pkgs.rofi}/share/rofi/themes/android_notification \
+              -dmenu -i \
+              -font 'Noto Sans 32' \
+            | ${pkgs.gnused}/bin/sed 's/\.gpg$//' \
+            | ${pkgs.findutils}/bin/xargs -I{} ${pass}/bin/pass otp "otp/{}" \
+            | ${pkgs.findutils}/bin/xargs ${pkgs.xdotool}/bin/xdotool type
+        '';
+      };
+    }) // pkgs.lib.genAttrs
       ([
         ".ghc"
         ".p10k.zsh"
@@ -61,7 +79,7 @@ in
     zathura.enable = desktop;
     password-store = {
       enable = true;
-      package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+      package = pass;
     };
     aerc = {
       enable = true;
