@@ -16,11 +16,11 @@ in
           set -euo pipefail
           cd $PASSWORD_STORE_DIR/otp
           ${pkgs.fd}/bin/fd -t f --strip-cwd-prefix \
+            | ${pkgs.gnused}/bin/sed 's/\.gpg$//' \
             | ${pkgs.rofi}/bin/rofi \
               -theme ${pkgs.rofi}/share/rofi/themes/android_notification \
               -dmenu -i \
               -font 'Noto Sans 32' \
-            | ${pkgs.gnused}/bin/sed 's/\.gpg$//' \
             | ${pkgs.findutils}/bin/xargs -I{} ${pass}/bin/pass otp "otp/{}" \
             | ${pkgs.findutils}/bin/xargs ${pkgs.xdotool}/bin/xdotool type
         '';
