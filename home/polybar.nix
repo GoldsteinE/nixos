@@ -4,7 +4,7 @@ pkgs: {
 
   script = ''
     for m in $(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep ' connected' | ${pkgs.coreutils}/bin/cut -d' ' -f1); do
-        POLYBAR_MONITOR="$m" GITHUB_ACCESS_TOKEN="$(${pkgs.pass}/bin/pass show github-token-polybar)" polybar main &
+        POLYBAR_MONITOR="$m" polybar main &
         POLYBAR_MONITOR="$m" polybar top &
     done
   '';
@@ -39,7 +39,7 @@ pkgs: {
     {
       "bar/main" = bar true {
         left = "bspwm";
-        right = "gh temperature layout battery date";
+        right = "temperature layout battery date";
       };
       "bar/top" = bar false {
         left = "title";
@@ -133,15 +133,6 @@ pkgs: {
         label-warn = "  %temperature-c%";
         label-warn-foreground = "#e64b0e";
         thermal-zone = 10;
-      };
-      "module/gh" = {
-        type = "internal/github";
-        token = "\${env:GITHUB_ACCESS_TOKEN}";
-        user = "GoldsteinE";
-        empty-notifications = false;
-        interval = 60;
-        label = "label =  %notifications%";
-        format-offline = "";
       };
     };
 }
