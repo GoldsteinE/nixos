@@ -82,11 +82,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1664197206,
-        "narHash": "sha256-E8bjD2EGqBXjt7DhHGQwhoJl5/Wy5uh7xsjVFf8uxGI=",
+        "lastModified": 1664201794,
+        "narHash": "sha256-AayhZO/V6En6Kuf0N26iQ4GP79NyhYcKSYL9dOuPhUs=",
         "owner": "GoldsteinE",
         "repo": "dotfiles",
-        "rev": "effd6c2c1cd1b719b7480aab93deb3d20a33ad18",
+        "rev": "615f98b1311cebf5c3d22af2b1ac6a733dd237bf",
         "type": "github"
       },
       "original": {
