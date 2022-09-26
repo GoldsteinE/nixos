@@ -19,6 +19,7 @@
     mailpassword.encrypted = ./secrets/server/mailpassword;
     "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
     "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
+    "hedgedoc.env".encrypted = ./secrets/server/hedgedoc.env;
     nix-serve-user = {
       encrypted = ./secrets/server/nix-serve-user;
       user = "nginx";
@@ -269,6 +270,12 @@
             basicAuthFile = "/var/secrets/nix-serve-user";
             locations."/".proxyPass = "http://localhost:7174";
           };
+          "docs.goldstein.rs" = {
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+            locations."/".proxyPass = "http://localhost:44444";
+          };
           # Also auto-configured by `services.roundcube`
           "mail.goldstein.rs" = {
             enableACME = false;
@@ -301,6 +308,28 @@
           log: error connect disconnect
         }
       '';
+    };
+
+    hedgedoc = rec {
+      enable = true;
+      workDir = "/srv/hedgedoc";
+      environmentFile = "/var/secrets/hedgedoc.env";
+      settings = {
+        uploadsPath = "${workDir}/uploads";
+        port = 44444;
+        domain = "docs.goldstein.rs";
+        allowAnonymous = false;
+        allowAnonymousEdits = true;
+        protocolUseSSL = true;
+        db = {
+          dialect = "sqlite";
+          storage = "${workDir}/hedgedoc.sqlite";
+        };
+        github = {
+          clientID = "$CMD_GITHUB_CLIENT_ID";
+          clientSecret = "$CMD_GITHUB_CLIENTSECRET";
+        };
+      };
     };
   };
 
