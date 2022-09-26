@@ -20,6 +20,7 @@
     "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
     "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
     "hedgedoc.env".encrypted = ./secrets/server/hedgedoc.env;
+    "miniflux.env".encrypted = ./secrets/server/miniflux.env;
     nix-serve-user = {
       encrypted = ./secrets/server/nix-serve-user;
       user = "nginx";
@@ -276,6 +277,12 @@
             extraConfig = commonHeaders;
             locations."/".proxyPass = "http://localhost:44444";
           };
+          "rss.goldstein.rs" = {
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+            locations."/".proxyPass = "http://localhost:4755";
+          };
           # Also auto-configured by `services.roundcube`
           "mail.goldstein.rs" = {
             enableACME = false;
@@ -308,6 +315,12 @@
           log: error connect disconnect
         }
       '';
+    };
+
+    miniflux = {
+      enable = true;
+      config.LISTEN_ADDR = "localhost:4755";
+      adminCredentialsFile = "/var/secrets/miniflux.env";
     };
 
     hedgedoc = rec {
