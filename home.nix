@@ -8,6 +8,9 @@ in
   home = {
     inherit username homeDirectory;
     stateVersion = "22.11";
+    sessionVariables = {
+      SCCACHE_DIR = "/target/sccache";
+    };
     file = ({
       ".local/bin/rofi-otp" = {
         executable = true;
