@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     bat
+    clang
     curl
     difftastic
     dogdns
@@ -12,12 +13,14 @@
     jq
     killall
     man-pages
+    mold
     ncdu
     neovim-nightly
     pwgen
     python3
     ripgrep
     rnix-lsp
+    shellcheck
     unzip
     vim
     wget
