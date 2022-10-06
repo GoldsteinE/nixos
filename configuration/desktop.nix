@@ -116,14 +116,22 @@ in
     sccache
     silicon
     slack
+    slock
     tdesktop
     tor-browser-bundle-bin
     vlc
     xclip
-    slock
     yubikey-touch-detector
     zulip
   ];
+
+  security.sudo.extraRules = [{
+    users = ["goldstein"];
+    commands = [{
+      command = "${pkgs.slock}/bin/slock";
+      options = ["NOPASSWD"];
+    }];
+  }];
 
   fonts.fonts = with pkgs; [
     roboto
