@@ -120,7 +120,7 @@ in
     tor-browser-bundle-bin
     vlc
     xclip
-    xsecurelock
+    slock
     yubikey-touch-detector
     zulip
   ];
