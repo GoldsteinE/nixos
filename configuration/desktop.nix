@@ -8,6 +8,7 @@ in
   imports = [
     ./parts/nix.nix
     ./parts/services.nix
+    ./parts/jupyter.nix
     ./parts/goldstein.nix
     ./parts/cli.nix
 
