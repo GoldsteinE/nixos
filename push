@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+git push
+sudo sh -c 'cd /root/sysconf && git pull'
