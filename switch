@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ "$(id -u)" != 0 ]; then
+	echo "Need root, sorry" >&2
+	exit 1
+fi
+
+cd "$(dirname "$0")"
+HOSTNAME="${1:-$(hostname)}"
+bash ./rebuild "$HOSTNAME"
+/nix/var/nix/profiles/system/bin/switch-to-configuration switch
