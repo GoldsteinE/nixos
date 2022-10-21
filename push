@@ -1,4 +1,6 @@
 #!/bin/sh
 set -eu
 git push
+sleep 2  # Yubikey is weird
+echo "Now touch Yubikey again..."
 sudo sh -c 'cd /root/sysconf && git pull'
