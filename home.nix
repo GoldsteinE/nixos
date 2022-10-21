@@ -1,4 +1,4 @@
-username: homeDirectory: { config, pkgs, dotfiles, desktop, ... }:
+username: homeDirectory: { config, pkgs, lib, dotfiles, desktop, ... }:
 
 let
   pass = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
@@ -11,7 +11,7 @@ in
     sessionVariables = {
       SCCACHE_DIR = "/target/sccache";
     };
-    file = ({
+    file = {
       ".local/bin/rofi-otp" = {
         executable = true;
         text = ''
@@ -36,23 +36,41 @@ in
         [build]
         rustc-wrapper = "${pkgs.sccache}/bin/sccache"
       '';
-    }) // pkgs.lib.genAttrs
-      ([
-        ".ghc"
-        ".p10k.zsh"
-        ".config/nvim"
-      ] ++ (if desktop then [
+    };
+  };
+
+  systemd.user.tmpfiles.rules =
+    let
+      genRule = (file: "L ${homeDirectory}/${file} - - - - ${homeDirectory}/sysconf/dotfiles/${file}");
+    in
+    (map genRule [
+      ".ghc/ghci.conf"
+      ".p10k.zsh"
+      ".config/nvim"
+    ]) ++ (if desktop then
+      map genRule [
         ".config/alacritty"
         ".config/rofi"
         ".config/wired"
         ".config/yubikey-touch-detector"
         ".config/bspwm/desktop.jpg"
-      ] else [ ]))
-      (name: {
-        source = "${dotfiles}/${name}";
-        recursive = true;
-      });
-  };
+      ] else [ ]);
+
+  # activation = ({
+  #   linkDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #     for dotfile in .ghc/ghci.conf .p10k.zsh .config/nvim; do
+  #       echo "Linking '$dotfile'..."
+  #       $DRY_RUN_CMD ln -sf $VERBOSE_ARG "$HOME/sysconf/dotfiles/$dotfile" "$HOME"
+  #     done
+  #   '';
+  # } // ifDesktop {
+  #   linkDesktopDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  #     for dotfile in .config/alacritty .config/rofi .config/wired .config/yubikey-touch-detector .config/bspwm/desktop.jpg; do
+  #       echo "Linking '$dotfile'..."
+  #       $DRY_RUN_CMD ln -sf $VERBOSE_ARG "$HOME/sysconf/dotfiles/$dotfile" "$HOME"
+  #     done
+  #   '';
+  # });
 
   xsession = ifDesktop {
     enable = true;

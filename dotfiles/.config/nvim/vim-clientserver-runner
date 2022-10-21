@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+if [ -n "$NVIM_SOCKET" ]; then
+	if [ -n "$1" ]; then
+		nvim --server "$NVIM_SOCKET" --remote "$PWD/$1"
+	else
+		nvim --server "$NVIM_SOCKET" --remote /tmp/scratchpad$RANDOM
+	fi
+else
+	export NVIM_SOCKET="/tmp/nvim-$RANDOM.sock"
+	nvim --listen "$NVIM_SOCKET" "$@"
+	unset NVIM_SOCKET
+fi

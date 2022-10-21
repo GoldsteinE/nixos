@@ -1,0 +1,167 @@
+; vim: filetype=dosini
+
+[bar/main]
+monitor = ${env:POLYBAR_MONITOR:}
+bottom = true
+background = #1D1F21
+foreground = #F8F8F2
+padding-left = 0
+padding-right = 4
+module-margin = 3
+fixed-center = false
+
+font-0 = NotoSans-Regular:size=32;2
+font-1 = MaterialIcons:size=28
+font-2 = Font Awesome 6 Free:pixelsize=32;7
+font-3 = Font Awesome 6 Free Solid:pixelsize=32;7
+font-4 = Font Awesome 6 Brands:pixelsize=32;7
+
+modules-left = bspwm
+modules-right = gh temperature layout battery date
+height = 54
+
+override-redirect = true
+wm-restack = bspwm
+
+[bar/top]
+monitor = ${env:POLYBAR_MONITOR:}
+font-0 = NotoSans-Regular:size=28;2
+font-1 = MaterialIcons:size=28
+font-2 = Font Awesome 6 Free:pixelsize=32;3
+font-3 = Font Awesome 6 Free Solid:pixelsize=32;3
+font-4 = Font Awesome 6 Brands:pixelsize=32;3
+background = ${bar/main.background}
+foreground = ${bar/main.foreground}
+modules-left = title
+modules-right = network vpn
+padding-right = 4
+module-margin = 2
+height = 54
+
+override-redirect = true
+wm-restack = bspwm
+
+[module/title]
+type = internal/xwindow
+format-padding = 1
+
+[module/previous]
+type = custom/script
+exec = echo ""
+exec-if = playerctl status >/dev/null 2>&1
+click-left = playerctl previous
+interval = 0.5
+
+[module/playpause]
+type = "custom/script"
+exec = "if playerctl status | grep -q Paused; then echo ""; else echo ""; fi"
+exec-if = playerctl status >/dev/null 2>&1
+click-left = playerctl play-pause
+interval = 0.5
+
+[module/next]
+type = custom/script
+exec = echo ""
+exec-if = playerctl status >/dev/null 2>&1
+click-left = playerctl next
+interval = 0.5
+
+[module/playerstatus]
+type = custom/script
+exec = playerctl metadata -f "{{artist}} - {{title}}"
+exec-if = playerctl status
+interval = 1
+
+
+[module/bspwm]
+type = internal/bspwm
+enable-scroll = false
+pin-workspaces = true
+label-empty =
+label-focused = %icon%
+label-focused-padding = 4
+label-focused-background = #293739
+label-urgent = %icon%
+label-urgent-padding = 4
+label-urgent-foreground = #DAD085
+label-occupied = %icon%
+label-occupied-padding = 4
+
+ws-icon-0 = 1;
+ws-icon-1 = 11;
+ws-icon-2 = 2;
+ws-icon-3 = 12;
+ws-icon-4 = 3;
+ws-icon-5 = 13;
+ws-icon-6 = 4;
+ws-icon-7 = 14;
+ws-icon-8 = 5;
+ws-icon-9 = 15;
+ws-icon-10 = 6;
+ws-icon-11 = 16;
+ws-icon-12 = 7;
+ws-icon-13 = 17;
+ws-icon-14 = 8;
+ws-icon-15 = 18;
+
+[module/date]
+type = internal/date
+date = %a %d.%m.%Y
+time = %H:%M
+date-alt = %a %d.%m.%Y
+time-alt = %H:%M:%S
+interval = 1
+label = %date% %time%
+
+[module/network]
+type = internal/network
+interface = wlan0
+interval = 1
+label-connected = "  %downspeed% / %upspeed%"
+label-disconnected = "no network  "
+
+[module/vpn]
+type = "custom/script"
+exec = "if systemctl status wg-quick-wg0 >/dev/null; then echo 'VPN'; else echo 'direct'; fi"
+click-left = "if systemctl status wg-quick-wg0 >/dev/null; then sudo systemctl stop wg-quick-wg0; else sudo systemctl start wg-quick-wg0; fi"
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 =  
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 =  
+animation-charging-framerate = 750
+
+[module/layout]
+type = internal/xkeyboard
+format = <label-layout>
+
+[module/temperature]
+type = internal/temperature
+base-temperature = 20
+warn-temperature = 70
+label =   %temperature-c%
+label-warn =   %temperature-c%
+label-warn-foreground = #e64b0e 
+thermal-zone = 10
+
+[module/gh]
+type = internal/github
+token = "${env:GITHUB_ACCESS_TOKEN}"
+user = GoldsteinE
+empty-notifications = false
+interval = 60
+label =  %notifications%
+format-offline =

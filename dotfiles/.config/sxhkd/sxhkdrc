@@ -1,0 +1,77 @@
+super + {_,shift +}{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+super + alt + {h,j,k,l}
+	bspc desktop focused --to-monitor {west,south,north,east}
+
+super + {equal,minus}
+	bspc node first_ancestor --ratio {+,-}0.05
+
+super + shift + {equal,minus}
+	bspc node 'first_ancestor#first_ancestor' --ratio {+,-}0.05
+
+super + {1-8}
+	bspc desktop --focus {1-8}
+
+super + alt + {1-8}
+	bspc desktop --focus 1{1-8}
+
+super + shift + {1-8}
+	bspc node focused --to-desktop {1-8} --follow
+
+super + shift + alt + {1-8}
+	bspc node focused --to-desktop 1{1-8} --follow
+
+super + Tab
+	bspc desktop --focus "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')"
+
+super + shift + Tab
+	bspc node focused --to-desktop "$(bspc query --names -D -d focused | perl -pe 's/.(.)/$1/ || s/^/1/')" --follow
+
+super + a
+	bspc node first_ancestor --rotate 180
+
+super + z
+	bspc node first_ancestor --rotate 90
+
+super + shift + z
+	bspc node first_ancestor --rotate 270
+
+super + shift + q
+	bspc node focused --kill
+
+super + shift + space
+	bspc node focused --state '~floating'
+
+super + f
+	bspc node focused --state '~fullscreen'
+
+super + alt + z
+	sudo slock
+
+super + shift + c
+	kill -USR1 "$(pidof sxhkd)"
+
+super + alt + r
+	kill -USR1 "$(pidof sxhkd)"; sh ~/.config/bspwm/bspwmrc
+
+super + Return
+	alacritty
+
+super + d
+	sh ~/.config/rofi/launchers/misc/launcher.sh
+
+{XF86AudioRaiseVolume,XF86AudioLowerVolume,XF86AudioMute,XF86AudioPlay,XF86AudioPrev,XF86AudioNext,XF86MonBrightnessDown,XF86MonBrightnessUp}
+	~/.local/bin/vctl {up,down,mutetoggle,play_pause,previous,next,light_down,light_up}
+
+super + {Up,Left,Right}
+	~/.local/bin/vctl {play_pause,previous,next}
+
+super + o
+	~/.local/bin/rofi-otp
+
+Print 
+	bash -o pipefail -c '( maim -sb 3 -c 0.4,0.85,0.93 -f png | xclip -i -selection clipboard -target image/png ) && notify-send "Copied image to clipboard"'
+
+control + space
+	wired --drop latest
