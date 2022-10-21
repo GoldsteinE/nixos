@@ -89,10 +89,13 @@ in
 
   programs = {
     command-not-found.enable = true;
-    zathura.enable = desktop;
     password-store = {
       enable = true;
       package = pass;
+    };
+    sioyek = {
+      enable = desktop;
+      config.status_bar_font_size = "36";
     };
     aerc = {
       enable = true;
