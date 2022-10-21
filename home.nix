@@ -56,22 +56,6 @@ in
         ".config/bspwm/desktop.jpg"
       ] else [ ]);
 
-  # activation = ({
-  #   linkDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #     for dotfile in .ghc/ghci.conf .p10k.zsh .config/nvim; do
-  #       echo "Linking '$dotfile'..."
-  #       $DRY_RUN_CMD ln -sf $VERBOSE_ARG "$HOME/sysconf/dotfiles/$dotfile" "$HOME"
-  #     done
-  #   '';
-  # } // ifDesktop {
-  #   linkDesktopDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-  #     for dotfile in .config/alacritty .config/rofi .config/wired .config/yubikey-touch-detector .config/bspwm/desktop.jpg; do
-  #       echo "Linking '$dotfile'..."
-  #       $DRY_RUN_CMD ln -sf $VERBOSE_ARG "$HOME/sysconf/dotfiles/$dotfile" "$HOME"
-  #     done
-  #   '';
-  # });
-
   xsession = ifDesktop {
     enable = true;
     windowManager.bspwm = import ./home/bspwm.nix pkgs;
@@ -182,7 +166,7 @@ in
 
     zsh = {
       enable = true;
-      initExtra = builtins.readFile "${dotfiles}/.zshrc";
+      initExtra = builtins.readFile ./dotfiles/.zshrc;
       sessionVariables = {
         CARGO_TARGET_DIR = "/target/misc";
       };
@@ -196,7 +180,7 @@ in
     pass-secret-service.enable = desktop;
     sxhkd = ifDesktop {
       enable = true;
-      extraConfig = builtins.readFile "${dotfiles}/.config/sxhkd/sxhkdrc";
+      extraConfig = builtins.readFile ./dotfiles/.config/sxhkd/sxhkdrc;
     };
 
     espanso = ifDesktop (import ./home/espanso.nix);

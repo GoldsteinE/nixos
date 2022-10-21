@@ -46,22 +46,6 @@
         "type": "github"
       }
     },
-    "dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1665942631,
-        "narHash": "sha256-u46o8Hv66ZMP2GQJoQN/SopjFD9Y38rRTgHC4atTLtM=",
-        "owner": "GoldsteinE",
-        "repo": "dotfiles",
-        "rev": "02a54f598a33bbe95d8465922282ae55ecd07694",
-        "type": "github"
-      },
-      "original": {
-        "owner": "GoldsteinE",
-        "repo": "dotfiles",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -347,7 +331,6 @@
     "root": {
       "inputs": {
         "classified": "classified",
-        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "naersk": "naersk",
         "neovim-nightly-overlay": "neovim-nightly-overlay",

@@ -11,10 +11,6 @@
         naersk.follows = "naersk";
       };
     };
-    dotfiles = {
-      url = "github:GoldsteinE/dotfiles";
-      flake = false;
-    };
     t.url = "github:GoldsteinE/flake-templates";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

@@ -12,7 +12,7 @@ hostname: desktop: { nixpkgs, home-manager, classified, ... } @ inputs: {
           useUserPackages = true;
           users.goldstein = import ./home.nix "goldstein" "/home/goldstein";
           users.root = import ./home.nix "root" "/root";
-          extraSpecialArgs = { inherit desktop; dotfiles = inputs.dotfiles; };
+          extraSpecialArgs = { inherit desktop; };
         };
       }
     ];
