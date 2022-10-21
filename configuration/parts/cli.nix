@@ -6,6 +6,7 @@
     difftastic
     dogdns
     fd
+    file
     gcc
     git
     htop
