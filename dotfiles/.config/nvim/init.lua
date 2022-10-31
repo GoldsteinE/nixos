@@ -51,13 +51,9 @@ use 'BeneCollyridam/futhark-vim'
 use 'editorconfig/editorconfig-vim'
 -- Status line
 use {
-	'itchyny/lightline.vim',
-	requires = {
-		{'ryanoasis/vim-devicons'},
-		{'sainnhe/lightline_foobar.vim'},
-		{'nvim-treesitter/nvim-treesitter'},
-	},
-	config = function() require('lightline_conf') end
+	'nvim-lualine/lualine.nvim',
+	requires = { 'kyazdani42/nvim-web-devicons' },
+	config = function() require('lualine_conf') end,
 }
 -- Typing helpers
 use 'tpope/vim-surround'

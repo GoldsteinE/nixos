@@ -6,7 +6,7 @@ local function modified()
 	end 
 end
 require('lualine').setup {
-	options = { theme = 'wombat' },
+	options = { theme = "seoul256" },
 	sections = {
 		lualine_a = {'mode'},
 		lualine_b = {'filename'},
@@ -24,7 +24,13 @@ require('lualine').setup {
 		lualine_z = {'location'},
 	},
 	tabline = {
-		lualine_a = {'tabs'},
+		lualine_a = {
+			{
+				'tabs',
+				mode = 2,
+				max_length = vim.o.columns,
+			}
+		},
 		lualine_b = {},
 		lualine_c = {},
 		lualine_x = {},
