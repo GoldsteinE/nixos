@@ -105,6 +105,7 @@ use {
 -- Start page
 use {
 	'mhinz/vim-startify',
+	requires = {'ryanoasis/vim-devicons'},
 	config = function()
 		vim.cmd [[
 		function! StartifyEntryFormat()
