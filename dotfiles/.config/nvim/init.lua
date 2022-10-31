@@ -51,6 +51,14 @@ use 'BeneCollyridam/futhark-vim'
 use 'editorconfig/editorconfig-vim'
 -- Status line
 use {
+	'SmiteshP/nvim-navic',
+	config = function()
+		require('nvim-navic').setup {
+			separator = "  ",
+		}
+	end,
+}
+use {
 	'nvim-lualine/lualine.nvim',
 	requires = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-navic' },
 	config = function() require('lualine_conf') end,
