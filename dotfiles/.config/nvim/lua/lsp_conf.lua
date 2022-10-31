@@ -2,11 +2,6 @@ local lspconfig = require 'lspconfig'
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = false,
-    -- virtual_text = {
-	-- 	prefix = '',
-	-- 	indent = 2,
-	-- 	format = function(diagnostic) return string.format('// %s', diagnostic.message) end,
-    -- },
 	signs = false,
 	severity_sort = true,
 })
@@ -17,6 +12,11 @@ vim.diagnostic.config {
 
 local function capabilities()
 	return require('cmp_nvim_lsp').default_capabilities()
+end
+
+local navic = require 'nvim-navic'
+local function on_attach(client, bufnr)
+	navic.attach(client, bufnr)
 end
 
 if executable('rust-analyzer') then
@@ -41,30 +41,35 @@ if executable('rust-analyzer') then
 			},
 		},
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end
 
 if executable('clangd') then
 	lspconfig.clangd.setup{
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end
 
 if executable('pyright') then
 	lspconfig.pyright.setup{
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end
 
 if executable('gopls') then
 	lspconfig.gopls.setup{
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end
 
 if executable('typescript-language-server') then
 	lspconfig.tsserver.setup {
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end
 
@@ -77,10 +82,12 @@ if executable('haskell-language-server') then
 					formattingProvider = "fourmolu",
 				},
 			},
+			on_attach = on_attach,
 		}
 	else
 		lspconfig.hls.setup {
 			capabilities = capabilities(),
+			on_attach = on_attach,
 		}
 	end
 end
@@ -88,5 +95,6 @@ end
 if executable('rnix-lsp') then
 	lspconfig.rnix.setup {
 		capabilities = capabilities(),
+		on_attach = on_attach,
 	}
 end

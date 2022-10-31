@@ -52,7 +52,7 @@ use 'editorconfig/editorconfig-vim'
 -- Status line
 use {
 	'nvim-lualine/lualine.nvim',
-	requires = { 'kyazdani42/nvim-web-devicons' },
+	requires = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-navic' },
 	config = function() require('lualine_conf') end,
 }
 -- Typing helpers
@@ -115,7 +115,11 @@ use {
 	end
 }
 -- Internal NeoVim LSP configuration helper
-use { 'neovim/nvim-lspconfig', config = function() require('lsp_conf') end }
+use {
+	'neovim/nvim-lspconfig',
+	requires = { 'SmiteshP/nvim-navic' },
+	config = function() require('lsp_conf') end
+}
 -- LSP stub for non-LS languages
 use {
 	'jose-elias-alvarez/null-ls.nvim',

@@ -1,9 +1,14 @@
+local navic = require 'nvim-navic'
+
 require('lualine').setup {
 	options = { theme = "seoul256" },
 	sections = {
 		lualine_a = {'mode'},
 		lualine_b = {'filename'},
-		lualine_c = {'branch'},
+		lualine_c = {
+			'branch',
+			{ navic.get_location, cond = navic.is_available },
+		},
 		lualine_x = {'fileformat', 'encoding', 'filetype'},
 		lualine_y = {'progress'},
 		lualine_z = {'location'},
