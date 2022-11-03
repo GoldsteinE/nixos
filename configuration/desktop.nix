@@ -91,6 +91,7 @@ in
     alacritty
     appimage-run
     chromium
+    discord
     electrum
     espanso
     firefox
