@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     naersk.url = "github:nmattia/naersk";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     classified = {
       url = "github:GoldsteinE/classified";
       inputs = {
@@ -16,7 +17,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # These can differ
-    rust-overlay.url = "github:oxalica/rust-overlay";
     wired-notify.url = "github:toqozz/wired-notify/master";
     simp.url = "github:Kl4rry/simp";
   };

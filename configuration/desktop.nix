@@ -81,11 +81,12 @@ in
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
 
-    cargo
-    rustc
-    rustfmt
-    clippy
-    rust-analyzer
+    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+      extensions = [
+        "rust-src"
+        "rust-analyzer"
+      ];
+    }))
 
     cargo-edit
     alacritty

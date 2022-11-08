@@ -20,6 +20,7 @@
       allowUnfree = true;
     };
     overlays = [
+      inputs.rust-overlay.overlays.default
       inputs.neovim-nightly-overlay.overlay
       (final: prev: {
         python3 = prev.python3.override {
