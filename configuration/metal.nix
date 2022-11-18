@@ -242,6 +242,12 @@
             useACMEHost = "goldstein.rs";
             extraConfig = commonHeadersWithCsp;
           };
+          "v.neglected.space" = {
+            forceSSL = true;
+            useACMEHost = "goldstein.rs";
+            extraConfig = commonHeaders;
+            locations."/".proxyPass = "http://localhost:1721";
+          };
           "blog.goldstein.rs" = {
             root = "${inputs.blog.defaultPackage.x86_64-linux}";
             forceSSL = true;
@@ -343,6 +349,12 @@
           clientSecret = "$CMD_GITHUB_CLIENTSECRET";
         };
       };
+    };
+
+    invidious = {
+      enable = true;
+      port = 1721;
+      domain = "v.neglected.space";
     };
   };
 
