@@ -1,5 +1,39 @@
 local navic = require 'nvim-navic'
 
+local UpdateTabNames = vim.api.nvim_create_augroup('UpdateTabNames', { clear = true })
+vim.api.nvim_create_autocmd({'BufWinEnter', 'BufEnter', 'WinEnter'}, {
+	group = UpdateTabNames,
+	pattern = '*',
+	callback = function()
+		local function tabinfo(tabnr)
+			local res = { nr = tabnr }
+			res.win = vim.api.nvim_tabpage_get_win(tabnr)
+			res.buf = vim.api.nvim_win_get_buf(res.win)
+			res.buftype = vim.fn.getbufvar(res.buf, '&buftype')
+			res.fullname = vim.api.nvim_buf_get_name(res.buf)
+			res.shortname = vim.fn.fnamemodify(res.fullname, ':h:t') .. '/' .. vim.fn.fnamemodify(res.fullname, ':t')
+			res.name = vim.fn.fnamemodify(res.fullname, ':t')
+			return res
+		end
+
+		local tabs = vim.api.nvim_list_tabpages()
+		for _, tabnr1 in ipairs(tabs) do
+			local tab1 = tabinfo(tabnr1)
+			local set = false
+			for _, tabnr2 in ipairs(tabs) do
+				local tab2 = tabinfo(tabnr2)
+				if tab1.name == tab2.name and tab1.nr ~= tab2.nr and tab1.buftype == '' then
+					vim.api.nvim_tabpage_set_var(tab1.nr, 'tabname', tab1.shortname)
+					set = true
+				end
+			end
+			if not set then
+				pcall(function() vim.api.nvim_tabpage_del_var(tab1.nr, 'tabname') end)
+			end
+		end
+	end
+})
+
 require('lualine').setup {
 	options = { theme = "seoul256" },
 	sections = {
