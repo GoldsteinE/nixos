@@ -235,6 +235,9 @@
             forceSSL = true;
             useACMEHost = "goldstein.rs";
             extraConfig = commonHeadersWithCsp;
+            locations."/.well-known/webfinger/" = {
+              index = "index.json";
+            };
           };
           "neglected.space" = {
             root = "/srv/neglected";
