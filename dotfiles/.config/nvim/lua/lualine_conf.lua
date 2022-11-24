@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({'BufWinEnter', 'BufEnter', 'WinEnter'}, {
 			local set = false
 			for _, tabnr2 in ipairs(tabs) do
 				local tab2 = tabinfo(tabnr2)
-				if tab1.name == tab2.name and tab1.nr ~= tab2.nr and tab1.buftype == '' then
+				if tab1.name == tab2.name and tab1.fullname ~= tab2.fullname and tab1.buftype == '' then
 					vim.api.nvim_tabpage_set_var(tab1.nr, 'tabname', tab1.shortname)
 					set = true
 				end
