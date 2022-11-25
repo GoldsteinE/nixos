@@ -25,6 +25,8 @@ o.smartcase = true
 o.modeline = true
 -- Enable mouse support
 o.mouse = 'a'
+o.mousemodel = 'extend'
+vim.keymap.set('', '<C-LeftMouse>', '<Nop>')
 -- Do not show `--MODE--` in the bottom line
 o.showmode = false
 -- Show both line numbers AND relative numbers
