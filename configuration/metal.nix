@@ -196,18 +196,23 @@
 
     nginx =
       let
-        commonHeaders = ''
+        commonHeadersWithoutHsts = ''
           add_header X-Hi 'to anyone reading raw HTTP :)';
           add_header X-Clacks-Overhead 'GNU Terry Pratchett';
-          add_header Strict-Transport-Security max-age=31536000;
           add_header X-Frame-Options SAMEORIGIN;
           add_header X-Content-Type-Options nosniff;
           add_header Referrer-Policy strict-origin-when-cross-origin;
+        '';
+        commonHeaders = commonHeadersWithoutHsts + "\n" + ''
+          add_header Strict-Transport-Security max-age=31536000;
         '';
         csp = ''
           add_header Content-Security-Policy "default-src 'self'; base-uri 'none'; frame-ancestors 'self'; connect-src https://goldstein.rs https://*.goldstein.rs 'self'; plugin-types; object-src 'none'; style-src 'self' 'unsafe-inline' 'unsafe-eval';";
         '';
         commonHeadersWithCsp = commonHeaders + "\n" + csp;
+        rootHeaders = commonHeadersWithoutHsts + "\n" + csp + "\n" + ''
+          add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
+        '';
       in
       {
         enable = true;
@@ -234,7 +239,7 @@
             default = true;
             forceSSL = true;
             useACMEHost = "goldstein.rs";
-            extraConfig = commonHeadersWithCsp;
+            extraConfig = rootHeaders;
             locations."/.well-known/webfinger/" = {
               index = "index.json";
             };
@@ -243,7 +248,7 @@
             root = "/srv/neglected";
             forceSSL = true;
             useACMEHost = "goldstein.rs";
-            extraConfig = commonHeadersWithCsp;
+            extraConfig = rootHeaders;
           };
           "v.neglected.space" = {
             forceSSL = true;
