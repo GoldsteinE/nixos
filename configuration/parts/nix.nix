@@ -13,6 +13,14 @@
       "nixpkgs=${inputs.nixpkgs}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
+    settings = {
+      connect-timeout = 5;
+      log-lines = 25;
+      fallback = true;
+      warn-dirty = false;
+      auto-optimise-store = true;
+      keep-outputs = true;
+    };
   };
 
   nixpkgs = {
