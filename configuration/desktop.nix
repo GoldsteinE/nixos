@@ -81,12 +81,14 @@ in
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
 
-    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+    (rust-bin.nightly."2022-11-25".default.override {
       extensions = [
         "rust-src"
         "rust-analyzer"
+        "clippy"
+        "miri"
       ];
-    }))
+    })
 
     cargo-edit
     alacritty

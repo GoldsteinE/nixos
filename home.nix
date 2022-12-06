@@ -31,7 +31,7 @@ in
       ".cargo/config.toml".text = ''
         [target.x86_64-unknown-linux-gnu]
         linker = "clang"
-        rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold", "-C", "split-debuginfo=unpacked"]
+        rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold", "-C", "split-debuginfo=unpacked", "-Z", "unstable-options"]
 
         [build]
         rustc-wrapper = "${pkgs.sccache}/bin/sccache"
