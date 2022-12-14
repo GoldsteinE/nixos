@@ -39,7 +39,6 @@ use 'ekalinin/Dockerfile.vim'
 use 'rhysd/vim-llvm'
 use 'idris-hackers/idris-vim'
 use 'elixir-editors/vim-elixir'
-use 'rust-lang/rust.vim'
 use 'lifepillar/pgsql.vim'
 use 'LnL7/vim-nix'
 use 'ziglang/zig.vim'
@@ -47,6 +46,7 @@ use { 'zetzit/vim', as = 'zz.vim' }
 use 'elubow/cql-vim'
 use 'baskerville/vim-sxhkdrc'
 use 'BeneCollyridam/futhark-vim'
+use 'rust-lang/rust.vim'
 -- Read .editorconfig
 use 'editorconfig/editorconfig-vim'
 -- Status line
@@ -125,7 +125,7 @@ use {
 -- Internal NeoVim LSP configuration helper
 use {
 	'neovim/nvim-lspconfig',
-	requires = { 'SmiteshP/nvim-navic' },
+	requires = { 'SmiteshP/nvim-navic', 'simrat39/rust-tools.nvim' },
 	config = function() require('lsp_conf') end
 }
 -- LSP stub for non-LS languages

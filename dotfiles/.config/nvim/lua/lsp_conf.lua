@@ -17,31 +17,48 @@ end
 local navic = require 'nvim-navic'
 local function on_attach(client, bufnr)
 	navic.attach(client, bufnr)
+
+	-- Semantic tokens
+	local hi = vim.api.nvim_set_hl
+	hi(0, '@unsafe',   { underdashed = true })
+	hi(0, '@trait',    { italic = true })
+	hi(0, '@callable', { link = 'Function'})
 end
 
 if executable('rust-analyzer') then
-	lspconfig.rust_analyzer.setup{
-		settings = {
-			["rust-analyzer"] = {
-				cargo = {
-					allFeatures = true,
-				},
-				completion = {
-					autoimport = {
-						enable = true,
-					},
-				},
-				checkOnSave = {
-					command = "clippy",
-				},
-				assist = {
-					importMergeBehaviour = "crate",
-					importPrefix = "by_crate",
-				},
+	require('rust-tools').setup {
+		tools = {
+			inlay_hints = {
+				parameter_hints_prefix = "← ",
+				other_hints_prefix = ": ",
+			},
+			hover_actions = {
+				border = "none",
 			},
 		},
-		capabilities = capabilities(),
-		on_attach = on_attach,
+		server = {
+			settings = {
+				["rust-analyzer"] = {
+					cargo = {
+						allFeatures = true,
+					},
+					completion = {
+						autoimport = {
+							enable = true,
+						},
+					},
+					checkOnSave = {
+						command = "clippy",
+					},
+					assist = {
+						importMergeBehaviour = "crate",
+						importPrefix = "by_crate",
+					},
+				},
+			},
+			capabilities = capabilities(),
+			on_attach = on_attach,
+		}
 	}
 end
 
