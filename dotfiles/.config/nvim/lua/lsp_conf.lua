@@ -98,3 +98,9 @@ if executable('rnix-lsp') then
 		on_attach = on_attach,
 	}
 end
+
+if executable('elixir-ls') then
+	lspconfig.elixirls.setup {
+		cmd = { "elixir-ls" }
+	}
+end
