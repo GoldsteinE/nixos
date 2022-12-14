@@ -10,6 +10,33 @@ vim.diagnostic.config {
 	virtual_text = false,
 }
 
+-- Disable lsp-lines in insert mode
+local lsp_lines_helper = augroup('LspLinesHelper')
+local last_lsp_lines_status = true
+autocmd('InsertEnter', {
+	group = lsp_lines_helper,
+	pattern = "*",
+	callback = function()
+		last_lsp_lines_status = vim.diagnostic.config().virtual_lines
+		vim.diagnostic.config {
+			virtual_text = false,
+			virtual_lines = false,
+		}
+		-- To update cursor position
+		vim.cmd [[ normal "hl" ]]
+	end
+})
+autocmd('InsertLeave', {
+	group = lsp_lines_helper,
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.config {
+			virtual_text = false,
+			virtual_lines = last_lsp_lines_status,
+		}
+	end
+})
+
 local function capabilities()
 	return require('cmp_nvim_lsp').default_capabilities()
 end

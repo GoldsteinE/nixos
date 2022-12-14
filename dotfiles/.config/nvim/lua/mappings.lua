@@ -74,6 +74,7 @@ map('n', '<leader>r', ':IncRename ', { silent = true })
 map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
 map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
 map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
+map('n', '<leader>s', require('lsp_lines').toggle)
 
 function _G.diff(cmd)
 	local old_buf = vim.api.nvim_get_current_buf()
