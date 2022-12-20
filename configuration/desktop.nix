@@ -75,7 +75,8 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    inputs.simp.packages."${system}".simp
+    # TODO: check what's wrong
+    # inputs.simp.packages."${system}".simp
     inputs.wired-notify.packages."${system}".wired
     (steam.override {
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
