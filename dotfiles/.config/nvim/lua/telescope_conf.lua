@@ -27,6 +27,8 @@ map('n', '<leader>;', builtin.current_buffer_fuzzy_find)
 map('n', '<leader>b', builtin.buffers)
 -- LaTeX symbols
 map('i', '<c-x>', function() builtin.symbols { sources = {'math'} } end)
+-- Undo
+map('n', '<leader>u', '<cmd>Telescope undo<cr>')
 -- LSP definitions
 map('n', '<leader>d', builtin.lsp_definitions)
 -- LSP implementations

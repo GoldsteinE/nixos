@@ -78,6 +78,10 @@ use {
 	config = function() require('telescope_conf') end,
 }
 use 'nvim-telescope/telescope-symbols.nvim'
+use {
+	'debugloop/telescope-undo.nvim',
+	config = function() require('telescope').load_extension 'undo' end
+}
 -- Terminal helper
 use {
 	'kassio/neoterm',
