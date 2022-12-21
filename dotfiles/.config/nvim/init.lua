@@ -18,7 +18,11 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.runtimepath:prepend(lazypath)
-require('lazy').setup('plugins')
+require('lazy').setup('plugins', {
+    change_detection = {
+        enabled = false,
+    },
+})
 
 vim.api.nvim_create_autocmd('BufReadPre,FileReadPre', {
     group = vim.api.nvim_create_augroup('S_SELF', {}),
