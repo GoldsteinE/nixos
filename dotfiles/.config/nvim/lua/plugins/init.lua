@@ -9,8 +9,10 @@ return {
     -- Read .editorconfig
     'editorconfig/editorconfig-vim',
     -- Typing helpers
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
+    {
+        'kylechui/nvim-surround',
+        config = function() require('nvim-surround').setup() end,
+    },
     'tpope/vim-abolish',
     -- Sign column
     'airblade/vim-gitgutter',
