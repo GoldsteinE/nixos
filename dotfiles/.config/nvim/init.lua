@@ -1,4 +1,5 @@
 require 'basic_options'
+require 'mappings'
 
 -- Used in a lot of places later
 function _G.executable(command)
@@ -18,8 +19,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 require('lazy').setup('plugins')
-
-require 'mappings'
 
 vim.api.nvim_create_autocmd('BufReadPre,FileReadPre', {
     group = vim.api.nvim_create_augroup('S_SELF', {}),
