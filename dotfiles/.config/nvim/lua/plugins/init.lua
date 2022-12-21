@@ -41,6 +41,8 @@ return {
         'mhinz/vim-startify',
         dependencies = {'ryanoasis/vim-devicons'},
         config = function()
+            vim.g.startify_change_to_dir = 0
+            vim.g.startify_change_to_vcs_root = 1
             vim.cmd [[
             function! StartifyEntryFormat()
                 return 'WebDevIconsGetFileTypeSymbol(absolute_path) . "  " . entry_path'
