@@ -51,12 +51,12 @@ PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 ## Variables by default
 [ -z "$PAGER" ] && export PAGER=less
 if command -v nvim >/dev/null 2>&1; then
-	[ -z "$MANPAGER" ] && export MANPAGER='nvim +Man!'
-	export EDITOR="$HOME/.config/nvim/vim-clientserver-runner"
+	[ -z "$MANPAGER" ] && export MANPAGER="$(command -v nvim)"' +Man!'
+	export EDITOR="$(command -v nvim)"
 else
 	export EDITOR=vim
 fi
-alias vim="$EDITOR"
+alias vim='$EDITOR'
 [ -z "$SUDO_PROMPT" ] && export SUDO_PROMPT="Enter password: "
 function cargo() {
 	if [ "$1" = "publish" ]; then
