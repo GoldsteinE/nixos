@@ -8,7 +8,7 @@ local function setup_neoterm()
     map('n', '<Leader>tt', function() vim.fn.execute('tab ' .. vim.v.count ..' Ttoggle') end)
     map('i', '<C-s>', '<C-o><Cmd>TREPLSendLine<CR>', { silent = true })
     map('n', '<C-s>', '<Plug>(neoterm-repl-send-line)', { remap = true })
-    map({'n', 'x'}, '<Leader>s', '<Plug>(neoterm-repl-send)', { remap = true })
+    map('x', '<Leader>s', '<Plug>(neoterm-repl-send)', { remap = true })
     map('x', '<C-s>', '<Plug>(neoterm-repl-send)', { remap = true })
 end
 

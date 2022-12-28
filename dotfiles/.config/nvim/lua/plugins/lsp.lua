@@ -89,6 +89,11 @@ local function setup_lsp()
                             importMergeBehaviour = "crate",
                             importPrefix = "by_crate",
                         },
+                        inlayHints = {
+                            expressionAdjustmentHints = {
+                                enable = true,
+                            },
+                        },
                     },
                 },
                 capabilities = capabilities(),
