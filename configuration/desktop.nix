@@ -91,6 +91,7 @@ in
       ];
     })
 
+    cargo-mommy
     cargo-edit
     alacritty
     appimage-run
