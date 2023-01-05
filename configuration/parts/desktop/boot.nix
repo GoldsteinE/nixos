@@ -1,8 +1,5 @@
 { pkgs, ... }: {
   boot = {
-    plymouth = {
-      enable = true;
-    };
     loader = {
       grub.enable = false;
       systemd-boot.enable = true;
@@ -12,7 +9,7 @@
       luks = {
         yubikeySupport = true;
         devices.root = {
-          device = "/dev/nvme0n1p2";
+          device = "/dev/disk/by-label/system";
           preLVM = true;
           yubikey = {
             slot = 2;
@@ -20,12 +17,16 @@
             saltLength = 64;
             keyLength = 64;
             storage = {
-              device = "/dev/nvme0n1p1";
+              device = "/dev/disk/by-label/UEFI";
               path = "/crypt-storage/default";
             };
           };
         };
       };
+      # can't use luks.devices, since already mounted root is needed
+      postMountCommands = ''
+        cryptsetup luksOpen --key-file /mnt-root/junkpass /dev/disk/by-label/junk junkfs
+      '';
     };
     kernelParams = [ "net.ifnames=0" ];
     kernelPackages = pkgs.linuxPackages_latest;
