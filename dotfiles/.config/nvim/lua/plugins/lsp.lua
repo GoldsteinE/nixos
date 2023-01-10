@@ -61,6 +61,11 @@ local function setup_lsp()
     end
 
     if executable('rust-analyzer') then
+        local rustc_source = nil
+        if vim.env.RUSTC_SRC ~= nil then
+            rustc_source = vim.env.RUSTC_SRC
+        end
+
         require('rust-tools').setup {
             tools = {
                 inlay_hints = {
@@ -93,6 +98,9 @@ local function setup_lsp()
                             expressionAdjustmentHints = {
                                 enable = true,
                             },
+                        },
+                        rustc = {
+                            source = rustc_source,
                         },
                     },
                 },
