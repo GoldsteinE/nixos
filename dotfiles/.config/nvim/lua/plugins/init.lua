@@ -3,8 +3,23 @@ return {
     {
         'GoldsteinE/vim-atom-dark',
         config = function()
-            vim.cmd [[ colorscheme atom-dark ]]
+            -- vim.cmd [[ colorscheme atom-dark ]]
         end
+    },
+    'rktjmp/lush.nvim',
+    {
+        'EdenEast/nightfox.nvim',
+        config = function()
+            vim.cmd [[ colorscheme nightfox ]]
+        end,
+    },
+    'folke/tokyonight.nvim',
+    {
+        'lukas-reineke/indent-blankline.nvim',
+        -- Correct ordering
+        dependencies = {
+            'EdenEast/nightfox.nvim',
+        },
     },
     -- Read .editorconfig
     'editorconfig/editorconfig-vim',
@@ -54,4 +69,6 @@ return {
     },
     -- GPG
     'jamessan/vim-gnupg',
+    -- Global search & replace
+    'nvim-pack/nvim-spectre',
 }

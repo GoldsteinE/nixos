@@ -39,7 +39,6 @@ local function setup_lualine()
     })
 
     require('lualine').setup {
-        options = { theme = "seoul256" },
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'filename'},
