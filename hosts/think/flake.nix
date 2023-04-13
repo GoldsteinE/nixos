@@ -2,9 +2,8 @@
   inputs = {
     # These should be the same for every host
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     naersk.url = "github:nmattia/naersk";
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    fenix.url = "github:nix-community/fenix";
     classified = {
       url = "github:GoldsteinE/classified";
       inputs = {

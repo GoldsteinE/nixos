@@ -28,8 +28,7 @@
       allowUnfree = true;
     };
     overlays = [
-      inputs.rust-overlay.overlays.default
-      inputs.neovim-nightly-overlay.overlay
+      inputs.fenix.overlays.default
     ];
   };
 }

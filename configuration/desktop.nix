@@ -83,14 +83,15 @@ in
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
 
-    (rust-bin.nightly."2023-03-23".default.override {
-      extensions = [
-        "rust-src"
-        "rust-analyzer"
-        "clippy"
-        "miri"
-      ];
-    })
+    (fenix.complete.withComponents [
+      "rustc"
+      "cargo"
+      "rustfmt"
+      "rust-src"
+      "rust-analyzer"
+      "clippy"
+      "miri"
+    ])
 
     cargo-mommy
     cargo-edit
@@ -110,7 +111,7 @@ in
     libnotify
     lm_sensors
     maim
-    nodejs  # for copilot
+    nodejs # for copilot
     # nheko
     openvpn
     pamixer
@@ -135,10 +136,10 @@ in
   ];
 
   security.sudo.extraRules = [{
-    users = ["goldstein"];
+    users = [ "goldstein" ];
     commands = [{
       command = "${pkgs.slock}/bin/slock";
-      options = ["NOPASSWD"];
+      options = [ "NOPASSWD" ];
     }];
   }];
 

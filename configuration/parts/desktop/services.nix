@@ -43,7 +43,7 @@
         enable = true;
         support32Bit = true;
       };
-      media-session.config.bluez-monitor.rules.actions.update-pros."bluez5.autoswitch-profile" = true;
+      # media-session.config.bluez-monitor.rules.actions.update-pros."bluez5.autoswitch-profile" = true;
     };
     nginx = {
       enable = true;

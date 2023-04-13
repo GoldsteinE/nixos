@@ -16,7 +16,7 @@
     man-pages
     mold
     ncdu
-    neovim-nightly
+    neovim
     pwgen
     python3
     ripgrep
