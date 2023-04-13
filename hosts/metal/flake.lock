@@ -22,11 +22,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1681390307,
-        "narHash": "sha256-/osc4vZcFOu/jF4sAOhB/ELktZnk/GtehbweSwBKTTo=",
+        "lastModified": 1681391494,
+        "narHash": "sha256-W9ni3QcLQBR+N+dR5nR4BsEmOTKr18Ruo7hSG1yomR0=",
         "owner": "GoldsteinE",
         "repo": "anti-emoji-bot",
-        "rev": "640ee011a4f13c0a948af679f86018f31520b0b3",
+        "rev": "6d0bcc9551e67f4be695fe547d0f9c66273169db",
         "type": "github"
       },
       "original": {
