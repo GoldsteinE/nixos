@@ -13,7 +13,6 @@ return {
             vim.cmd [[ colorscheme nightfox ]]
         end,
     },
-    'folke/tokyonight.nvim',
     {
         'lukas-reineke/indent-blankline.nvim',
         -- Correct ordering

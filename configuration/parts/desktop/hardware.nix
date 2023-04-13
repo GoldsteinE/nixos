@@ -3,7 +3,6 @@
   hardware = {
     gpgSmartcards.enable = true;
     bluetooth.enable = true;
-    video.hidpi.enable = true;
     nvidia = {
       open = false;
       modesetting.enable = true;

@@ -16,6 +16,7 @@
       screenSection = ''
         Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
       '';
+      dpi = 288;
       displayManager = {
         autoLogin = {
           enable = true;

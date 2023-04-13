@@ -9,5 +9,5 @@ fi
 cd "$(dirname "$0")"
 HOSTNAME="${1:-$(hostname)}"
 cd ./hosts/"$HOSTNAME"
-nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --profile /nix/var/nix/profiles/system --no-link
+nix build .#nixosConfigurations."$HOSTNAME".config.system.build.toplevel --profile /nix/var/nix/profiles/system --no-link --show-trace
 /nix/var/nix/profiles/system/bin/switch-to-configuration boot

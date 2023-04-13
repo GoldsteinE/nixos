@@ -60,6 +60,7 @@ in
   };
 
   virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
   virtualisation.oci-containers.containers = {
     httpbin = {
       image = "darklynx/request-baskets";
@@ -82,7 +83,7 @@ in
       extraPkgs = pkgs: with pkgs; [ pango harfbuzz libthai ];
     })
 
-    (rust-bin.nightly."2022-11-25".default.override {
+    (rust-bin.nightly."2023-03-23".default.override {
       extensions = [
         "rust-src"
         "rust-analyzer"
@@ -109,6 +110,7 @@ in
     libnotify
     lm_sensors
     maim
+    nodejs  # for copilot
     # nheko
     openvpn
     pamixer
@@ -126,6 +128,7 @@ in
     tdesktop
     tor-browser-bundle-bin
     vlc
+    vscode
     xclip
     yubikey-touch-detector
     zulip
