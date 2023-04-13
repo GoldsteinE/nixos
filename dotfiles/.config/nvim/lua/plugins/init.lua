@@ -20,8 +20,6 @@ return {
             'EdenEast/nightfox.nvim',
         },
     },
-    -- Read .editorconfig
-    'editorconfig/editorconfig-vim',
     -- Typing helpers
     {
         'kylechui/nvim-surround',
