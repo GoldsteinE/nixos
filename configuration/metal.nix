@@ -4,6 +4,7 @@
     inputs.anti-emoji.nixosModules."${system}".default
     inputs.r9ktg.nixosModules."${system}".default
     inputs.perlsub.nixosModules."${system}".default
+    inputs.tg-vimhelpbot.nixosModules."${system}".default
 
     ./parts/nix.nix
     ./parts/services.nix
@@ -19,6 +20,7 @@
     mailpassword.encrypted = ./secrets/server/mailpassword;
     "emoji-bot.env".encrypted = ./secrets/server/emoji-bot.env;
     "r9ktg.env".encrypted = ./secrets/server/r9ktg.env;
+    "tg-vimhelpbot.env".encrypted = ./secrets/server/tg-vimhelpbot.env;
     "hedgedoc.env".encrypted = ./secrets/server/hedgedoc.env;
     "miniflux.env".encrypted = ./secrets/server/miniflux.env;
     nix-serve-user = {
@@ -51,6 +53,7 @@
     "r9ktg.service"
     "perlsub.service"
     "emojiBot.service"
+    "tg-vimhelpbot.service"
   ];
 
   boot.initrd.kernelModules = [ "md_mod" "r8169" ];
@@ -126,11 +129,15 @@
       enable = true;
       envFile = "/var/secrets/perlsub.env";
     };
+    tg-vimhelpbot = {
+      enable = true;
+      envFile = "/var/secrets/tg-vimhelpbot.env";
+    };
 
     openssh = {
       enable = true;
       ports = [ 7643 ];
-      gatewayPorts = "clientspecified";
+      settings.GatewayPorts = "clientspecified";
     };
 
     nix-serve = {

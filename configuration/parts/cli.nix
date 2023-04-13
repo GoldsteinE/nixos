@@ -4,7 +4,7 @@
     clang
     curl
     difftastic
-    dogdns
+    # dogdns
     fd
     file
     gcc

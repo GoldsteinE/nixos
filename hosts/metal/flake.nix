@@ -21,6 +21,7 @@
     anti-emoji.url = "github:GoldsteinE/anti-emoji-bot";
     r9ktg.url = "github:GoldsteinE/r9ktg";
     perlsub.url = "github:GoldsteinE/perlsub";
+    tg-vimhelpbot.url = "github:pro-vim/tg-vimhelpbot";
     simple-nixos-mailserver.url = "github:GoldsteinE/simple-nixos-mailserver";
   };
 
