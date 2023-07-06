@@ -38,7 +38,7 @@ super + shift + z
 	bspc node first_ancestor --rotate 270
 
 super + shift + q
-	bspc node focused --kill
+	bspc node focused --close
 
 super + shift + space
 	bspc node focused --state '~floating'
@@ -69,6 +69,9 @@ super + {Up,Left,Right}
 
 super + o
 	~/.local/bin/rofi-otp
+
+super + shift + p
+	~/.local/bin/put-password main
 
 Print 
 	bash -o pipefail -c '( maim -sb 3 -c 0.4,0.85,0.93 -f png | xclip -i -selection clipboard -target image/png ) && notify-send "Copied image to clipboard"'

@@ -10,6 +10,7 @@
     ./parts/services.nix
     ./parts/goldstein.nix
     ./parts/cli.nix
+    ./parts/diff.nix
 
     ./parts/server/boot.nix
   ];

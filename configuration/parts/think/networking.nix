@@ -20,10 +20,10 @@
       autostart = false;
       privateKeyFile = "/var/secrets/mullvad.key";
       address = [
-        "10.68.26.80/32"
-        "fc00:bbbb:bbbb:bb01::5:1a4f/128"
+        "10.66.7.26/32"
+        "fc00:bbbb:bbbb:bb01::3:719/128"
       ];
-      dns = [ "193.138.218.74" ];
+      dns = [ "10.64.0.1" ];
       peers = [
         {
           publicKey = "Qn1QaXYTJJSmJSMw18CGdnFiVM0/Gj/15OdkxbXCSG0=";

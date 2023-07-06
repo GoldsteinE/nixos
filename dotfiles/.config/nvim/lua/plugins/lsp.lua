@@ -96,8 +96,12 @@ local function setup_lsp()
                         },
                         inlayHints = {
                             expressionAdjustmentHints = {
-                                enable = true,
+                                enable = "always",
+                                mode = "postfix",
                             },
+                        },
+                        procMacro = {
+                            enable = true,
                         },
                         rustc = {
                             source = rustc_source,
@@ -157,10 +161,17 @@ local function setup_lsp()
         end
     end
 
-    if executable('rnix-lsp') then
-        lspconfig.rnix.setup {
+    if executable('nil') then
+        lspconfig.nil_ls.setup {
             capabilities = capabilities(),
             on_attach = on_attach,
+            settings = {
+                ['nil'] = {
+                    formatting = {
+                        command = { "nixpkgs-fmt" },
+                    },
+                },
+            },
         }
     end
 

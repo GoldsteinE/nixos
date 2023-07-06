@@ -20,7 +20,8 @@
     pwgen
     python3
     ripgrep
-    rnix-lsp
+    nil
+    nixpkgs-fmt
     shellcheck
     unzip
     vim

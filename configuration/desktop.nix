@@ -11,6 +11,7 @@ in
     ./parts/jupyter.nix
     ./parts/goldstein.nix
     ./parts/cli.nix
+    ./parts/diff.nix
 
     ./parts/desktop/boot.nix
     ./parts/desktop/hardware.nix
@@ -100,7 +101,6 @@ in
     chromium
     discord
     electrum
-    espanso
     firefox
     feh
     haskell.compiler.ghc924

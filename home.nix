@@ -28,6 +28,14 @@ in
             | ${pkgs.findutils}/bin/xargs ${pkgs.xdotool}/bin/xdotool type
         '';
       };
+      ".local/bin/put-password" = {
+        executable = true;
+        text = ''
+          #!${pkgs.bash}/bin/bash
+          set -euo pipefail
+          ${pass}/bin/pass show "$1" | ${pkgs.findutils}/bin/xargs ${pkgs.xdotool}/bin/xdotool type
+        '';
+      };
       ".cargo/config.toml".text = ''
         [target.x86_64-unknown-linux-gnu]
         linker = "clang"
