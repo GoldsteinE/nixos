@@ -1,5 +1,5 @@
 {
-  enable = true;
+  enable = false;  # still broken
   matches.default.matches = [
     { "trigger" = ";;shrug"; "replace" = "¯\\_(ツ)_/¯"; }
     { "trigger" = ";;in"; "replace" = "∈"; }
