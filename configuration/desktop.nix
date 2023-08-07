@@ -143,7 +143,7 @@ in
     }];
   }];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     roboto
     noto-fonts
     noto-fonts-cjk
