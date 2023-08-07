@@ -19,6 +19,8 @@
               cairosvg
               matplotlib
               tqdm
+              networkx
+              requests
             ]));
           in
           {
