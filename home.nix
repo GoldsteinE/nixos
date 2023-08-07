@@ -104,6 +104,7 @@ in
     sioyek = {
       enable = desktop;
       config.status_bar_font_size = "36";
+      config.page_separator_width = "4";
     };
     aerc = {
       enable = true;
