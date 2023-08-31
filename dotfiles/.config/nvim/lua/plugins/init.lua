@@ -28,7 +28,7 @@ return {
     },
     'tpope/vim-abolish',
     -- Sign column
-    'airblade/vim-gitgutter',
+    { 'airblade/vim-gitgutter', branch = 'main' },
     {
         'kshenoy/vim-signature',
         config = function()
