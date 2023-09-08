@@ -43,7 +43,7 @@ pkgs: {
       };
       "bar/top" = bar false {
         left = "title";
-        right = "network vpn";
+        right = "network";
       };
       "module/title" = {
         type = "internal/xwindow";
@@ -96,12 +96,6 @@ pkgs: {
           disconnected = "no network  ";
         };
       };
-      "module/vpn" = let s = "${pkgs.systemd}/bin/systemctl"; in
-        {
-          type = "custom/script";
-          exec = "if ${s} status wg-quick-wg0 >/dev/null; then echo 'VPN'; else echo 'direct'; fi";
-          click-left = "if ${s} status wg-quick-wg0 >/dev/null; then sudo ${s} stop wg-quick-wg0; else sudo ${s} start wg-quick-wg0; fi";
-        };
       "module/battery" = rec {
         type = "internal/battery";
         battery = "BAT0";

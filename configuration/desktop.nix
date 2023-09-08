@@ -23,7 +23,8 @@ in
   classified = {
     keys.default = "/classified.key";
     files = {
-      "mullvad.key".encrypted = ./secrets/desktop/mullvad.key;
+      "wvpn.key".encrypted = ./secrets/desktop/wvpn.key;
+      "wvpn-preshared.key".encrypted = ./secrets/desktop/wvpn-preshared.key;
       nix-netrc.encrypted = ./secrets/desktop/nix-netrc;
       btrbk = {
         encrypted = ./secrets/desktop/btrbk;
