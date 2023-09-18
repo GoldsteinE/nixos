@@ -1,4 +1,7 @@
-{ ... }: {
+{ pkgs, ... }: {
+  classified.keys.default = "/classified.key";
+  systemd.services.classified.before = [ "network.target" ];
+
   security = {
     rtkit.enable = true;
     pam.loginLimits = [
@@ -18,4 +21,14 @@
       Defaults timestamp_timeout = 0
     '';
   };
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = "qt";
+    enableSSHSupport = true;
+  };
+
+  # daemon for yubikey
+  services.pcscd.enable = true;
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 }

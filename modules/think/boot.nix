@@ -5,7 +5,8 @@
       systemd-boot.enable = true;
     };
     initrd = {
-      kernelModules = [ "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
+      kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
+      availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
       luks = {
         yubikeySupport = true;
         devices.root = {
@@ -29,6 +30,7 @@
       '';
     };
     kernelParams = [ "net.ifnames=0" ];
+    kernelModules = [ "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 }

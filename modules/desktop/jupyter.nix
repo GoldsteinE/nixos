@@ -33,8 +33,6 @@
               "{connection_file}"
             ];
             language = "python";
-            # logo32 = builtins.toPath "${env.sitePackages}/ipykernel/resources/logo-32x32.png";
-            # logo64 = builtins.toPath "${env.sitePackages}/ipykernel/resources/logo-64x64.png";
           };
       };
     };

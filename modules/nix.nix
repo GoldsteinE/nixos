@@ -26,8 +26,5 @@
     config = {
       allowUnfree = true;
     };
-    overlays = [
-      inputs.fenix.overlays.default
-    ];
   };
 }

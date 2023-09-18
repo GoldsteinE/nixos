@@ -17,7 +17,6 @@
 
     # These can differ
     wired-notify.url = "github:toqozz/wired-notify/master";
-    simp.url = "github:Kl4rry/simp";
   };
 
   outputs = inputs: import ./common/conftpl.nix "think" true inputs;
