@@ -1,35 +1,12 @@
 { inputs, root, ... }: {
   classified.files = {
     "miniflux.env".encrypted = "${root}/secrets/metal/miniflux.env";
-    "hedgedoc.env".encrypted = "${root}/secrets/metal/hedgedoc.env";
   };
 
   services.miniflux = {
     enable = true;
     config.LISTEN_ADDR = "localhost:4755";
     adminCredentialsFile = "/var/secrets/miniflux.env";
-  };
-
-  services.hedgedoc = rec {
-    enable = true;
-    workDir = "/srv/hedgedoc";
-    environmentFile = "/var/secrets/hedgedoc.env";
-    settings = {
-      uploadsPath = "${workDir}/uploads";
-      port = 44444;
-      domain = "docs.goldstein.rs";
-      allowAnonymous = false;
-      allowAnonymousEdits = true;
-      protocolUseSSL = true;
-      db = {
-        dialect = "sqlite";
-        storage = "${workDir}/hedgedoc.sqlite";
-      };
-      github = {
-        clientID = "$CMD_GITHUB_CLIENT_ID";
-        clientSecret = "$CMD_GITHUB_CLIENTSECRET";
-      };
-    };
   };
 
   services.invidious = {
@@ -128,12 +105,6 @@
           extraConfig = commonHeaders;
           basicAuthFile = "/var/secrets/nix-serve-user";
           locations."/".proxyPass = "http://localhost:7174";
-        };
-        "docs.goldstein.rs" = {
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
-          locations."/".proxyPass = "http://localhost:44444";
         };
         "rss.goldstein.rs" = {
           forceSSL = true;
