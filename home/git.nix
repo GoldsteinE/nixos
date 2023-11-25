@@ -33,6 +33,7 @@
         smtpencryption = "ssl";
         smtpserverport = 465;
       };
+      credential.helper = "libsecret";
     };
   };
 }
