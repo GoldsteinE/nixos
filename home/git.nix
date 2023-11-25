@@ -1,5 +1,5 @@
 { pkgs, gitSignByDefault, ... }: {
- programs.git = {
+  programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
     lfs.enable = true;
@@ -27,6 +27,12 @@
       init.defaultBranch = "master";
       push.autoSetupRemote = true;
       advice.detachedHead = false;
+      sendemail = {
+        smtpserver = "mail.goldstein.rs";
+        smtpuser = "root@goldstein.rs";
+        smtpencryption = "ssl";
+        smtpserverport = 465;
+      };
     };
   };
 }
