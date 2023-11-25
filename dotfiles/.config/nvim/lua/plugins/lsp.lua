@@ -187,6 +187,18 @@ local function setup_lsp()
             cmd = { "elixir-ls" }
         }
     end
+
+    if executable('astro-ls') then
+        lspconfig.astro.setup{}
+    end
+
+    if executable('typst-lsp') then
+        lspconfig.typst_lsp.setup{
+            settings = {
+                exportPdf = "never",
+            }
+        }
+    end
 end
 
 local function setup_null_ls()

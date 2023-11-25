@@ -24,7 +24,7 @@ require('lazy').setup('plugins', {
     },
 })
 
-vim.api.nvim_create_autocmd('BufReadPre,FileReadPre', {
+vim.api.nvim_create_autocmd({'BufReadPre','FileReadPre'}, {
     group = vim.api.nvim_create_augroup('S_SELF', {}),
     pattern = 'init.lua',
     callback = function()

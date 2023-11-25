@@ -12,7 +12,6 @@
     zulip
     # stuff
     appimage-run
-    electrum
     lm_sensors
     qbittorrent
     playerctl
