@@ -93,12 +93,6 @@
           extraConfig = commonHeadersWithCsp;
           locations."/".index = "inftheory-slides.pdf";
         };
-        "matrix.goldstein.rs" = {
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
-          locations."/".proxyPass = "http://localhost:8008";
-        };
         "nix.goldstein.rs" = {
           forceSSL = true;
           useACMEHost = "goldstein.rs";
@@ -111,6 +105,13 @@
           useACMEHost = "goldstein.rs";
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:4755";
+        };
+        "links.goldstein.rs" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeaders;
+          locations."/".proxyPass = "http://localhost:4370";
+          locations."/favicon.ico".root = "/srv/betula";
         };
         # Also auto-configured by `services.roundcube`
         "mail.goldstein.rs" = {
