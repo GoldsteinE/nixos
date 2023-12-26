@@ -1,6 +1,7 @@
 { root, ... }: {
   classified.files = {
     "work-vpn.ovpn".encrypted = "${root}/secrets/work-vpn.ovpn";
+    "work-vpn-ovpn.pass".encrypted = "${root}/secrets/work-vpn-ovpn.pass";
     "work-vpn-wg.key".encrypted = "${root}/secrets/work-vpn-wg.key";
     "work-vpn-wg-preshared.key".encrypted = "${root}/secrets/work-vpn-wg-preshared.key";
   };
