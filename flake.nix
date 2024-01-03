@@ -23,6 +23,7 @@
     perlsub.url = "github:GoldsteinE/perlsub";
     tg-vimhelpbot.url = "github:pro-vim/tg-vimhelpbot";
     simple-nixos-mailserver.url = "github:GoldsteinE/simple-nixos-mailserver";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   outputs = inputs: {
     nixosConfigurations.think = (import ./think.nix) inputs;

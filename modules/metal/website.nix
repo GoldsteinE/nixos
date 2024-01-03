@@ -13,6 +13,7 @@
     enable = true;
     port = 1721;
     domain = "v.neglected.space";
+    settings.db.user = "invidious";
   };
 
   services.nginx =
