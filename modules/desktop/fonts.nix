@@ -7,6 +7,6 @@
     material-icons
     dejavu_fonts
     open-sans
-    (nerdfonts.override { fonts = [ "Iosevka" ]; })
+    (nerdfonts.override { fonts = [ "Iosevka" "IosevkaTerm" ]; })
   ];
 }
