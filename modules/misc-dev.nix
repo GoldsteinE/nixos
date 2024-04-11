@@ -4,7 +4,7 @@
     clang
     mold
     nodejs
-    haskell.compiler.ghc924
+    haskell.compiler.ghc928
     python3Packages.ipython
   ];
 }

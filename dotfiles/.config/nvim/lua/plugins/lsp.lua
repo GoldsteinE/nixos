@@ -17,6 +17,8 @@ local function setup_lsp()
     map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
     map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
     map('n', '<leader>s', require('lsp_lines').toggle)
+    map('n', ']e', function() vim.diagnostic.goto_next { float = false } end)
+    map('n', '[e', function() vim.diagnostic.goto_prev { float = false } end)
 
     -- Disable lsp-lines in insert mode
     local lsp_lines_helper = vim.api.nvim_create_augroup('LspLinesHelper', {})

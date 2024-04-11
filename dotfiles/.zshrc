@@ -130,7 +130,8 @@ alias LS=sl
 alias less="less -M"
 alias fuck='sudo $(history -1 | sed "s/^\s*[0-9]*\s*//" -)'
 
-export CARGO_MOMMYS_LITTLE='boy/girl/kid/eldritch entity'
+export CARGO_MOMMYS_LITTLE='boy/girl/enby/eldritch entity'
+export CARGO_MOMMYS_MOODS='chill/ominous/thirsty'
 alias mommy='cargo mommy'
 
 ## Git aliases

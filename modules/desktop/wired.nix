@@ -2,7 +2,7 @@
   systemd.user.services.wired = {
     description = "Wired notification daemon";
     partOf = [ "graphical-session.target" ];
-    path = [ inputs.wired-notify.packages.x86_64-linux.wired ];
+    path = [ inputs.wired-notify.packages.x86_64-linux.default ];
     script = "wired";
     serviceConfig = {
       Type = "dbus";
@@ -11,6 +11,6 @@
   };
 
   environment.systemPackages = [
-    inputs.wired-notify.packages.x86_64-linux.wired
+    inputs.wired-notify.packages.x86_64-linux.default
   ];
 }

@@ -22,6 +22,7 @@ inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec
     ./modules/desktop/xorg.nix
     ./modules/desktop/wired.nix
     ./modules/desktop/pipewire.nix
+    ./modules/desktop/razer.nix
     ./modules/desktop/steam.nix
     ./modules/desktop/dev-tools.nix
     ./modules/desktop/misc-apps.nix

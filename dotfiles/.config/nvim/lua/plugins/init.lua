@@ -69,4 +69,6 @@ return {
     'jamessan/vim-gnupg',
     -- Global search & replace
     'nvim-pack/nvim-spectre',
+
+    { dir = "/home/goldstein/pets/nvim-issue-helper" },
 }

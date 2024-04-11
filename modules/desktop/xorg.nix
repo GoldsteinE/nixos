@@ -1,8 +1,10 @@
 { pkgs, ... }: {
   services.xserver = {
     enable = true;
-    layout = "us,ru";
-    xkbOptions = "grp:caps_toggle,lv3:ralt_switch,misc:typo,nbsp:level3";
+    xkb = {
+      layout = "us,ru";
+      options = "grp:caps_toggle,lv3:ralt_switch,misc:typo,nbsp:level3";
+    };
     displayManager = {
       autoLogin = {
         enable = true;
