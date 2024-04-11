@@ -1,11 +1,14 @@
-{ ... }: {
+{ pkgs, ... }: {
   classified.keys.default = "/classified.key";
-  security.pam.enableSSHAgentAuth = true;
+  security.pam.sshAgentAuth = {
+    enable = true;
+  };
   services = {
     openssh = {
       enable = true;
       ports = [ 7643 ];
       settings.GatewayPorts = "clientspecified";
+      authorizedKeysFiles = pkgs.lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
     };
 
     btrbk.sshAccess = [{

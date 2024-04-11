@@ -118,7 +118,6 @@
         "mail.goldstein.rs" = {
           enableACME = false;
           useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
         };
       };
     };
