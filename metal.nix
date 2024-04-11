@@ -21,6 +21,7 @@ inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec
     ./modules/metal/mail.nix
     ./modules/metal/betula.nix
     ./modules/metal/minecraft.nix
+    ./modules/metal/satisfactory.nix
     # metal-specific system stuff
     ./modules/metal/boot.nix
     ./modules/metal/locale.nix
