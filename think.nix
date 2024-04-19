@@ -6,7 +6,7 @@ inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec
     home-manager.nixosModules.home-manager
     # common stuff
     ./modules/nix.nix
-    ./modules/kmscon.nix
+    # ./modules/kmscon.nix
     ./modules/users.nix
     ./modules/cli.nix
     ./modules/activation-diff.nix
@@ -19,7 +19,15 @@ inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec
     ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix
     ./modules/desktop/security.nix
-    ./modules/desktop/xorg.nix
+    ({ pkgs, ... }: {
+      users.users.goldstein.extraGroups = [ "audio" "video" ];
+      boot.extraModprobeConfig = ''
+        options nvidia-drm modeset=1
+      '';
+      hardware.opengl = {
+        enable = true;
+      };
+    })
     ./modules/desktop/wired.nix
     ./modules/desktop/pipewire.nix
     ./modules/desktop/razer.nix

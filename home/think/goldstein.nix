@@ -1,9 +1,9 @@
-{ root, pkgs, ... }: {
+{ root, pkgs, inputs, ... }: {
   imports = [
     "${root}/home/cli.nix"
     "${root}/home/git.nix"
     "${root}/home/pass.nix"
-    "${root}/home/desktop/xorg.nix"
+    "${root}/home/desktop/wayland.nix"
     "${root}/home/desktop/sioyek.nix"
   ];
   home = {
@@ -18,6 +18,7 @@
     };
   };
   _module.args = {
+    inherit inputs;
     pass = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
     gitSignByDefault = true;
     tmpfilesGenRule = import "${root}/home/tmpfiles-gen-rule.nix" "/home/goldstein";
