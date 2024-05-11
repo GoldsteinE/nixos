@@ -1,4 +1,8 @@
 { inputs, root, ... }: {
+  imports = [
+    inputs.ln-s.nixosModules.default
+  ];
+
   classified.files = {
     "miniflux.env".encrypted = "${root}/secrets/metal/miniflux.env";
   };
@@ -15,6 +19,14 @@
     domain = "v.neglected.space";
     settings.db.user = "invidious";
   };
+
+  services.ln-s.enable = true;
+  systemd.services.ln-s.serviceConfig = {
+    MemoryHigh = "64M";
+    MemoryMax = "128M";
+    CPUQuota = "5%";
+  };
+  users.users.nginx.extraGroups = [ "ln-s" ];
 
   services.nginx =
     let
@@ -113,6 +125,12 @@
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:4370";
           locations."/favicon.ico".root = "/srv/betula";
+        };
+        "ln-s.sh" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeadersWithCsp;
+          locations."/".proxyPass = "http://unix:/run/ln-s/ln-s.sock";
         };
         # Also auto-configured by `services.roundcube`
         "mail.goldstein.rs" = {

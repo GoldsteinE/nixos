@@ -17,6 +17,7 @@
     wired-notify.url = "github:toqozz/wired-notify/master";
     # for server
     blog.url = "github:GoldsteinE/blog";
+    ln-s.url = "sourcehut:~goldstein/ln-s";
     inftheory-slides.url = "github:GoldsteinE/inftheory-slides";
     anti-emoji.url = "github:GoldsteinE/anti-emoji-bot";
     r9ktg.url = "github:GoldsteinE/r9ktg";

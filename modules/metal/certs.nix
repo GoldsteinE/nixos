@@ -10,6 +10,7 @@
         "*.goldstein.rs"
         "neglected.space"
         "*.neglected.space"
+        "ln-s.sh"
       ];
     };
   };
