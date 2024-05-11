@@ -19,7 +19,6 @@
     enableSubmission = false;
     enablePop3 = false;
     enablePop3Ssl = false;
-    enableManageSieve = true;
     localDnsResolver = false;
 
     fqdn = "mail.goldstein.rs";
@@ -43,7 +42,7 @@
         InternalHosts refile:${trustedHosts}
       '';
 
-    certificateScheme = 1; # Manual
+    certificateScheme = "manual";
     certificateFile = "/var/lib/acme/goldstein.rs/full.pem";
     keyFile = "/var/lib/acme/goldstein.rs/key.pem";
 
@@ -88,7 +87,6 @@
   services.roundcube = {
     enable = true;
     hostName = "mail.goldstein.rs";
-    plugins = [ "managesieve" ];
     extraConfig = ''
       # unencrypted IMAP is unavailable
       $config['default_host'] = 'ssl://goldstein.rs:993';
