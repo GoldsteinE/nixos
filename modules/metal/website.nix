@@ -129,7 +129,7 @@
         "ln-s.sh" = {
           forceSSL = true;
           useACMEHost = "goldstein.rs";
-          extraConfig = commonHeadersWithCsp;
+          extraConfig = rootHeaders;
           locations."/".proxyPass = "http://unix:/run/ln-s/ln-s.sock";
         };
         # Also auto-configured by `services.roundcube`
