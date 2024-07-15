@@ -917,23 +917,6 @@
         "type": "github"
       }
     },
-    "persway": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1678272466,
-        "narHash": "sha256-k6h9AcNo8sQEGLhqqu+JIw21l+0qaMIX86xaLPto/c8=",
-        "owner": "johnae",
-        "repo": "persway",
-        "rev": "5603c4a3cab24cda94aa35f88e1db274e809bf10",
-        "type": "github"
-      },
-      "original": {
-        "owner": "johnae",
-        "ref": "0.6.2",
-        "repo": "persway",
-        "type": "github"
-      }
-    },
     "r9ktg": {
       "inputs": {
         "flake-utils": "flake-utils_7",
@@ -966,7 +949,6 @@
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_9",
         "perlsub": "perlsub",
-        "persway": "persway",
         "r9ktg": "r9ktg",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "t": "t",

@@ -39,6 +39,9 @@ local function setup_lualine()
     })
 
     require('lualine').setup {
+        options = {
+            theme = require('lualine.themes.neomodern'),
+        },
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'filename'},
@@ -69,7 +72,9 @@ local function setup_lualine()
             lualine_b = {},
             lualine_c = {},
             lualine_x = {},
-            lualine_y = {},
+            lualine_y = {
+                { 'filename', path = 1, file_status = false }
+            },
             lualine_z = {},
         },
     }
