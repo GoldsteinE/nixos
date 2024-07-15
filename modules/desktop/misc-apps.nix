@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # browsers
+    firefox
     chromium
     tor-browser-bundle-bin
     # messengers

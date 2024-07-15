@@ -5,7 +5,6 @@
     "${root}/home/pass.nix"
     "${root}/home/desktop/wayland.nix"
     "${root}/home/desktop/sioyek.nix"
-    "${root}/home/desktop/librewolf.nix"
   ];
   home = {
     username = "goldstein";
