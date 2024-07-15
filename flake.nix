@@ -15,12 +15,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # for desktop
     wired-notify.url = "github:toqozz/wired-notify/master";
-    persway = {
-      url = "github:johnae/persway/0.6.2";
-      # Their flake is way too bloated, we'll just build it ourselves.
-      flake = false;
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:HyprWM/hyprland";
     # for server
     blog.url = "github:GoldsteinE/blog";
     inftheory-slides.url = "github:GoldsteinE/inftheory-slides";

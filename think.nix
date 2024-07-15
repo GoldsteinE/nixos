@@ -24,9 +24,9 @@ inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec
       boot.extraModprobeConfig = ''
         options nvidia-drm modeset=1
       '';
-      hardware.opengl = {
-        enable = true;
-      };
+      nixpkgs.overlays = [ (final: prev: {
+        sway-unwrapped = inputs.nixpkgs-wayland.packages.${final.system}.sway-unwrapped;
+      }) ];
     })
     ./modules/desktop/wired.nix
     ./modules/desktop/pipewire.nix

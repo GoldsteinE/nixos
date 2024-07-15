@@ -7,8 +7,9 @@
     nvidia = {
       open = false;
       modesetting.enable = true;
+      forceFullCompositionPipeline = true;
       prime = {
-        sync.enable = true;
+        sync.enable = false;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };

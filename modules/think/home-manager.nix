@@ -8,4 +8,6 @@
       inherit root inputs;
     };
   };
+  # Unbreak xdg-desktop-portal, see `man home-configuration.nix(5)`.
+  environment.pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
 }

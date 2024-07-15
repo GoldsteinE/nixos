@@ -1,16 +1,10 @@
-{ pkgs, inputs, ... }:
-let
-  naersk = pkgs.callPackage inputs.naersk {};
-  persway = naersk.buildPackage inputs.persway;
-in
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     rofi-wayland
     wl-clipboard
     slurp
     grim
     eww
-    persway
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -42,6 +36,10 @@ in
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
+        "${modifier}+shift+h" = "mark swap, focus left, swap container with mark swap, focus left, unmark swap";
+        "${modifier}+shift+j" = "mark swap, focus down, swap container with mark swap, focus down, unmark swap";
+        "${modifier}+shift+k" = "mark swap, focus up, swap container with mark swap, focus up, unmark swap";
+        "${modifier}+shift+l" = "mark swap, focus right, swap container with mark swap, focus right, unmark swap";
         "${modifier}+alt+h" = "move workspace to output left";
         "${modifier}+alt+j" = "move workspace to output down";
         "${modifier}+alt+k" = "move workspace to output up";
@@ -84,13 +82,17 @@ in
       );
     };
   };
+  xdg.portal.enable = true;
+  xdg.portal.config.common.default = "*";
+  xdg.portal.config.sway.default = "*";
+  xdg.portal.extraPortals = [
+    pkgs.xdg-desktop-portal-wlr
+  ];
   systemd.user.services = {
-    persway = {
-      Unit = {
-        Description = "Make sway windowing model more palatable";
-        WantedBy = "sway-session.target";
-      };
-      Service.ExecStart = "${persway}/bin/persway daemon -d spiral";
+    autotiling = {
+      Unit.Description = "Make sway windowing model more palatable";
+      Service.ExecStart = "${pkgs.autotiling}/bin/autotiling";
+      Install.WantedBy = [ "sway-session.target" ];
     };
   };
   programs.foot = {
