@@ -15,6 +15,10 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # for desktop
     wired-notify.url = "github:toqozz/wired-notify/master";
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # for server
     blog.url = "github:GoldsteinE/blog";
     ln-s.url = "sourcehut:~goldstein/ln-s";

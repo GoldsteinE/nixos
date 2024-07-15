@@ -1,18 +1,26 @@
 return {
     -- Colorscheme
     {
-        'GoldsteinE/vim-atom-dark',
+        'cdmill/neomodern.nvim',
         config = function()
-            -- vim.cmd [[ colorscheme atom-dark ]]
+            local neomodern = require('neomodern')
+            neomodern.setup {
+                code_style = {
+                    comments = "none",
+                },
+                ui = {
+                    diagnostics = {
+                        background = false,
+                    },
+                },
+                highlights = {
+                    ['@lsp.mod.unsafe.rust'] = { fmt = 'underdashed' },
+                    ['@lsp.typemod.method.trait.rust'] = { fmt = 'italic' },
+                    -- ['@lsp.mod.callable.rust'] = { link = 'Function' },
+                },
+            }
+            neomodern.load()
         end
-    },
-    'rktjmp/lush.nvim',
-    {
-        'EdenEast/nightfox.nvim',
-        config = function()
-            vim.cmd [[ colorscheme nightfox ]]
-            vim.cmd [[ hi @text.literal gui=NONE ]]
-        end,
     },
     {
         'lukas-reineke/indent-blankline.nvim',
@@ -68,7 +76,9 @@ return {
     -- GPG
     'jamessan/vim-gnupg',
     -- Global search & replace
-    'nvim-pack/nvim-spectre',
-
+    {
+        'nvim-pack/nvim-spectre',
+        cmd = "Spectre",
+    },
     { dir = "/home/goldstein/pets/nvim-issue-helper" },
 }

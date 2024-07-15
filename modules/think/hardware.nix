@@ -7,16 +7,16 @@
     nvidia = {
       open = false;
       modesetting.enable = true;
+      forceFullCompositionPipeline = true;
       prime = {
-        sync.enable = true;
+        sync.enable = false;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };
     };
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
     xpadneo.enable = true;
   };
@@ -27,12 +27,13 @@
       Option "metamodes" "nvidia-auto-select +0+0 { ForceCompositionPipeline = On }"
     '';
     dpi = 288;
-    libinput = {
-      enable = true;
-      touchpad = {
-        accelSpeed = "0.7";
-        accelProfile = "adaptive";
-      };
+  };
+
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      accelSpeed = "0.7";
+      accelProfile = "adaptive";
     };
   };
 

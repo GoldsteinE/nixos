@@ -95,31 +95,20 @@ zstyle ':completion:*:processes-names' command 'ps -e -o comm='
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
-## Copied part for git
-setopt prompt_subst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' actionformats \
-            '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f'
-zstyle ':vcs_info:*' formats       \
-            '%F{5}[%F{2}%b%F{5}]%f'
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
-zstyle ':vcs_info:*' enable git cvs svn
-vcs_info_wrapper() {
-        vcs_info
-        if [ -n "$vcs_info_msg_0_" ]; then
-                echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
-        fi
-}
-RPROMPT=$'$(vcs_info_wrapper)'
-
-
-## Stabilizing title
-case $TERM in
-	xterm*)
-		precmd() { print -Pn "\e]0;$(whoami) [$(print -rD $PWD)] @ $(hostname)\a"; }
-		;;
-esac
-
+if [ "$TERM" = "xterm-256color" ] || [ "$TERM" = "alacritty" ] || [ "$TERM" = "foot" ]; then
+	precmd() {
+		# Set title.
+		print -Pn "\e]0;$(whoami) [$(print -rD $PWD)] @ $(hostname)\a";
+		if [ "$TERM" = "foot" ]; then
+			# Mark prompt for foot.
+			print -Pn "\e]133;A\e\\"
+			# Mark current directory for foot.
+			setopt extendedglob
+			LC_ALL=C printf '\e]7;file://%s%s\e\' $HOST ${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+			setopt noextendedglob
+		fi
+	}
+fi
 
 ## Aliases.
 alias ls="LC_COLLATE=C ls --color=auto -hF --group-directories-first"

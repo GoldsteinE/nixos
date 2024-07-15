@@ -20,13 +20,14 @@ local function setup_lsp()
     map('n', ']e', function() vim.diagnostic.goto_next { float = false } end)
     map('n', '[e', function() vim.diagnostic.goto_prev { float = false } end)
 
-    -- Disable lsp-lines in insert mode
+    -- Disable lsp-lines and inlay hints in insert mode
     local lsp_lines_helper = vim.api.nvim_create_augroup('LspLinesHelper', {})
     local last_lsp_lines_status = true
     vim.api.nvim_create_autocmd('InsertEnter', {
         group = lsp_lines_helper,
         pattern = "*",
         callback = function()
+            vim.lsp.inlay_hint.enable(false, { bufnr = 0 }) 
             last_lsp_lines_status = vim.diagnostic.config().virtual_lines
             vim.diagnostic.config {
                 virtual_text = false,
@@ -40,6 +41,7 @@ local function setup_lsp()
         group = lsp_lines_helper,
         pattern = "*",
         callback = function()
+            vim.lsp.inlay_hint.enable(true, { bufnr = 0 }) 
             vim.diagnostic.config {
                 virtual_text = false,
                 virtual_lines = last_lsp_lines_status,
@@ -54,11 +56,10 @@ local function setup_lsp()
     local navic = require 'nvim-navic'
     local function on_attach(client, bufnr)
         navic.attach(client, bufnr)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
         -- Semantic tokens
         local hi = vim.api.nvim_set_hl
-        hi(0, '@unsafe',   { underdashed = true })
-        hi(0, '@trait',    { italic = true })
         hi(0, '@callable', { link = 'Function'})
     end
 
@@ -68,21 +69,19 @@ local function setup_lsp()
             rustc_source = vim.env.RUSTC_SRC
         end
 
-        require('rust-tools').setup {
-            tools = {
-                inlay_hints = {
-                    parameter_hints_prefix = "← ",
-                    other_hints_prefix = ": ",
-                },
-                hover_actions = {
-                    border = "none",
-                },
-            },
+        local target_dir = true
+        local default_target_dir = vim.fn.getenv('CARGO_TARGET_DIR')
+        if default_target_dir ~= vim.v.null then
+            target_dir = default_target_dir .. "/rust-analyzer"
+        end
+
+        vim.g.rustaceanvim = {
             server = {
-                settings = {
+                default_settings = {
                     ["rust-analyzer"] = {
                         cargo = {
                             allFeatures = true,
+                            targetDir = target_dir,
                         },
                         completion = {
                             autoimport = {
@@ -97,9 +96,26 @@ local function setup_lsp()
                             importPrefix = "by_crate",
                         },
                         inlayHints = {
-                            expressionAdjustmentHints = {
+                            bindingModeHints = {
+                                enable = true,
+                            },
+                            closureReturnTypeHints = {
                                 enable = "always",
-                                mode = "postfix",
+                            },
+                            discriminantHints = {
+                                enable = "always",
+                            },
+                            lifetimeElisionHints = {
+                                enable = "skip_trivial",
+                                useParameterNames = true,
+                            },
+                            rangeExclusiveHints = {
+                                enable = true,
+                            },
+                            expressionAdjustmentHints = {
+                                -- Currently broken: https://github.com/neovim/neovim/issues/29647
+                                -- enable = "reborrow",
+                                -- mode = "postfix",
                             },
                         },
                         procMacro = {
@@ -110,7 +126,6 @@ local function setup_lsp()
                         },
                     },
                 },
-                capabilities = capabilities(),
                 on_attach = on_attach,
             }
         }
@@ -230,7 +245,7 @@ return {
     {
         'neovim/nvim-lspconfig',
         config = setup_lsp,
-        dependencies = { 'SmiteshP/nvim-navic', 'simrat39/rust-tools.nvim' },
+        dependencies = { 'SmiteshP/nvim-navic', 'mrcjkb/rustaceanvim' },
     },
     {
         'jose-elias-alvarez/null-ls.nvim',

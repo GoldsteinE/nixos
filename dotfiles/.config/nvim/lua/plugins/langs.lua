@@ -12,4 +12,5 @@ return {
     'elubow/cql-vim',
     'baskerville/vim-sxhkdrc',
     'BeneCollyridam/futhark-vim',
+    'elkowar/yuck.vim',
 }
