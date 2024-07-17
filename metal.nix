@@ -1,6 +1,8 @@
-inputs @ { nixpkgs, classified, home-manager, ... }: nixpkgs.lib.nixosSystem rec {
+inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
   modules = [
+    # Lix instead of Nix
+    lix-module.nixosModules.default
     # external imports
     classified.nixosModules."${system}".default
     home-manager.nixosModules.home-manager
