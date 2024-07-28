@@ -7,8 +7,11 @@
     openssh = {
       enable = true;
       ports = [ 7643 ];
-      settings.GatewayPorts = "clientspecified";
       authorizedKeysFiles = pkgs.lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+      settings = {
+        GatewayPorts = "clientspecified";
+        LoginGraceTime = 0;
+      };
     };
 
     btrbk.sshAccess = [{
