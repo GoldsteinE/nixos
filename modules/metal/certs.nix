@@ -11,6 +11,8 @@
         "neglected.space"
         "*.neglected.space"
         "ln-s.sh"
+        "tty5.dev"
+        "*.tty5.dev"
       ];
     };
   };

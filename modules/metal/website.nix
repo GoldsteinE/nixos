@@ -90,6 +90,20 @@
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:1721";
         };
+        "tty5.dev" = {
+          root = "/srv/root";
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeaders;
+          locations."/.well-known/matrix/server".return = ''200 '{"m.server":"matrix.tty5.dev:443"}' '';
+          locations."/.well-known/matrix/client".return = ''200 '{"m.homeserver":{"base_url":"https://matrix.tty5.dev/"}}' '';
+        };
+        "matrix.tty5.dev" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeaders;
+          locations."/".proxyPass = "http://localhost:8008";
+        };
         "blog.goldstein.rs" = {
           root = "${inputs.blog.defaultPackage.x86_64-linux}";
           forceSSL = true;
