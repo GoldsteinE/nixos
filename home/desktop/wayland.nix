@@ -5,6 +5,7 @@
     slurp
     grim
     eww
+    libnotify
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -48,14 +49,73 @@
         "${modifier}+q" = "kill";
         "Print" = "exec slurp | grim -g - - | wl-copy --type image/png";
         "shift+Print" = "exec | grim - | wl-copy --type image/png";
-        # media keys
-        "XF86MonBrightnessUp" = "exec light -A 5";
-        "XF86MonBrightnessDown" = "exec light -U 5";
-        "XF86AudioLowerVolume" = "exec pamixer --decrease 5";
-        "XF86AudioRaiseVolume" = "exec pamixer --increase 5";
-        "XF86AudioMute" = "exec pamixer --toggle-mute";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
-      } // (
+        # notification control
+        "ctrl+space" = "exec makoctl dismiss";
+        "ctrl+shift+space" =
+          let
+            toggleNotifications = pkgs.writeShellScript "toggle-notifications" ''
+              makoctl mode -t off
+              if makoctl mode | grep '^off$'; then
+                notify-send -c forced "Notifications disabled"
+              else
+                notify-send -c forced "Notifications enabled"
+              fi
+            '';
+          in
+          "exec ${toggleNotifications}";
+      } //
+      # media keys
+      (builtins.mapAttrs
+        (key: config:
+          let
+            script = pkgs.writeShellScript "media-${key}" ''
+              ${config.command}
+              if ${config.muted}; then
+                muted='--category=muted'
+              fi
+              notify-send \
+                --category=forced \
+                --hint=int:value:$(${config.value}) \
+                --hint=string:x-dunst-stack-tag:${config.tag} \
+                $muted \
+                --expire-time 1000 \
+                "${config.tag}"
+            '';
+          in
+          "exec ${script}")
+        {
+          "XF86MonBrightnessUp" = {
+            command = "light -A 5";
+            value = "light";
+            muted = "false";
+            tag = "Light";
+          };
+          "XF86MonBrightnessDown" = {
+            command = "light -U 5";
+            value = "light";
+            muted = "false";
+            tag = "Light";
+          };
+          "XF86AudioLowerVolume" = {
+            command = "pamixer --decrease 5";
+            value = "pamixer --get-volume";
+            muted = ''[ "$(pamixer --get-mute)" = true ]'';
+            tag = "Volume";
+          };
+          "XF86AudioRaiseVolume" = {
+            command = "pamixer --increase 5";
+            value = "pamixer --get-volume";
+            muted = ''[ "$(pamixer --get-mute)" = true ]'';
+            tag = "Volume";
+          };
+          "XF86AudioMute" = {
+            command = "pamixer --toggle-mute";
+            value = "pamixer --get-volume";
+            muted = ''[ "$(pamixer --get-mute)" = true ]'';
+            tag = "Volume";
+          };
+        }) // (
         let
           workspaces = {
             "10" = "";
@@ -123,6 +183,34 @@
     package = pkgs.bibata-cursors;
     name = "Bibata-Original-Classic";
     size = 24;
+  };
+  services.mako = {
+    enable = true;
+    font = "sans 15";
+    padding = "15";
+    textColor = "#F8F8F2FF";
+    borderColor = "#2E3134FF";
+    progressColor = "#194F6CFF";
+    backgroundColor = "#1D1F21FF";
+    defaultTimeout = 5000;
+    layer = "overlay";
+    extraConfig = ''
+      [category=muted]
+      progress-color=#3C4C5AFF
+
+      [mode=off]
+      invisible=1
+
+      [mode=off category=forced]
+      invisible=0
+    '';
+  };
+  # Module doesn't do it automatically for some reason.
+  # https://github.com/nix-community/home-manager/issues/2028
+  systemd.user.services.mako = {
+    Unit.Description = "Mako notification daemon";
+    Service.ExecStart = "${pkgs.mako}/bin/mako";
+    Install.WantedBy = [ "sway-session.target" ];
   };
   services.kanshi = {
     enable = true;
