@@ -16,7 +16,7 @@
     lm_sensors
     qbittorrent
     playerctl
-    vlc
+    mpv
   ];
   programs.light.enable = true;
 }
