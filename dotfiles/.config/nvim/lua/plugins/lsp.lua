@@ -1,3 +1,11 @@
+local function on_attach(client, bufnr)
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
+    -- Semantic tokens
+    local hi = vim.api.nvim_set_hl
+    hi(0, '@callable', { link = 'Function'})
+end
+
 local function setup_lsp()
     local lspconfig = require 'lspconfig'
 
@@ -51,16 +59,6 @@ local function setup_lsp()
 
     local function capabilities()
         return require('cmp_nvim_lsp').default_capabilities()
-    end
-
-    local navic = require 'nvim-navic'
-    local function on_attach(client, bufnr)
-        navic.attach(client, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-
-        -- Semantic tokens
-        local hi = vim.api.nvim_set_hl
-        hi(0, '@callable', { link = 'Function'})
     end
 
     if executable('rust-analyzer') then
@@ -245,7 +243,7 @@ return {
     {
         'neovim/nvim-lspconfig',
         config = setup_lsp,
-        dependencies = { 'SmiteshP/nvim-navic', 'mrcjkb/rustaceanvim' },
+        dependencies = { 'mrcjkb/rustaceanvim' },
     },
     {
         'jose-elias-alvarez/null-ls.nvim',
@@ -274,5 +272,20 @@ return {
     {
         'smjonas/inc-rename.nvim',
         config = function() require('inc_rename').setup{} end,
+    },
+    -- Lean requires `on_attach` passed in `opts`.
+    { 
+      'Julian/lean.nvim',
+      event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+      dependencies = {
+        'neovim/nvim-lspconfig',
+        'nvim-lua/plenary.nvim',
+      },
+      opts = {
+        lsp = {
+          on_attach = on_attach,
+        },
+        mappings = true,
+      }
     },
 }

@@ -1,9 +1,4 @@
 local function setup_lualine()
-    local navic = require 'nvim-navic'
-    navic.setup {
-        separator = "  ",
-    }
-
     local UpdateTabNames = vim.api.nvim_create_augroup('UpdateTabNames', { clear = true })
     vim.api.nvim_create_autocmd({'BufWinEnter', 'BufEnter', 'WinEnter'}, {
         group = UpdateTabNames,
@@ -47,7 +42,6 @@ local function setup_lualine()
             lualine_b = {'filename'},
             lualine_c = {
                 'branch',
-                { navic.get_location, cond = navic.is_available },
             },
             lualine_x = {'fileformat', 'encoding', 'filetype'},
             lualine_y = {'progress'},
@@ -83,7 +77,7 @@ end
 return {
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'kyazdani42/nvim-web-devicons', 'SmiteshP/nvim-navic' },
+        dependencies = { 'kyazdani42/nvim-web-devicons' },
         config = setup_lualine,
     }
 }

@@ -47,6 +47,7 @@ o.title = true
 o.undofile = true
 -- Tell NeoVim that <Leader> is space
 vim.g.mapleader = ' '
+vim.g.maplocalleader = '-'
 
 -- Enable search highlight while in incsearch and disable it afterwards
 vim.cmd [[ augroup VimIncsearchHl ]]

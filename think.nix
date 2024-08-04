@@ -36,6 +36,10 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     ./modules/desktop/steam.nix
     ./modules/desktop/dev-tools.nix
     ./modules/desktop/misc-apps.nix
+    # I hate GNOME
+    ({ ... }: {
+      programs.dconf.enable = true;
+    })
     # machine-specific stuff
     ./modules/think/boot.nix
     ./modules/think/hardware.nix
