@@ -1,5 +1,4 @@
 { pkgs, ... }: {
-  sound.enable = false; # We're managing sound via pipewire
   services.pipewire = {
     enable = true;
     pulse.enable = true;
