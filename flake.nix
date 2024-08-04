@@ -18,7 +18,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # for desktop
-    wired-notify.url = "github:toqozz/wired-notify/master";
+    # wired-notify.url = "github:toqozz/wired-notify/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";

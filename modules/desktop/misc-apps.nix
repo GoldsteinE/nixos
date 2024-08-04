@@ -10,6 +10,7 @@
     tdesktop
     hexchat
     zulip
+    nheko
     # stuff
     appimage-run
     lm_sensors
@@ -17,4 +18,5 @@
     playerctl
     vlc
   ];
+  programs.light.enable = true;
 }

@@ -30,7 +30,8 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
         sway-unwrapped = inputs.nixpkgs-wayland.packages.${final.system}.sway-unwrapped;
       }) ];
     })
-    ./modules/desktop/wired.nix
+    # Doesn't work on Wayland :(
+    # ./modules/desktop/wired.nix
     ./modules/desktop/pipewire.nix
     ./modules/desktop/razer.nix
     ./modules/desktop/steam.nix

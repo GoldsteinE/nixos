@@ -12,7 +12,7 @@ in
       goldstein = {
         createHome = true;
         isNormalUser = true;
-        extraGroups = [ "wheel" "docker" ];
+        extraGroups = [ "wheel" ];
         home = "/home/goldstein";
         shell = "/run/current-system/sw/bin/zsh";
         openssh.authorizedKeys.keys = sshKeys;

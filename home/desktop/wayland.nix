@@ -45,6 +45,16 @@
         "${modifier}+alt+k" = "move workspace to output up";
         "${modifier}+alt+l" = "move workspace to output right";
         "${modifier}+z" = "focus parent, layout toggle split, focus child";
+        "${modifier}+q" = "kill";
+        "Print" = "exec slurp | grim -g - - | wl-copy --type image/png";
+        "shift+Print" = "exec | grim - | wl-copy --type image/png";
+        # media keys
+        "XF86MonBrightnessUp" = "exec light -A 5";
+        "XF86MonBrightnessDown" = "exec light -U 5";
+        "XF86AudioLowerVolume" = "exec pamixer --decrease 5";
+        "XF86AudioRaiseVolume" = "exec pamixer --increase 5";
+        "XF86AudioMute" = "exec pamixer --toggle-mute";
+        "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
       } // (
         let
           workspaces = {
