@@ -11,7 +11,6 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     # ./modules/kmscon.nix
     ./modules/users.nix
     ./modules/cli.nix
-    ./modules/activation-diff.nix
     ./modules/rust-dev.nix
     ./modules/misc-dev.nix
     # desktop-specific stuff
