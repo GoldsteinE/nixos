@@ -188,6 +188,7 @@
     enable = true;
     font = "sans 15";
     padding = "15";
+    width = 600;
     textColor = "#F8F8F2FF";
     borderColor = "#2E3134FF";
     progressColor = "#194F6CFF";
