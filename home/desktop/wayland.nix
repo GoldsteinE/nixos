@@ -63,7 +63,7 @@
             '';
           in
           "exec ${printScreen}";
-        "shift+Print" = "exec | grim - | wl-copy --type image/png";
+        "shift+Print" = "exec grim - | wl-copy --type image/png";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
         # notification control
         "ctrl+space" = "exec makoctl dismiss";
