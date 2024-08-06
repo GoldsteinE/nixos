@@ -20,7 +20,7 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix
     ./modules/desktop/security.nix
-    ({ pkgs, ... }: {
+    ({ ... }: {
       users.users.goldstein.extraGroups = [ "audio" "video" ];
       boot.extraModprobeConfig = ''
         options nvidia-drm modeset=1

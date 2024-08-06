@@ -18,7 +18,7 @@
     powertop
     python3
     ripgrep
-    nil
+    nixd
     nixpkgs-fmt
     shellcheck
     unzip

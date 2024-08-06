@@ -183,17 +183,10 @@ local function setup_lsp()
         end
     end
 
-    if executable('nil') then
-        lspconfig.nil_ls.setup {
+    if executable('nixd') then
+        lspconfig.nixd.setup {
             capabilities = capabilities(),
             on_attach = on_attach,
-            settings = {
-                ['nil'] = {
-                    formatting = {
-                        command = { "nixpkgs-fmt" },
-                    },
-                },
-            },
         }
     end
 
