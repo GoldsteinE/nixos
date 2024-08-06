@@ -55,15 +55,15 @@
               | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"
             '';
             printScreen = pkgs.writeShellScript "printscreen.sh" ''
+            # systemd-run prevents double-start
             swaymsg -t get_tree \
             | jq -r -f "${visibleWindowsJq}" \
-            | slurp \
+            | systemd-run --quiet --user --scope --unit printscr slurp \
             | grim -g - - \
             | wl-copy --type image/png
             '';
           in
-          # Prevent double-start.
-          "exec systemd-run --user --scope --unit printscr ${printScreen}";
+          "exec ${printScreen}";
         "shift+Print" = "exec grim - | wl-copy --type image/png";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
         # notification control
