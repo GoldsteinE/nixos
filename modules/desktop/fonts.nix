@@ -9,4 +9,6 @@
     open-sans
     (nerdfonts.override { fonts = [ "Iosevka" "IosevkaTerm" ]; })
   ];
+  # for programs that can't into fontconfig
+  fonts.fontDir.enable = true;
 }
