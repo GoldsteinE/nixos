@@ -47,7 +47,22 @@
         "${modifier}+alt+l" = "move workspace to output right";
         "${modifier}+z" = "focus parent, layout toggle split, focus child";
         "${modifier}+q" = "kill";
-        "Print" = "exec slurp | grim -g - - | wl-copy --type image/png";
+        "Print" =
+          let
+            visibleWindowsJq = pkgs.writeText "visible-windows.jq" ''
+              ..
+              | select(.pid? and .visible?)
+              | "\(.rect.x+.window_rect.x),\(.rect.y+.window_rect.y) \(.window_rect.width)x\(.window_rect.height)"
+            '';
+            printScreen = pkgs.writeShellScript "printscreen.sh" ''
+            swaymsg -t get_tree \
+            | jq -r -f "${visibleWindowsJq}" \
+            | slurp \
+            | grim -g - - \
+            | wl-copy --type image/png
+            '';
+          in
+          "exec ${printScreen}";
         "shift+Print" = "exec | grim - | wl-copy --type image/png";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
         # notification control
