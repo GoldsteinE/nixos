@@ -62,7 +62,8 @@
             | wl-copy --type image/png
             '';
           in
-          "exec ${printScreen}";
+          # Prevent double-start.
+          "exec systemd-run --user --scope --unit printscr ${printScreen}";
         "shift+Print" = "exec grim - | wl-copy --type image/png";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
         # notification control
