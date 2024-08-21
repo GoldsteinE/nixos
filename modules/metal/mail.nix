@@ -31,6 +31,7 @@
     mailDirectory = "/srv/mail/vmail";
     useFsLayout = true;
 
+    dkimKeyBits = 2048;
     dkimExtraConfig =
       let
         trustedHosts = pkgs.writeText "opendkim-TrustedHosts" ''
