@@ -16,6 +16,7 @@ return {
                 highlights = {
                     ['@lsp.mod.unsafe.rust'] = { fmt = 'underdashed' },
                     ['@lsp.typemod.method.trait.rust'] = { fmt = 'italic' },
+                    ['@lsp.typemod.function.defaultLibrary'] = { fg = 'none' },
                     -- ['@lsp.mod.callable.rust'] = { link = 'Function' },
                 },
             }

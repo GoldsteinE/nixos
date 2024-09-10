@@ -12,10 +12,19 @@
         value = "1048576";
       }
     ];
-    pam.yubico = {
-      enable = true;
-      mode = "challenge-response";
-      challengeResponsePath = "/var/yubico";
+    pam = {
+      yubico = {
+        enable = false;
+        mode = "challenge-response";
+        challengeResponsePath = "/var/yubico";
+        control = "sufficient";
+      };
+      services = {
+        login.yubicoAuth = true;
+        swaylock.yubicoAuth = true;
+        sudo.yubicoAuth = true;
+        polkit-1.yubicoAuth = true;
+      };
     };
     sudo.extraConfig = ''
       Defaults timestamp_timeout = 0

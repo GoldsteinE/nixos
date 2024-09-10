@@ -10,6 +10,7 @@ local function setup_telescope()
                 i = {
                     ["<c-j>"] = actions.move_selection_next,
                     ["<c-k>"] = actions.move_selection_previous,
+                    ["<c-;>"] = actions.to_fuzzy_refine,
                 }
             },
             file_previewer = previewers.vim_buffer_cat.new,

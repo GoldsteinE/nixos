@@ -20,7 +20,6 @@ local function setup_lsp()
     }
 
     local map = vim.keymap.set
-    map('n', '<leader>r', ':IncRename ', { silent = true })
     map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
     map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
     map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
@@ -263,8 +262,30 @@ return {
         } end,
     },
     {
-        'smjonas/inc-rename.nvim',
-        config = function() require('inc_rename').setup{} end,
+        'saecki/live-rename.nvim',
+        config = function()
+            local live_rename = require 'live-rename'
+            live_rename.setup {
+                prepare_rename = true,
+                request_timeout = 1500,
+                keys = {
+                    submit = {
+                        { "n", "<cr>" },
+                        { "v", "<cr>" },
+                        { "i", "<cr>" },
+                    },
+                    cancel = {
+                        { "n", "<esc>" },
+                        { "n", "<C-c>" },
+                        { "i", "<C-c>" },
+                        { "v", "<C-c>" },
+                    },
+                },
+            }
+            vim.keymap.set('n', '<leader>nr', live_rename.rename)
+            vim.keymap.set('n', '<leader>r', live_rename.map { insert = true })
+            vim.keymap.set('n', '<leader>R', live_rename.map { insert = true, text = '' })
+        end
     },
     -- Lean requires `on_attach` passed in `opts`.
     { 

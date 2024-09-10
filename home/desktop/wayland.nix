@@ -6,6 +6,7 @@
     grim
     eww
     libnotify
+    swaylock
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -47,6 +48,7 @@
         "${modifier}+alt+l" = "move workspace to output right";
         "${modifier}+z" = "focus parent, layout toggle split, focus child";
         "${modifier}+q" = "kill";
+        "${modifier}+escape" = "exec swaylock --color 000000";
         "Print" =
           let
             visibleWindowsJq = pkgs.writeText "visible-windows.jq" ''
