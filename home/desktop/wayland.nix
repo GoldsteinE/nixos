@@ -10,15 +10,8 @@
   ];
   wayland.windowManager.sway = {
     enable = true;
-    extraOptions = [
-      "--unsupported-gpu"
-    ];
     extraSessionCommands = ''
-      export LIBVA_DRIVER_NAME=nvidia
       export XDG_SESSION_TYPE=wayland
-      export GBM_BACKEND=nvidia-drm
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export WLR_NO_HARDWARE_CURSORS=1
       export NIXOS_OZONE_WL=1
       export GDK_BACKEND=wayland,x11
       export QT_QPA_PLATFORM='wayland;xcb'
@@ -30,6 +23,11 @@
       input."type:keyboard" = {
         xkb_layout = "us,ru";
         xkb_options = "grp:caps_toggle,lv3:ralt_switch,misc:typo,nbsp:level3";
+      };
+      input."type:touchpad" = {
+        tap = "enabled";
+        drag = "enabled";
+        tap_button_map = "lrm";
       };
       keybindings = {
         "${modifier}+Return" = "exec foot";
@@ -234,37 +232,5 @@
   services.kanshi = {
     enable = true;
     systemdTarget = "sway-session.target";
-    settings = [
-      {
-        profile = {
-          name = "laptop";
-          outputs = [{
-            criteria = "eDP-1";
-            mode = "3840x2160@60Hz";
-            position = "0,0";
-            scale = 2.0;
-          }];
-        };
-      }
-      {
-        profile = {
-          name = "workstation";
-          outputs = [
-            {
-              criteria = "eDP-1";
-              mode = "3840x2160@60Hz";
-              position = "0,720";
-              scale = 2.0;
-            }
-            {
-              criteria = "HDMI-A-1";
-              mode = "2560x1440@60Hz";
-              position = "320,0";
-              scale = 2.0;
-            }
-          ];
-        };
-      }
-    ];
   };
 }

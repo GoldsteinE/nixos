@@ -1,4 +1,4 @@
-{ root, ... }: {
+{ root, pkgs, ... }: {
   classified.files = {
     "work-vpn.ovpn".encrypted = "${root}/secrets/work-vpn.ovpn";
     "work-vpn-ovpn.pass".encrypted = "${root}/secrets/work-vpn-ovpn.pass";
@@ -9,11 +9,17 @@
     updateResolvConf = true;
   };
   systemd.services.openvpn-work.requires = [ "xray.service" ];
-  services.xray = {
-    enable = true;
-    settingsFile = "\${CREDENTIALS_DIRECTORY}/xray.json";
-  };
-  systemd.services.xray.serviceConfig = {
-    LoadCredential = "xray.json:/var/secrets/work-vpn-xray.json";
+  systemd.services.xray = {
+    description = "xray daemon";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      DynamicUser = true;
+      ExecStart = "${pkgs.xray}/bin/xray -config \${CREDENTIALS_DIRECTORY}/xray.json";
+      CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
+      AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_BIND_SERVICE";
+      NoNewPrivileges = true;
+      LoadCredential = "xray.json:/var/secrets/work-vpn-xray.json";
+    };
   };
 }

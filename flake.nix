@@ -23,6 +23,11 @@
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # for server
     blog.url = "github:GoldsteinE/blog";
     ln-s.url = "sourcehut:~goldstein/ln-s";
@@ -36,6 +41,7 @@
   };
   outputs = inputs: {
     nixosConfigurations.think = (import ./think.nix) inputs;
+    nixosConfigurations.gear = (import ./gear.nix) inputs;
     nixosConfigurations.metal = (import ./metal.nix) inputs;
   };
 }

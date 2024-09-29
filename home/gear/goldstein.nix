@@ -4,10 +4,8 @@
     "${root}/home/git.nix"
     "${root}/home/pass.nix"
     "${root}/home/desktop/wayland.nix"
-    # some nvidia-specific stuff
-    "${root}/home/think/wayland.nix"
     # display configuration
-    "${root}/home/think/kanshi.nix"
+    "${root}/home/gear/kanshi.nix"
     "${root}/home/desktop/sioyek.nix"
   ];
   home = {
