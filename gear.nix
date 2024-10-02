@@ -19,6 +19,7 @@ nixpkgs.lib.nixosSystem rec {
     # desktop-specific stuff
     ./modules/desktop/locale.nix
     ./modules/desktop/fonts.nix
+    ./modules/desktop/personal-xray.nix
     ({ ... }: {
       fonts.fontconfig = {
         enable = true;
