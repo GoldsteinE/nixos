@@ -4,7 +4,7 @@
     package = pkgs.gitAndTools.gitFull;
     lfs.enable = true;
     userName = "Goldstein";
-    userEmail = "root@goldstein.rs";
+    userEmail = "root@goldstein.lol";
     aliases = {
       uncommit = "reset --soft HEAD^";
       unadd = "reset";
