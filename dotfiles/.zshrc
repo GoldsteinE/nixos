@@ -65,6 +65,9 @@ function cargo() {
 		command cargo "$@"
 	fi
 }
+function glab() {
+	env GITLAB_TOKEN="$(pass show glab)" glab "$@"
+}
 
 ## Enabling history.
 setopt histignorealldups

@@ -55,6 +55,7 @@ nixpkgs.lib.nixosSystem rec {
     ./modules/desktop/dev-tools.nix
     ./modules/desktop/misc-apps.nix
     ({ ... }: {
+      services.fwupd.enable = true;
       programs.fw-fanctrl = {
         enable = true;
         config = {

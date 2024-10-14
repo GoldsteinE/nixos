@@ -7,6 +7,7 @@
     eww
     libnotify
     swaylock
+    xdg-utils
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -66,6 +67,7 @@
           "exec ${printScreen}";
         "shift+Print" = "exec grim - | wl-copy --type image/png";
         "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
+        "XF86AudioPlay" = "exec playerctl play-pause";
         # notification control
         "ctrl+space" = "exec makoctl dismiss";
         "ctrl+shift+space" =
@@ -198,7 +200,7 @@
     gtk.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Original-Classic";
-    size = 24;
+    size = 12;
   };
   services.mako = {
     enable = true;

@@ -6,7 +6,7 @@
     tor-browser-bundle-bin
     # messengers
     slack
-    discord
+    # discord
     tdesktop
     hexchat
     zulip

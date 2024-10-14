@@ -4,7 +4,7 @@
     # mitigate it somewhat by making foot font smaller:
     font = pkgs.lib.mkForce "Iosevka Term Nerd Font:size=12";
     # we also make it DPI-aware so external display isn't affected
-    dpi-aware = pkgs.lib.mkForce "yes";
+    # dpi-aware = pkgs.lib.mkForce "yes";
   };
   services.kanshi.settings = [
     {
@@ -25,13 +25,13 @@
           {
             criteria = "eDP-2";
             mode = "2560x1600@165Hz";
-            position = "0,0";
+            position = "0,720";
             scale = 2.0;
           }
           {
-            criteria = "HDMI-A-1";
+            criteria = "DP-5";
             mode = "2560x1440@60Hz";
-            position = "320,0";
+            position = "0,0";
             scale = 2.0;
           }
         ];
