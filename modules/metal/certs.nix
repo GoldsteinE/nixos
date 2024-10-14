@@ -13,6 +13,8 @@
         "ln-s.sh"
         "tty5.dev"
         "*.tty5.dev"
+        "goldstein.lol"
+        "*.goldstein.lol"
       ];
     };
   };

@@ -23,7 +23,7 @@
 
     fqdn = "mail.goldstein.rs";
     sendingFqdn = "goldstein.rs";
-    domains = [ "goldstein.rs" "ham.goldstein.rs" ];
+    domains = [ "goldstein.rs" "ham.goldstein.rs" "goldstein.lol" "tty5.dev" ];
     hierarchySeparator = "/";
 
     sieveDirectory = "/srv/mail/sieve";
@@ -67,6 +67,8 @@
           "me@goldstein.rs"
           "@ham.goldstein.rs"
           "@goldstein.rs"
+          "@goldstein.lol"
+          "@tty5.dev"
         ];
       };
     };
@@ -76,6 +78,10 @@
     "127.0.0.1/32"
     "[::1]/128"
   ];
+  services.postfix.config = {
+    smtp_tls_security_level = "dane";
+    smtp_dns_support_level = "dnssec";
+  };
 
   services.rspamd.extraConfig = ''
     actions {

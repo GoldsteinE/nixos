@@ -6,8 +6,7 @@
     volumes = [ "/srv/satisfactory:/config" ];
     ports = [
       "7777:7777/udp"
-      "15000:15000/udp"
-      "15777:15777/udp"
+      "7777:7777/tcp"
     ];
     environment = {
       MAXPLAYERS = "8";
@@ -23,5 +22,6 @@
     isNormalUser = false;
     group = "nogroup";
   };
-  networking.firewall.allowedUDPPorts = [ 7777 15000 15777 ];
+  networking.firewall.allowedUDPPorts = [ 7777 ];
+  networking.firewall.allowedTCPPorts = [ 7777 ];
 }
