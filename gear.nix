@@ -20,6 +20,8 @@ nixpkgs.lib.nixosSystem rec {
     ./modules/desktop/locale.nix
     ./modules/desktop/fonts.nix
     ./modules/desktop/personal-xray.nix
+    # use unbound to switch between VPN dns and regular DNS
+    ./modules/desktop/unbound.nix
     ({ ... }: {
       fonts.fontconfig = {
         enable = true;
@@ -37,6 +39,7 @@ nixpkgs.lib.nixosSystem rec {
     })
     # Deal with backups a bit later.
     # ./modules/desktop/btrbk.nix
+    ./modules/tarsnap.nix
     # That too.
     ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix

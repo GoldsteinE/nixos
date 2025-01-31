@@ -82,4 +82,5 @@ return {
         cmd = "Spectre",
     },
     { dir = "/home/goldstein/pets/nvim-issue-helper" },
+    { dir = "/home/goldstein/pets/tabception" },
 }

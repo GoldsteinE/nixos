@@ -7,6 +7,7 @@
     # display configuration
     "${root}/home/gear/kanshi.nix"
     "${root}/home/desktop/sioyek.nix"
+    "${root}/home/desktop/mpv.nix"
   ];
   home = {
     username = "goldstein";

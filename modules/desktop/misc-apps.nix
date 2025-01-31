@@ -8,7 +8,7 @@
     slack
     # discord
     tdesktop
-    hexchat
+    weechat
     zulip
     nheko
     # stuff
@@ -16,7 +16,6 @@
     lm_sensors
     qbittorrent
     playerctl
-    mpv
   ];
   programs.light.enable = true;
 }

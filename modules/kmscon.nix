@@ -6,7 +6,7 @@
     extraConfig = "font-size=32";
     fonts = [{
       name = "Iosevka Term";
-      package = (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; });
+      package = (pkgs.nerd-fonts.iosevka);
     }];
   };
 }

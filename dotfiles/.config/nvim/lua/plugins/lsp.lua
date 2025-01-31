@@ -130,6 +130,7 @@ local function setup_lsp()
 
     if executable('clangd') then
         lspconfig.clangd.setup{
+            cmd = { "clangd", "--query-driver=c++" },
             capabilities = capabilities(),
             on_attach = on_attach,
         }

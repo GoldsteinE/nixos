@@ -1,8 +1,11 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Pull kernel modules from unstable-small.
+    # https://github.com/NixOS/nixpkgs/issues/375605
+    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     naersk.url = "github:nmattia/naersk";
@@ -21,7 +24,8 @@
     # wired-notify.url = "github:toqozz/wired-notify/master";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Doesn't work with latest nixpkgs for some reason.
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     fw-fanctrl = {
@@ -35,6 +39,7 @@
     anti-emoji.url = "github:GoldsteinE/anti-emoji-bot";
     r9ktg.url = "github:GoldsteinE/r9ktg";
     perlsub.url = "github:GoldsteinE/perlsub";
+    perlsub.inputs.nixpkgs.follows = "nixpkgs";
     tg-vimhelpbot.url = "github:pro-vim/tg-vimhelpbot";
     simple-nixos-mailserver.url = "github:GoldsteinE/simple-nixos-mailserver";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";

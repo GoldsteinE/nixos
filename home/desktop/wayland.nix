@@ -202,6 +202,12 @@
     name = "Bibata-Original-Classic";
     size = 12;
   };
+  # libadwaita is a special little snowflake
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      cursor-theme = "Bibata-Original-Classic";
+    };
+  };
   services.mako = {
     enable = true;
     font = "sans 15";
