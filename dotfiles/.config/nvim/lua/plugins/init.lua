@@ -23,13 +23,6 @@ return {
             neomodern.load()
         end
     },
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        -- Correct ordering
-        dependencies = {
-            'EdenEast/nightfox.nvim',
-        },
-    },
     -- Typing helpers
     {
         'kylechui/nvim-surround',
@@ -52,14 +45,6 @@ return {
             vim.cmd [[ command! Gblame Git blame ]]
         end
     },
-    'shumphrey/fugitive-gitlab.vim',
-    -- Easy HTML typing
-    {
-        'mattn/emmet-vim',
-        config = function()
-            vim.g.user_emmet_expandabbr_key = '<C-y>y'
-        end,
-    },
     -- Start page
     {
         'mhinz/vim-startify',
@@ -74,13 +59,9 @@ return {
             ]]
         end
     },
-    -- GPG
-    'jamessan/vim-gnupg',
     -- Global search & replace
     {
         'nvim-pack/nvim-spectre',
         cmd = "Spectre",
     },
-    { dir = "/home/goldstein/pets/nvim-issue-helper" },
-    { dir = "/home/goldstein/pets/tabception" },
 }

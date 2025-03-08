@@ -18,6 +18,7 @@
       accelProfile = "adaptive";
       tapping = true;
       tappingButtonMap = "lrm";
+      tappingDragLock = false;
     };
   };
 

@@ -200,10 +200,12 @@ local function setup_lsp()
         lspconfig.astro.setup{}
     end
 
-    if executable('typst-lsp') then
-        lspconfig.typst_lsp.setup{
+    if executable('tinymist') then
+        lspconfig.tinymist.setup{
             settings = {
-                exportPdf = "never",
+                exportPdf = "onType",
+                outputPath = "$root/out/$name",
+                compileStatus = "enable",
             }
         }
     end

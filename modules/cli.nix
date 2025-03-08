@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  environment.wordlist.enable = true;
   environment.systemPackages = with pkgs; [
     bat
     curl

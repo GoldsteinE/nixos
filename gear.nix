@@ -37,9 +37,6 @@ nixpkgs.lib.nixosSystem rec {
         };
       };
     })
-    # Deal with backups a bit later.
-    # ./modules/desktop/btrbk.nix
-    ./modules/tarsnap.nix
     # That too.
     ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix
@@ -90,6 +87,7 @@ nixpkgs.lib.nixosSystem rec {
     ./modules/gear/partitions.nix
     ./modules/gear/networking.nix
     ./modules/gear/home-manager.nix
+    ./modules/gear/restic.nix
     # misc stuff, keep short
     ({ ... }: {
       system.stateVersion = "24.05";

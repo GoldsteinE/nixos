@@ -1,9 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Pull kernel modules from unstable-small.
-    # https://github.com/NixOS/nixpkgs/issues/375605
-    nixpkgs-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     lix-module = {
       url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-2.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +27,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     fw-fanctrl = {
       url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    passnag = {
+      url = "github:GoldsteinE/passnag";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # for server

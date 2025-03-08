@@ -7,7 +7,6 @@
     eww
     libnotify
     swaylock
-    xdg-utils
   ];
   wayland.windowManager.sway = {
     enable = true;
@@ -176,6 +175,17 @@
   xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-wlr
   ];
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "librewolf.desktop";
+      "text/xml" = "librewolf.desktop";
+      "application/xhtml+xml" = "librewolf.desktop";
+      "application/vnd.mozilla.xul+xml" = "librewolf.desktop";
+      "x-scheme-handler/http" = "librewolf.desktop";
+      "x-scheme-handler/https" = "librewolf.desktop";
+    };
+  };
   systemd.user.services = {
     autotiling = {
       Unit.Description = "Make sway windowing model more palatable";

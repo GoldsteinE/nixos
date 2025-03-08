@@ -20,6 +20,8 @@
       CARGO_TARGET_DIR = "/target/misc";
     };
 
+    packages = [ inputs.passnag.packages.x86_64-linux.default ];
+
     # scale + hardware cursors
     pointerCursor.size = pkgs.lib.mkForce 12;
   };

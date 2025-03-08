@@ -8,6 +8,7 @@
     stateVersion = "22.11";
   };
   _module.args = {
+    gitSignByDefault = false;
     tmpfilesGenRule = import "${root}/home/tmpfiles-gen-rule.nix" "/root";
   };
 }

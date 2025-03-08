@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # browsers
-    firefox
+    librewolf
     chromium
     tor-browser-bundle-bin
     # messengers
@@ -12,6 +12,7 @@
     zulip
     nheko
     # stuff
+    xdg-utils
     appimage-run
     lm_sensors
     qbittorrent

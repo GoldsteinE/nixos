@@ -39,9 +39,8 @@
     nixt = prev.nixt.override {
       nix = final.nixVersions.nix_2_24;
     };
-    nixd = prev.nixt.override {
+    nixd = prev.nixd.override {
       nix = final.nixVersions.nix_2_24;
     };
-    linuxKernel = inputs.nixpkgs-small.legacyPackages.x86_64-linux.linuxKernel;
   })];
 }

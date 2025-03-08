@@ -4,6 +4,11 @@
 
 stty -ixon  # Disable ^S
 
+## Run passnag (before p10k so it always outputs).
+if command -v passnag >/dev/null 2>&1; then
+	passnag nag
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -68,6 +73,8 @@ function cargo() {
 function glab() {
 	env GITLAB_TOKEN="$(pass show glab)" glab "$@"
 }
+# https://consoledonottrack.com/
+export DO_NOT_TRACK=1
 
 ## Enabling history.
 setopt histignorealldups
