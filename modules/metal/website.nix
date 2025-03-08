@@ -140,6 +140,12 @@
           locations."/".proxyPass = "http://localhost:4370";
           locations."/favicon.ico".root = "/srv/betula";
         };
+        "vault.goldstein.lol" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = commonHeaders;
+          locations."/".proxyPass = "http://localhost:54717";
+        };
         "ln-s.sh" = {
           forceSSL = true;
           useACMEHost = "goldstein.rs";
