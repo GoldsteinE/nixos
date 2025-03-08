@@ -14,6 +14,7 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     ./modules/rust-dev.nix
     ./modules/misc-dev.nix
     # metal-specific services
+    ./modules/metal/restic.nix
     ./modules/metal/bots.nix
     ./modules/metal/certs.nix
     ./modules/metal/website.nix

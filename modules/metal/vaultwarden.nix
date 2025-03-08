@@ -3,6 +3,7 @@
   services.vaultwarden = {
     enable = true;
     environmentFile = "/var/secrets/vaultwarden.env";
+    backupDir = "/srv/vaultwarden-backup";
     config = {
       DOMAIN = "https://vault.goldstein.lol";
       SIGNUPS_ALLOWED = false;
