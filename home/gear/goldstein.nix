@@ -8,6 +8,7 @@
     "${root}/home/gear/kanshi.nix"
     "${root}/home/desktop/sioyek.nix"
     "${root}/home/desktop/mpv.nix"
+    "${root}/home/desktop/rbw.nix"
   ];
   home = {
     username = "goldstein";

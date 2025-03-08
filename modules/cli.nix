@@ -7,6 +7,7 @@
     dogdns
     fd
     file
+    fzf
     git
     htop
     gh
