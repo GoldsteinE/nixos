@@ -170,10 +170,11 @@
     };
   };
   xdg.portal.enable = true;
-  xdg.portal.config.common.default = "*";
-  xdg.portal.config.sway.default = "*";
+  xdg.portal.config.common.default = [ "wlr" "gtk" ];
+  xdg.portal.config.sway.default = [ "wlr" "gtk" ];
   xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-gtk
   ];
   xdg.mimeApps = {
     enable = true;
