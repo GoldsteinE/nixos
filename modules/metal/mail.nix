@@ -14,6 +14,7 @@
 
   mailserver = {
     enable = true;
+    stateVersion = 1;
 
     enableImap = false;
     enableSubmission = false;
@@ -32,29 +33,13 @@
     useFsLayout = true;
 
     dkimKeyBits = 2048;
-    dkimExtraConfig =
-      let
-        trustedHosts = pkgs.writeText "opendkim-TrustedHosts" ''
-          127.0.0.1
-          ::1
-        '';
-      in
-      ''
-        InternalHosts refile:${trustedHosts}
-      '';
-
-    certificateScheme = "manual";
-    certificateFile = "/var/lib/acme/goldstein.rs/full.pem";
-    keyFile = "/var/lib/acme/goldstein.rs/key.pem";
+    certificateScheme = "acme";
+    acmeCertificateName = "goldstein.rs";
 
     fullTextSearch = {
       enable = true;
       memoryLimit = 1024; # MiB
     };
-
-    policydSPFExtraConfig = ''
-      skip_addresses = 127.0.0.1,::1
-    '';
 
     loginAccounts = {
       "root@goldstein.rs" = {

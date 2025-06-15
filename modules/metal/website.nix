@@ -104,15 +104,6 @@
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:8008";
         };
-        "blog.goldstein.rs" = {
-          root = "${inputs.blog.defaultPackage.x86_64-linux}";
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = ''
-            ${commonHeadersWithCsp}
-            add_header X-Nix-Derivation ${inputs.blog.defaultPackage.x86_64-linux};
-          '';
-        };
         "inftheory.goldstein.rs" = {
           root = "${inputs.inftheory-slides.defaultPackage.x86_64-linux}";
           forceSSL = true;
