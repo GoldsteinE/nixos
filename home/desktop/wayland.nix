@@ -226,15 +226,17 @@
   };
   services.mako = {
     enable = true;
-    font = "sans 15";
-    padding = "15";
-    width = 600;
-    textColor = "#F8F8F2FF";
-    borderColor = "#2E3134FF";
-    progressColor = "#194F6CFF";
-    backgroundColor = "#1D1F21FF";
-    defaultTimeout = 5000;
-    layer = "overlay";
+    settings = {
+      default-timeout = 5000;
+      progress-color = "#194F6CFF";
+      border-color = "#2E3134FF";
+      text-color = "#F8F8F2FF";
+      background-color = "#1D1F21FF";
+      font = "sans 15";
+      layer = "overlay";
+      padding = "15";
+      width = 600;
+    };
     extraConfig = ''
       [category=muted]
       progress-color=#3C4C5AFF

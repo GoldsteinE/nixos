@@ -8,7 +8,7 @@
     command-not-found.enable = true;
     zsh = {
       enable = true;
-      initExtra = builtins.readFile "${root}/dotfiles/.zshrc";
+      initContent = builtins.readFile "${root}/dotfiles/.zshrc";
     };
     direnv = {
       enable = true;
