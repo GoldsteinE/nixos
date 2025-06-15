@@ -60,7 +60,7 @@ nixpkgs.lib.nixosSystem rec {
         enable = true;
         config = {
           defaultStrategy = "laziest";
-          strategies = with builtins; (fromJSON (readFile "${fw-fanctrl}/config.json")).strategies // {
+          strategies = with builtins; (fromJSON (readFile "${fw-fanctrl}/src/fw_fanctrl/_resources/config.json")).strategies // {
             silent.speedCurve = [
               { temp = 0; speed = 0; }
               { temp = 45; speed = 0; }

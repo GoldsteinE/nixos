@@ -32,8 +32,16 @@
         };
         ui = {
           pager = "less -FRX";
+          default-command = "log";
           diff.tool = ["difft" "--color=always" "$left" "$right"];
           show-cryptographic-signatures = true;
+        };
+        # Credit to https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches.
+        aliases = {
+          tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@"];
+        };
+        revset-aliases = {
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
         };
       };
     };

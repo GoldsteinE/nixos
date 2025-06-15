@@ -11,10 +11,11 @@
       profile = {
         name = "laptop";
         outputs = [{
-          criteria = "eDP-2";
+          criteria = "eDP-1";
           mode = "2560x1600@165Hz";
           position = "0,0";
           scale = 2.0;
+          status = "enable";
         }];
       };
     }
@@ -23,16 +24,21 @@
         name = "workstation";
         outputs = [
           {
-            criteria = "eDP-2";
-            mode = "2560x1600@165Hz";
-            position = "0,720";
+            criteria = "eDP-1";
+            status = "disable";
+          }
+          {
+            criteria = "LG Electronics LG ULTRAGEAR+ 408NTRL57206";
+            mode = "3840x2160@120Hz";
+            position = "0,0";
             scale = 2.0;
           }
           {
-            criteria = "DP-5";
-            mode = "2560x1440@60Hz";
-            position = "0,0";
+            criteria = "Xiaomi Corporation Mi Monitor 2757500034913";
+            mode = "2560x1440@165Hz";
+            position = "1920,0";
             scale = 2.0;
+            transform = "90";
           }
         ];
       };

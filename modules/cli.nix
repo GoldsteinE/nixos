@@ -20,7 +20,8 @@
     powertop
     python3
     ripgrep
-    nixd
+    # Broken, need to fix this.
+    # nixd
     nixpkgs-fmt
     shellcheck
     unzip

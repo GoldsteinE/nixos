@@ -16,25 +16,36 @@
     qbittorrent
     playerctl
 
+    # unfuck signal
+    # see: https://github.com/signalapp/Signal-Desktop/issues/6368
+    (signal-desktop.overrideAttrs (self: old: {
+      patches = old.patches ++ [(pkgs.writeText "sway-window.patch" ''
+diff --git a/app/main.ts b/app/main.ts
+index 42c8df9d3..b741e9b36 100644
+--- a/app/main.ts
++++ b/app/main.ts
+@@ -691,7 +691,7 @@ async function createWindow() {
+     : DEFAULT_HEIGHT;
+ 
+   const windowOptions: Electron.BrowserWindowConstructorOptions = {
+-    show: false,
++    show: true,
+     width,
+     height,
+     minWidth: MIN_WIDTH,
+        '')];
+        postFixup = ''
+          substituteInPlace $out/share/applications/signal.desktop \
+            --replace-fail 'Exec=' 'Exec=env HTTP_PROXY=socks5://127.0.0.1:34635 HTTPS_PROXY=socks5://127.0.0.1:34635 '
+        '';
+    }))
+
     # unfuck telegram
     (telegram-desktop.overrideAttrs (self: old: {
-      # telegram shells out to `xdg-open`, which needs basically the full user env to work
-      # it also needs convincing to use file dialogs via portal
-      # this:
-      # - re-wraps it to source `/etc/profile`, so user env is available
-      # - sets `QT_QPA_PLATFORMTHEME=flatpak` so it uses portal dialogs
-      postInstall = ''
-        chmod +w $out/bin
-        chmod +w $out/bin/telegram-desktop
-        mv $out/bin/telegram-desktop $out/bin/.telegram-desktop-rewrapped
-        cat > $out/bin/telegram-desktop <<EOF
-        #!/bin/sh
-        set -e
-        . /etc/profile
-        QT_QPA_PLATFORMTHEME=flatpak $unwrapped/bin/telegram-desktop "\$@"
-        EOF
-        chmod +x $out/bin/telegram-desktop
-      '';
+      qtWrapperArgs = old.qtWrapperArgs ++ [
+        # use platform dialogs
+        "--set" "QT_QPA_PLATFORMTHEME" "flatpak"
+      ];
     }))
   ];
   programs.light.enable = true;

@@ -6,6 +6,7 @@
     font-awesome
     material-icons
     dejavu_fonts
+    liberation_ttf
     open-sans
     nerd-fonts.iosevka
     nerd-fonts.iosevka-term

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, options, ... }: {
   home.packages = with pkgs; [
     rofi-wayland
     wl-clipboard
@@ -18,6 +18,9 @@
       export SDL_VIDEODRIVER=wayland
       export CLUTTER_BACKEND=wayland
     '';
+    # Fix `xdg-open` in apps started via `.desktop` files.
+    # `xdg-open` searches in `$PATH`, so the full user `$PATH` needs to be available.
+    systemd.variables = options.wayland.windowManager.sway.systemd.variables.default ++ [ "PATH" ];
     config = rec {
       modifier = "Mod4";
       input."type:keyboard" = {
@@ -27,6 +30,7 @@
       input."type:touchpad" = {
         tap = "enabled";
         drag = "enabled";
+        drag_lock = "disabled";
         tap_button_map = "lrm";
       };
       keybindings = {
@@ -205,18 +209,19 @@
       tweak = {
         box-drawing-base-thickness = 0.015;
       };
+      security.osc52 = "copy-enabled";
     };
   };
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Original-Classic";
-    size = 12;
+    package = pkgs.google-cursor;
+    name = "GoogleDot-Black";
+    size = 11;
   };
   # libadwaita is a special little snowflake
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      cursor-theme = "Bibata-Original-Classic";
+      cursor-theme = "GoogleDot-Black";
     };
   };
   services.mako = {

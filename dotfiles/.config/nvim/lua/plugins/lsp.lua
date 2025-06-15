@@ -9,21 +9,22 @@ end
 local function setup_lsp()
     local lspconfig = require 'lspconfig'
 
-    vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = false,
-        signs = false,
-        severity_sort = true,
-    })
-
     vim.diagnostic.config {
+        signs = false,
+        underline = false,
         virtual_text = false,
+        virtual_lines = true,
     }
 
     local map = vim.keymap.set
     map('n', '<leader>k', vim.lsp.buf.hover, { silent = true })
     map('n', '<leader>a', vim.lsp.buf.code_action, { silent = true })
     map('n', '<leader><space>', function() vim.lsp.buf.format { async = true } end, { silent = true })
-    map('n', '<leader>s', require('lsp_lines').toggle)
+    map('n', '<leader>s', function()
+        vim.diagnostic.config {
+            virtual_lines = not vim.diagnostic.config().virtual_lines,
+        }
+    end)
     map('n', ']e', function() vim.diagnostic.goto_next { float = false } end)
     map('n', '[e', function() vim.diagnostic.goto_prev { float = false } end)
 
@@ -82,6 +83,9 @@ local function setup_lsp()
                         },
                         completion = {
                             autoimport = {
+                                enable = true,
+                            },
+                            termSearch = {
                                 enable = true,
                             },
                         },
@@ -211,29 +215,6 @@ local function setup_lsp()
     end
 end
 
-local function setup_null_ls()
-    local null_ls = require 'null-ls'
-    null_ls.setup {
-        sources = {
-            null_ls.builtins.diagnostics.shellcheck.with {
-                runtime_condition = function()
-                    return vim.fn.executable('shellcheck') == 1
-                end
-            },
-            null_ls.builtins.code_actions.shellcheck.with {
-                runtime_condition = function()
-                    return vim.fn.executable('shellcheck') == 1
-                end
-            },
-            null_ls.builtins.formatting.jq.with {
-                runtime_condition = function()
-                    return vim.fn.executable('jq') == 1
-                end,
-            },
-        }
-    }
-end
-
 return {
     {
         'neovim/nvim-lspconfig',
@@ -241,7 +222,7 @@ return {
         dependencies = { 'mrcjkb/rustaceanvim' },
     },
     {
-        'jose-elias-alvarez/null-ls.nvim',
+        'nvimtools/none-ls.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' }, 
         config = setup_null_ls,
     },
