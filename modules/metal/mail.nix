@@ -75,21 +75,4 @@
       add_header = 6; # Add header when reaching this score
     }
   '';
-
-  services.roundcube = {
-    enable = true;
-    hostName = "mail.goldstein.rs";
-    extraConfig = ''
-      # unencrypted IMAP is unavailable
-      $config['default_host'] = 'ssl://goldstein.rs:993';
-      # unencrypted SMTP is available but still undesirable for general reasons
-      $config['smtp_server'] = 'ssl://goldstein.rs:465';
-      # I'm alone here, so allow user to manage identities freely
-      $config['identities_level'] = 0;
-      # Dovecot2 requires username to be suffixed with domain, like `root@goldstein.rs`
-      $config['username_domain'] = 'goldstein.rs';
-    '';
-  };
-  # Group `nginx` doesn't exist on this setup
-  services.phpfpm.pools.roundcube.settings."listen.group" = "nogroup";
 }
