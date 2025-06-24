@@ -7,6 +7,7 @@
     ## messengers
     slack
     weechat
+    thunderbird
     # zulip  # banished to old-electron-jail
     nheko
     ## stuff

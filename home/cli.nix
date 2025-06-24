@@ -33,7 +33,7 @@
         ui = {
           pager = "less -FRX";
           default-command = "log";
-          diff.tool = ["difft" "--color=always" "$left" "$right"];
+          diff-formatter = ["difft" "--color=always" "$left" "$right"];
           show-cryptographic-signatures = true;
         };
         # Credit to https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches.

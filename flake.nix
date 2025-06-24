@@ -15,7 +15,7 @@
     # actual inputs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-3.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.1.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";

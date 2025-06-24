@@ -36,6 +36,7 @@
       keybindings = {
         "${modifier}+Return" = "exec foot";
         "${modifier}+d" = "exec ~/.config/rofi/launchers/misc/launcher.sh";
+        "${modifier}+shift+p" = "exec bwp ls | ${pkgs.rofi-wayland}/bin/rofi -dmenu -theme ${pkgs.rofi-wayland}/share/rofi/themes/android_notification.rasi | xargs bwp | bash -c 'sleep 0.1; xargs ${pkgs.wtype}/bin/wtype -'";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
