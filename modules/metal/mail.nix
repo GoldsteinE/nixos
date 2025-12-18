@@ -14,7 +14,7 @@
 
   mailserver = {
     enable = true;
-    stateVersion = 1;
+    stateVersion = 3;
 
     enableImap = false;
     enableSubmission = false;

@@ -3,7 +3,7 @@
     hostName = "metal";
     useDHCP = true;
     firewall = {
-      allowedTCPPorts = [ 7643 80 443 19423 31337 ];
+      allowedTCPPorts = [ 7643 80 443 19423 31337 31338 ];
     };
     interfaces.enp6s0.ipv6 = {
       addresses = [{

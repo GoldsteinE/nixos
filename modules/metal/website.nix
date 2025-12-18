@@ -9,7 +9,10 @@
 
   services.miniflux = {
     enable = true;
-    config.LISTEN_ADDR = "localhost:4755";
+    config = {
+      LISTEN_ADDR = "localhost:4755";
+      BASE_URL = "https://rss.goldstein.rs/";
+    };
     adminCredentialsFile = "/var/secrets/miniflux.env";
   };
 
