@@ -5,7 +5,7 @@
   ];
   services.greetd = {
     enable = true;
-    settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --remember --cmd sway";
+    settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --remember --cmd sway";
   };
   boot = {
     plymouth = {
@@ -29,8 +29,7 @@
       luks = {
         fido2Support = false; # handled by systemd
         devices.root = {
-          # Todo: a better way to identify?
-          device = "/dev/disk/by-uuid/96b6ceb2-e10a-4647-aa3c-bbf9ba7dc2f9";
+          device = "/dev/disk/by-label/cryptroot";
           preLVM = true;
           crypttabExtraOpts = ["fido2-device=auto"];
         };

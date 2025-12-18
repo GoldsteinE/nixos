@@ -69,7 +69,7 @@
     };
   };
   home.packages = with pkgs; [
-    rofi-wayland
+    rofi
     wl-clipboard
     slurp
     grim

@@ -1,6 +1,6 @@
-{ pkgs, options, ... }: {
+{ pkgs, options, inputs, ... }: {
   home.packages = with pkgs; [
-    rofi-wayland
+    rofi
     wl-clipboard
     slurp
     grim
@@ -10,7 +10,14 @@
   ];
   wayland.windowManager.sway = {
     enable = true;
+    xwayland = false;  # we use xwayland-satellite, as the gods intended
     extraSessionCommands = ''
+      export DISPLAY=:0
+      if [ "$(whoami)" = "nixbld" ]; then
+        export WLR_BACKENDS=headless      # dummy backend for test
+      else
+        export WLR_BACKENDS=drm,libinput  # suppress sway X11 backend
+      fi
       export XDG_SESSION_TYPE=wayland
       export NIXOS_OZONE_WL=1
       export GDK_BACKEND=wayland,x11
@@ -36,7 +43,7 @@
       keybindings = {
         "${modifier}+Return" = "exec foot";
         "${modifier}+d" = "exec ~/.config/rofi/launchers/misc/launcher.sh";
-        "${modifier}+shift+p" = "exec bwp ls | ${pkgs.rofi-wayland}/bin/rofi -dmenu -theme ${pkgs.rofi-wayland}/share/rofi/themes/android_notification.rasi | xargs bwp | bash -c 'sleep 0.1; xargs ${pkgs.wtype}/bin/wtype -'";
+        "${modifier}+shift+p" = "exec bwp ls | ${pkgs.rofi}/bin/rofi -dmenu -theme ${pkgs.rofi}/share/rofi/themes/android_notification.rasi | xargs bwp | bash -c 'sleep 0.1; xargs ${pkgs.wtype}/bin/wtype -'";
         "${modifier}+h" = "focus left";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
@@ -143,7 +150,7 @@
             "10" = "";
             "11" = "";
             "20" = "";
-            "21" = "";
+            "21" = "";
             "30" = "";
             "31" = "";
             "40" = "";
@@ -198,6 +205,25 @@
       Service.ExecStart = "${pkgs.autotiling}/bin/autotiling";
       Install.WantedBy = [ "sway-session.target" ];
     };
+    # port of https://github.com/Supreeeme/xwayland-satellite/blob/main/resources/xwayland-satellite.service.
+    xwayland-satellite = {
+      Unit = {
+        Description = "Standalone XWayland server";
+        # how is there four different deps?.. I love systemd
+        BindsTo = "graphical-session.target";
+        PartOf = "graphical-session.target";
+        After = "graphical-session.target";
+        Requisite = "graphical-session.target";
+      };
+      Service = {
+        Type = "notify";
+        NotifyAccess = "all";
+        # that's a mouthful
+        ExecStart = "${inputs.xwayland-satellite.packages.x86_64-linux.xwayland-satellite}/bin/xwayland-satellite";
+        StandardOutput = "journal";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
   };
   programs.foot = {
     enable = true;
@@ -206,6 +232,7 @@
         font = "Iosevka Term Nerd Font:size=16";
         dpi-aware = "no";
         resize-delay-ms = 0;
+        bold-text-in-bright = "palette-based";
       };
       tweak = {
         box-drawing-base-thickness = 0.015;

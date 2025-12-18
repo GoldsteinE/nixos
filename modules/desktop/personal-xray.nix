@@ -14,9 +14,6 @@
   }; in {
   classified.files = {
     "personal-xray.json".encrypted = "${root}/secrets/personal-xray.json";
-    "personal-xray-il.json".encrypted = "${root}/secrets/personal-xray-il.json";
   };
-  # todo: dedup with other xray?
   systemd.services.personal-xray = xray-service "personal-xray.json" "personal xray daemon";
-  systemd.services.personal-xray-il = xray-service "personal-xray-il.json" "personal xray daemon (IL)";
 }

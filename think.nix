@@ -17,7 +17,6 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     ./modules/desktop/locale.nix
     ./modules/desktop/fonts.nix
     ./modules/desktop/btrbk.nix
-    ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix
     ./modules/desktop/security.nix
     ({ ... }: {

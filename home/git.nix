@@ -1,28 +1,18 @@
 { pkgs, gitSignByDefault, ... }: {
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    package = pkgs.gitFull;
     lfs.enable = true;
-    userName = "Max Siling";
-    userEmail = "root@goldstein.lol";
-    aliases = {
-      uncommit = "reset --soft HEAD^";
-      unadd = "reset";
-      praise = "blame";
-    };
-    signing = {
-      key = "0BAF2D87CB43746F62372D78DE6031ABA0BB269A";
-      signByDefault = gitSignByDefault;
-    };
-    difftastic = {
-      enable = true;
-      background = "dark";
-    };
-    includes = [{
-      condition = "gitdir:~/work/";
-      path = "~/work/.gitconfig";
-    }];
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Max Siling";
+        email = "root@goldstein.lol";
+      };
+      alias = {
+        uncommit = "reset --soft HEAD^";
+        unadd = "reset";
+        praise = "blame";
+      };
       hub.protocol = "ssh";
       init.defaultBranch = "master";
       push.autoSetupRemote = true;
@@ -34,6 +24,21 @@
         smtpserverport = 465;
       };
       credential.helper = "libsecret";
+    };
+    signing = {
+      key = "0BAF2D87CB43746F62372D78DE6031ABA0BB269A";
+      signByDefault = gitSignByDefault;
+    };
+    includes = [{
+      condition = "gitdir:~/work/";
+      path = "~/work/.gitconfig";
+    }];
+  };
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    options = {
+      background = "dark";
     };
   };
 }

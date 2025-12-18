@@ -11,7 +11,7 @@
       profile = {
         name = "laptop";
         outputs = [{
-          criteria = "eDP-1";
+          criteria = "BOE 0x0BC9 Unknown";
           mode = "2560x1600@165Hz";
           position = "0,0";
           scale = 2.0;
@@ -24,12 +24,12 @@
         name = "workstation";
         outputs = [
           {
-            criteria = "eDP-1";
+            criteria = "BOE 0x0BC9 Unknown";
             status = "disable";
           }
           {
             criteria = "LG Electronics LG ULTRAGEAR+ 408NTRL57206";
-            mode = "3840x2160@120Hz";
+            mode = "3840x2160";
             position = "0,0";
             scale = 2.0;
           }
@@ -39,6 +39,23 @@
             position = "1920,0";
             scale = 2.0;
             transform = "90";
+          }
+        ];
+      };
+    }
+    {
+      profile = {
+        name = "workstation-small";
+        outputs = [
+          {
+            criteria = "BOE 0x0BC9 Unknown";
+            status = "disable";
+          }
+          {
+            criteria = "LG Electronics LG ULTRAGEAR+ 408NTRL57206";
+            mode = "3840x2160";
+            position = "0,0";
+            scale = 2.0;
           }
         ];
       };

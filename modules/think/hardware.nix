@@ -18,7 +18,6 @@
       enable = true;
       enable32Bit = true;
     };
-    xpadneo.enable = true;
   };
 
   services.xserver = {

@@ -1,4 +1,4 @@
-inputs @ { nixpkgs, nixos-hardware, classified, home-manager, lix-module, fw-fanctrl, ... }:
+inputs @ { nixpkgs, nixos-hardware, classified, home-manager, lix-module, ... }:
 nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
   modules = [
@@ -8,7 +8,6 @@ nixpkgs.lib.nixosSystem rec {
     nixos-hardware.nixosModules.framework-16-7040-amd
     classified.nixosModules."${system}".default
     home-manager.nixosModules.home-manager
-    fw-fanctrl.nixosModules.default
     # common stuff
     ./modules/nix.nix
     # ./modules/kmscon.nix
@@ -38,7 +37,6 @@ nixpkgs.lib.nixosSystem rec {
       };
     })
     # That too.
-    ./modules/desktop/work-vpn.nix
     ./modules/desktop/jupyter.nix
     ./modules/desktop/security.nix
     ({ ... }: {
@@ -51,25 +49,24 @@ nixpkgs.lib.nixosSystem rec {
     # ./modules/desktop/wired.nix
     ./modules/desktop/pipewire.nix
     ./modules/desktop/razer.nix
+    ./modules/desktop/dualsense.nix
     ./modules/desktop/steam.nix
     ./modules/desktop/dev-tools.nix
     ./modules/desktop/misc-apps.nix
     ({ ... }: {
       services.fwupd.enable = true;
-      programs.fw-fanctrl = {
+      hardware.fw-fanctrl = {
         enable = true;
         config = {
           defaultStrategy = "laziest";
-          strategies = with builtins; (fromJSON (readFile "${fw-fanctrl}/src/fw_fanctrl/_resources/config.json")).strategies // {
-            silent.speedCurve = [
-              { temp = 0; speed = 0; }
-              { temp = 45; speed = 0; }
-              { temp = 65; speed = 12; }
-              { temp = 70; speed = 17; }
-              { temp = 75; speed = 25; }
-              { temp = 85; speed = 50; }
-            ];
-          };
+          strategies.silent.speedCurve = [
+            { temp = 0; speed = 0; }
+            { temp = 45; speed = 0; }
+            { temp = 65; speed = 12; }
+            { temp = 70; speed = 17; }
+            { temp = 75; speed = 25; }
+            { temp = 85; speed = 50; }
+          ];
         };
       };
     })

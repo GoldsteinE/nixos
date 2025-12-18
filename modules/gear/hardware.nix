@@ -8,7 +8,6 @@
       enable = true;
       enable32Bit = true;
     };
-    xpadneo.enable = true;
   };
 
   services.libinput = {
@@ -22,5 +21,5 @@
     };
   };
 
-  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 }

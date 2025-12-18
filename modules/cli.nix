@@ -20,6 +20,7 @@
     powertop
     python3
     ripgrep
+    comma
     # Broken, need to fix this.
     # nixd
     nixpkgs-fmt

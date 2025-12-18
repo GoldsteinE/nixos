@@ -5,7 +5,6 @@
     ".ghc/ghci.conf"
   ];
   programs = {
-    command-not-found.enable = true;
     zsh = {
       enable = true;
       initContent = builtins.readFile "${root}/dotfiles/.zshrc";

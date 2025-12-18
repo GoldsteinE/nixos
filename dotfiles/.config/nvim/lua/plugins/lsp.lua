@@ -89,7 +89,7 @@ local function setup_lsp()
                                 enable = true,
                             },
                         },
-                        checkOnSave = {
+                        check = {
                             command = "clippy",
                         },
                         assist = {
@@ -140,7 +140,12 @@ local function setup_lsp()
         }
     end
 
-    if executable('pyright') then
+    if executable('basedpyright') then
+        lspconfig.basedpyright.setup{
+            capabilities = capabilities(),
+            on_attach = on_attach,
+        }
+    elseif executable('pyright') then
         lspconfig.pyright.setup{
             capabilities = capabilities(),
             on_attach = on_attach,
