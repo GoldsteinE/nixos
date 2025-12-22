@@ -16,14 +16,8 @@
     adminCredentialsFile = "/var/secrets/miniflux.env";
   };
 
-  services.invidious = {
-    enable = true;
-    port = 1721;
-    domain = "v.neglected.space";
-    settings.db.user = "invidious";
-  };
-
   services.ln-s.enable = true;
+  services.immich.enable = true;
   systemd.services.ln-s.serviceConfig = {
     MemoryHigh = "64M";
     MemoryMax = "128M";
@@ -87,12 +81,6 @@
           useACMEHost = "goldstein.rs";
           extraConfig = rootHeaders;
         };
-        "v.neglected.space" = {
-          forceSSL = true;
-          useACMEHost = "goldstein.rs";
-          extraConfig = commonHeaders;
-          locations."/".proxyPass = "http://localhost:1721";
-        };
         "tty5.dev" = {
           root = "/srv/root";
           forceSSL = true;
@@ -139,6 +127,34 @@
           useACMEHost = "goldstein.rs";
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:54717";
+        };
+        "photos.goldstein.lol" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          # stolen from https://git.sandwitch.dev/sand-witch/nixos/src/commit/3dd5ceb5564e22791d8f75bf4805fa691a2bc39b/metal/services/immich.nix
+          extraConfig = commonHeaders;
+          locations."/".proxyPass = "http://localhost:2283";
+          locations."/".extraConfig = ''
+            # allow large file uploads
+            client_max_body_size 50000M;
+
+            # Set headers
+            proxy_set_header Host              $host;
+            proxy_set_header X-Real-IP         $remote_addr;
+            proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # enable websockets: http://nginx.org/en/docs/http/websocket.html
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade    $http_upgrade;
+            proxy_set_header   Connection "upgrade";
+            proxy_redirect     off;
+
+            # set timeout
+            proxy_read_timeout 600s;
+            proxy_send_timeout 600s;
+            send_timeout       600s;
+          '';
         };
         "ln-s.sh" = {
           forceSSL = true;
