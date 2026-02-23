@@ -95,13 +95,19 @@
           extraConfig = commonHeaders;
           locations."/".proxyPass = "http://localhost:8008";
         };
-        "inftheory.goldstein.rs" = {
-          root = "${inputs.inftheory-slides.defaultPackage.x86_64-linux}";
+        "~^(?<name>[a-zA-Z0-9_-]+).i.tty5.dev" = {
           forceSSL = true;
           useACMEHost = "goldstein.rs";
-          extraConfig = commonHeadersWithCsp;
-          locations."/".index = "inftheory-slides.pdf";
+          extraConfig = commonHeaders;
+          locations."/".proxyPass = "http://unix:/srv/i-tty5/$name";
         };
+        # "inftheory.goldstein.rs" = {
+        #   root = "${inputs.inftheory-slides.defaultPackage.x86_64-linux}";
+        #   forceSSL = true;
+        #   useACMEHost = "goldstein.rs";
+        #   extraConfig = commonHeadersWithCsp;
+        #   locations."/".index = "inftheory-slides.pdf";
+        # };
         "nix.goldstein.rs" = {
           forceSSL = true;
           useACMEHost = "goldstein.rs";
@@ -161,6 +167,12 @@
           useACMEHost = "goldstein.rs";
           extraConfig = rootHeaders;
           locations."/".proxyPass = "http://unix:/run/ln-s/ln-s.sock";
+        };
+        "~^mta-sts.(goldstein.rs|goldstein.lol|tty5.dev)$" = {
+          forceSSL = true;
+          useACMEHost = "goldstein.rs";
+          extraConfig = rootHeaders;
+          root = "/srv/mta-sts";
         };
       };
     };

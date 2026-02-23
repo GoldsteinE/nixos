@@ -1,10 +1,13 @@
 { ... }: {
   boot = {
+    kernelParams = [
+      "ip=195.201.8.234::195.201.8.193:255.255.255.192:gear:enp6so:dhcp"
+    ];
     loader.grub = {
       enable = true;
       device = "/dev/disk/by-id/wwn-0x500a0751160d3995";
-      enableCryptodisk = true;
-      extraGrubInstallArgs = [ "--modules=part_gpt" ];
+      enableCryptodisk = false;
+      extraGrubInstallArgs = [ "--modules=part_gpt" "--verbose" ];
     };
     kernelModules = [ "kvm-amd" ];
     initrd.kernelModules = [ "md_mod" "r8169" ];
