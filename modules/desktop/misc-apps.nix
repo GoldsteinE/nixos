@@ -8,7 +8,6 @@
     weechat
     thunderbird
     # zulip  # banished to old-electron-jail
-    nheko
     ## stuff
     xdg-utils
     appimage-run
@@ -16,6 +15,7 @@
     qbittorrent
     playerctl
     localsend
+    kapow
 
     # pass proxy to signal
     (signal-desktop.overrideAttrs (self: old: {
@@ -23,6 +23,13 @@
           substituteInPlace $out/share/applications/signal.desktop \
             --replace-fail 'Exec=' 'Exec=env HTTP_PROXY=socks5://127.0.0.1:34635 HTTPS_PROXY=socks5://127.0.0.1:34635 '
         '';
+    }))
+
+    # unfuck element (proxy + force libsecret)
+    (element-desktop.overrideAttrs (self: old: {
+      desktopItems = [((builtins.elemAt old.desktopItems 0).override {
+        exec = "env HTTP_PROXY=socks5://127.0.0.1:34635 HTTPS_PROXY=socks5://127.0.0.1:34635 element-desktop --password-store=gnome-libsecret %u";
+      })];
     }))
 
     # unfuck telegram

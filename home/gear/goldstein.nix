@@ -9,6 +9,7 @@
     "${root}/home/desktop/sioyek.nix"
     "${root}/home/desktop/mpv.nix"
     "${root}/home/desktop/rbw.nix"
+    "${root}/home/desktop/bell.nix"
   ];
   home = {
     username = "goldstein";

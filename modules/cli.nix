@@ -4,7 +4,7 @@
     bat
     curl
     difftastic
-    dogdns
+    doggo
     fd
     file
     fzf

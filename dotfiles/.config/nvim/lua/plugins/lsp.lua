@@ -167,7 +167,7 @@ local function setup_lsp()
     end
 
     if executable('typescript-language-server') then
-        lspconfig.tsserver.setup {
+        lspconfig.ts_ls.setup {
             capabilities = capabilities(),
             on_attach = on_attach,
         }

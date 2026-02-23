@@ -56,6 +56,8 @@
         "${modifier}+alt+j" = "move workspace to output down";
         "${modifier}+alt+k" = "move workspace to output up";
         "${modifier}+alt+l" = "move workspace to output right";
+        "${modifier}+tab" = "scratchpad show";
+        "${modifier}+shift+tab" = "move window to scratchpad";
         "${modifier}+z" = "focus parent, layout toggle split, focus child";
         "${modifier}+q" = "kill";
         "${modifier}+escape" = "exec swaylock --color 000000";

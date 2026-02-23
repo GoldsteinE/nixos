@@ -38,6 +38,7 @@
         # Credit to https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches.
         aliases = {
           tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@"];
+          bc = ["util" "exec" "--" "sh" "-ec" ''jj bookmark create "$1" && jj bookmark track --remote=origin "$1"'' ""];
         };
         revset-aliases = {
           "closest_bookmark(to)" = "heads(::to & bookmarks())";
