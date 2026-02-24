@@ -5,6 +5,7 @@ return {
         config = function()
             local neomodern = require('neomodern')
             neomodern.setup {
+                theme = "iceclimber",
                 code_style = {
                     comments = "none",
                 },

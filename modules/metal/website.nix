@@ -52,8 +52,6 @@
       appendHttpConfig = ''
         ssl_stapling on; 
         ssl_session_cache shared:SSL:5m;
-        sendfile on;
-        gzip on;
         gzip_proxied any;
         gzip_types
           text/css

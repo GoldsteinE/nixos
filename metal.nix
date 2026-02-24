@@ -22,6 +22,7 @@ inputs @ { nixpkgs, classified, home-manager, lix-module, ... }: nixpkgs.lib.nix
     ./modules/metal/socks.nix
     ./modules/metal/znc.nix
     ./modules/metal/mail.nix
+    ./modules/metal/xmpp.nix
     ./modules/metal/betula.nix
     ./modules/metal/matrix.nix
     ./modules/metal/minecraft.nix

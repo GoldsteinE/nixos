@@ -33,7 +33,6 @@
     useFsLayout = true;
 
     dkimKeyBits = 2048;
-    certificateScheme = "acme";
     acmeCertificateName = "goldstein.rs";
 
     fullTextSearch = {
