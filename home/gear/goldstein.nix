@@ -29,7 +29,7 @@
   };
 
   services.easyeffects = {
-    enable = true;
+    enable = false;
     preset = "fw16";
   };
   home.file.".config/easyeffects/fw16.json".source = "${root}/dotfiles/.config/easyeffects/fw16.json";
